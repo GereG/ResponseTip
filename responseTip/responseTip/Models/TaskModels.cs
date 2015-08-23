@@ -9,7 +9,7 @@ namespace responseTip.Models
     public class ResponseTipTask
     {
         public int ResponseTipTaskID { get; set; }
-        public int userID { get; set; }
+        public string userName { get; set; }
 
         [Required()]
         [Display(Name = "Asked Question")]
@@ -21,7 +21,6 @@ namespace responseTip.Models
         [Required()]
         public string BitcoinPublicAdress { get; set; }
         [Required()]
-        [DataType(DataType.Currency)]
         public float BitcoinPrice { get; set; }
         [Required()]
         public bool isQuestionPublic { get; set; }

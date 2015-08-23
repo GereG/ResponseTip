@@ -52,7 +52,7 @@ namespace responseTip.Controllers
             if (ModelState.IsValid)
             {
                 responseTipTask.taskStatus = TaskStatusesEnum.created;
-                responseTipTask.userID = User.Identity.GetHashCode();
+                responseTipTask.userName = User.Identity.Name;
                 db.ResponseTipTasks.Add(responseTipTask);
                 db.SaveChanges();
                 return RedirectToAction("Index");
