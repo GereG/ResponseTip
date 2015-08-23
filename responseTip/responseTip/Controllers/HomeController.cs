@@ -26,5 +26,10 @@ namespace responseTip.Controllers
 
             return View();
         }
+
+        public ActionResult SubmitMessage()
+        {
+            return View();
+        }
     }
 }
