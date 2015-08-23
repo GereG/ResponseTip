@@ -1,0 +1,80 @@
+﻿@model responseTip.Models.ResponseTipTask
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ResponseTipTask</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.userID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.question)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.question)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.socialSiteUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.socialSiteUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BitcoinPublicAdress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BitcoinPublicAdress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BitcoinPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BitcoinPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isQuestionPublic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isQuestionPublic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.taskStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.taskStatus)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

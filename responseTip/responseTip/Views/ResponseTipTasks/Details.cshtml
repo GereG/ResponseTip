@@ -1,0 +1,74 @@
+﻿@model responseTip.Models.ResponseTipTask
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ResponseTipTask</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.userID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.question)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.question)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.socialSiteUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.socialSiteUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BitcoinPublicAdress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BitcoinPublicAdress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BitcoinPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BitcoinPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isQuestionPublic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isQuestionPublic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.taskStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.taskStatus)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ResponseTipTaskID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

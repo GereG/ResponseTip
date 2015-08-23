@@ -170,10 +170,37 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ResponseTipTasksController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508231547228_InitialCreate.cs" />
+    <Compile Include="Migrations\201508231547228_InitialCreate.Designer.cs">
+      <DependentUpon>201508231547228_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508231630092_TaskModelUpdate.cs" />
+    <Compile Include="Migrations\201508231630092_TaskModelUpdate.Designer.cs">
+      <DependentUpon>201508231630092_TaskModelUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508231632453_newTaskModelUpdate.cs" />
+    <Compile Include="Migrations\201508231632453_newTaskModelUpdate.Designer.cs">
+      <DependentUpon>201508231632453_newTaskModelUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508231634261_newTaskModelUpdate2.cs" />
+    <Compile Include="Migrations\201508231634261_newTaskModelUpdate2.Designer.cs">
+      <DependentUpon>201508231634261_newTaskModelUpdate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508231730290_newTaskModelUpdate3.cs" />
+    <Compile Include="Migrations\201508231730290_newTaskModelUpdate3.Designer.cs">
+      <DependentUpon>201508231730290_newTaskModelUpdate3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508231859230_newTaskModelUpdate31.cs" />
+    <Compile Include="Migrations\201508231859230_newTaskModelUpdate31.Designer.cs">
+      <DependentUpon>201508231859230_newTaskModelUpdate31.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\responseTipContext.cs" />
     <Compile Include="Models\SocialSiteUsers.cs" />
     <Compile Include="Models\SupportedSocialSites.cs" />
     <Compile Include="Models\TaskModels.cs" />
@@ -237,6 +264,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\ResponseTipTasks\Create.cshtml" />
+    <Content Include="Views\ResponseTipTasks\Delete.cshtml" />
+    <Content Include="Views\ResponseTipTasks\Details.cshtml" />
+    <Content Include="Views\ResponseTipTasks\Edit.cshtml" />
+    <Content Include="Views\ResponseTipTasks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -248,6 +280,26 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201508231547228_InitialCreate.resx">
+      <DependentUpon>201508231547228_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508231630092_TaskModelUpdate.resx">
+      <DependentUpon>201508231630092_TaskModelUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508231632453_newTaskModelUpdate.resx">
+      <DependentUpon>201508231632453_newTaskModelUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508231634261_newTaskModelUpdate2.resx">
+      <DependentUpon>201508231634261_newTaskModelUpdate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508231730290_newTaskModelUpdate3.resx">
+      <DependentUpon>201508231730290_newTaskModelUpdate3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508231859230_newTaskModelUpdate31.resx">
+      <DependentUpon>201508231859230_newTaskModelUpdate31.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

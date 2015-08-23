@@ -2,5 +2,7 @@
 {
     public class SocialSiteUsers
     {
+        public int SocialSiteUsersID { get; set; }
+        public string UserName { get; set; }
     }
 }
