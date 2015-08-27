@@ -18,11 +18,10 @@ namespace responseTip.Models
         public string question { get; set; }
         [Required()]
         public SocialSiteUsers socialSiteUser { get; set; }
-        [Required()]
+
         public string BitcoinPublicAdress { get; set; }
-        [Required()]
+
         public float BitcoinPrice { get; set; }
-        [Required()]
         public bool isQuestionPublic { get; set; }
         
         public TaskStatusesEnum taskStatus { get; set; }

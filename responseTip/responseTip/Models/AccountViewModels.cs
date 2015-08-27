@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace responseTip.Models
 {
     public class ExternalLoginConfirmationViewModel

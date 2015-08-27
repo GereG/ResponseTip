@@ -18,7 +18,7 @@
             @Html.DisplayNameFor(model => model.question)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.socialSiteUser)
+            @Html.DisplayNameFor(model => model.socialSiteUser.UserName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.BitcoinPublicAdress)
@@ -44,7 +44,7 @@
             @Html.DisplayFor(modelItem => item.question)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.socialSiteUser)
+            @Html.DisplayFor(modelItem => item.socialSiteUser.UserName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.BitcoinPublicAdress)

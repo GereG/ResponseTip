@@ -32,26 +32,28 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.socialSiteUser, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.socialSiteUser.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.socialSiteUser, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.socialSiteUser, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.socialSiteUser.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.socialSiteUser.UserName, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.BitcoinPublicAdress, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.BitcoinPublicAdress, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.BitcoinPublicAdress, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.BitcoinPrice, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.BitcoinPrice, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BitcoinPrice, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.BitcoinPrice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BitcoinPrice, "", new { @class = "text-danger" })*@
+
+                @Html.ValueFor(model => model.BitcoinPrice)
             </div>
         </div>
 
