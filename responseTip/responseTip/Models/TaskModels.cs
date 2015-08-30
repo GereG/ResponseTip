@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace responseTip.Models
 {
-    [RequireHttps]
+ //   [RequireHttps]
     public class ResponseTipTask
     {
         private ResponseTipTask()
