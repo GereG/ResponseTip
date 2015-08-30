@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace responseTip.Models
 {
+    [RequireHttps]
     public class ResponseTipTask
     {
+        private ResponseTipTask()
+        {
+            BitcoinPrice = 17.3f;
+        }
         public int ResponseTipTaskID { get; set; }
         public string userName { get; set; }
 
@@ -17,7 +23,7 @@ namespace responseTip.Models
         [StringLength(30)]
         public string question { get; set; }
         [Required()]
-        public SocialSiteUsers socialSiteUser { get; set; }
+        public SocialSiteUsers socialSiteUser;
 
         public string BitcoinPublicAdress { get; set; }
 
@@ -36,6 +42,7 @@ namespace responseTip.Models
         private TaskStatuses()
         {
             currentStatus = TaskStatusesEnum.created;
+            
         }
     }
 

@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using responseTip.Models;
+using Microsoft.Owin.Security.Twitter;
 
 namespace responseTip
 {
@@ -50,9 +51,16 @@ namespace responseTip
             //    clientId: "",
             //    clientSecret: "");
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+ /*           var options = new TwitterAuthenticationOptions
+            {
+                ConsumerKey = "7KnmZUfUmtWCxmKJ4kIXcsgEa",
+                ConsumerSecret = "YxqsqNVbagz8BIt3dxK9WNuoqbfW3Vl5ozq7ZnMHxwNGhr9inw",
+                CallbackPath = new PathString("/oauth-redirect/twitter")
+            };
+            app.UseTwitterAuthentication(options);*/
+/*            app.UseTwitterAuthentication(
+               consumerKey: "7KnmZUfUmtWCxmKJ4kIXcsgEa",
+               consumerSecret: "YxqsqNVbagz8BIt3dxK9WNuoqbfW3Vl5ozq7ZnMHxwNGhr9inw");*/
 
             //app.UseFacebookAuthentication(
             //   appId: "",

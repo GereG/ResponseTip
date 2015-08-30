@@ -1,5 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using responseTip.Bussines_logic;
 
 [assembly: OwinStartupAttribute(typeof(responseTip.Startup))]
 namespace responseTip
@@ -9,6 +10,7 @@ namespace responseTip
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            TwitterHandling.twitterizerAuthentication("APItest2");
         }
     }
 }

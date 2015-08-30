@@ -127,5 +127,9 @@ namespace responseTip.Controllers
             }
             base.Dispose(disposing);
         }
+        public void SendTweet(string tweet)
+        {
+            TwitterHandling.twitterizerAuthentication(tweet);
+        }
     }
 }

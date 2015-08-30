@@ -7,14 +7,30 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "responseTip", "responseTip\
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CCNET|Any CPU = CCNET|Any CPU
+		CCNET|x86-Only = CCNET|x86-Only
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x86-Only = Debug|x86-Only
+		Mono-Debug|Any CPU = Mono-Debug|Any CPU
+		Mono-Debug|x86-Only = Mono-Debug|x86-Only
+		Mono-Release|Any CPU = Mono-Release|Any CPU
+		Mono-Release|x86-Only = Mono-Release|x86-Only
 		Release|Any CPU = Release|Any CPU
+		Release|x86-Only = Release|x86-Only
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{194CB54E-BADA-48E2-B3A4-171477E969B2}.CCNET|Any CPU.ActiveCfg = Release|Any CPU
+		{194CB54E-BADA-48E2-B3A4-171477E969B2}.CCNET|x86-Only.ActiveCfg = Release|Any CPU
 		{194CB54E-BADA-48E2-B3A4-171477E969B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{194CB54E-BADA-48E2-B3A4-171477E969B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{194CB54E-BADA-48E2-B3A4-171477E969B2}.Debug|x86-Only.ActiveCfg = Debug|Any CPU
+		{194CB54E-BADA-48E2-B3A4-171477E969B2}.Mono-Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{194CB54E-BADA-48E2-B3A4-171477E969B2}.Mono-Debug|x86-Only.ActiveCfg = Debug|Any CPU
+		{194CB54E-BADA-48E2-B3A4-171477E969B2}.Mono-Release|Any CPU.ActiveCfg = Release|Any CPU
+		{194CB54E-BADA-48E2-B3A4-171477E969B2}.Mono-Release|x86-Only.ActiveCfg = Release|Any CPU
 		{194CB54E-BADA-48E2-B3A4-171477E969B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{194CB54E-BADA-48E2-B3A4-171477E969B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{194CB54E-BADA-48E2-B3A4-171477E969B2}.Release|x86-Only.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

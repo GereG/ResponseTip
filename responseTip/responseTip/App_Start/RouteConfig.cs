@@ -18,6 +18,7 @@ namespace responseTip
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "ResponseTipTasks", action = "Create", id = UrlParameter.Optional }
             );
+            routes.Ignore(""); 
         }
     }
 }
