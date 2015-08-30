@@ -7,13 +7,13 @@ using System.Web.Mvc;
 
 namespace responseTip.Models
 {
- //   [RequireHttps]
+    [RequireHttps]
     public class ResponseTipTask
     {
-        private ResponseTipTask()
+ /*       internal ResponseTipTask()
         {
             BitcoinPrice = 17.3f;
-        }
+        }*/
         public int ResponseTipTaskID { get; set; }
         public string userName { get; set; }
 
