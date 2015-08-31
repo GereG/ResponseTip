@@ -8,24 +8,34 @@ using System.Net;
 using System.Text;
 using System.Diagnostics;
 using System.Security.Cryptography;
-using Twitterizer;
+using Tweetinvi;
 
 namespace responseTip.Bussines_logic
 {
     internal sealed class TwitterHandling
     {
-        public static void twitterizerAuthentication(string tweet)
-        {
-            OAuthTokens tokens = new OAuthTokens();
-            tokens.ConsumerKey = "7KnmZUfUmtWCxmKJ4kIXcsgEa"; //<-- replace with yours
-            tokens.ConsumerSecret = "YxqsqNVbagz8BIt3dxK9WNuoqbfW3Vl5ozq7ZnMHxwNGhr9inw";//<-- replace with yours
-            tokens.AccessToken = "2342080149-PHUb4SG96gSFULcKA2YQvWWkI8DXAhROVsyN7T2";//<-- replace with yours
-            tokens.AccessTokenSecret = "Ijpy8WxhpLTeuXMwHmQrvQg5jyXbSRn5JLCIvdUCaExwU";//<-- replace with yours
 
-//            TwitterStatus tweetStatus = new TwitterStatus();
-            TwitterStatus.Update(tokens,"Hello::");
-          
+        internal static void twitterAuthentication()
+        {
+            Auth.SetUserCredentials("f1rJMWbh7xgQOSsD6DKEwVWf9", "a0B7pdAs3bk6CRgZtnto3jrDf0XEA1UsgVL6Lnkg72Rfy0bcdn", "3503816421-tKHh2oHbX6TIgsYQR94Dew0CV7AwVpckHo1YbQL", "PQUpASYis0wOsPE6rDALMmBqvY5xx7zbSBA0qIlXNCdZ2");
         }
+        public static void PublishTweet(string tweet_string)
+        {
+            Tweet.PublishTweet(tweet_string);
+        }
+        public static void SearchUsersM(string username)
+        {
+                     var users=Search.SearchUsers(username);
+          //            IEnumerator<Tweetinvi.Core.Interfaces.IUser> enumerator=user.GetEnumerator();
+                      foreach(Tweetinvi.Core.Interfaces.IUser u in users)
+                      {
+
+                      }
+
+ //           return Search.SearchUsers(username);
+
+        }
+
 
 /*        internal static void twitterizerAuthentification()
         {

@@ -11,6 +11,7 @@ using responseTip.Bussines_logic;
 
 namespace responseTip.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class ResponseTipTasksController : Controller
     {
@@ -126,10 +127,6 @@ namespace responseTip.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-        public void SendTweet(string tweet)
-        {
-            TwitterHandling.twitterizerAuthentication(tweet);
         }
     }
 }

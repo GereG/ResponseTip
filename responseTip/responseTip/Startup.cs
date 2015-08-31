@@ -10,7 +10,8 @@ namespace responseTip
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            TwitterHandling.twitterizerAuthentication("APItest2");
+            TwitterHandling.twitterAuthentication();
+ //           TwitterHandling.PublishTweet("This is new:)");
         }
     }
 }
