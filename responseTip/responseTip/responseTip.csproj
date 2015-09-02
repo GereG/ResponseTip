@@ -252,49 +252,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201508231547228_InitialCreate.cs" />
-    <Compile Include="Migrations\201508231547228_InitialCreate.Designer.cs">
-      <DependentUpon>201508231547228_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508231630092_TaskModelUpdate.cs" />
-    <Compile Include="Migrations\201508231630092_TaskModelUpdate.Designer.cs">
-      <DependentUpon>201508231630092_TaskModelUpdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508231632453_newTaskModelUpdate.cs" />
-    <Compile Include="Migrations\201508231632453_newTaskModelUpdate.Designer.cs">
-      <DependentUpon>201508231632453_newTaskModelUpdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508231634261_newTaskModelUpdate2.cs" />
-    <Compile Include="Migrations\201508231634261_newTaskModelUpdate2.Designer.cs">
-      <DependentUpon>201508231634261_newTaskModelUpdate2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508231730290_newTaskModelUpdate3.cs" />
-    <Compile Include="Migrations\201508231730290_newTaskModelUpdate3.Designer.cs">
-      <DependentUpon>201508231730290_newTaskModelUpdate3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508231859230_newTaskModelUpdate31.cs" />
-    <Compile Include="Migrations\201508231859230_newTaskModelUpdate31.Designer.cs">
-      <DependentUpon>201508231859230_newTaskModelUpdate31.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508231911337_newTaskModelUpdate4.cs" />
-    <Compile Include="Migrations\201508231911337_newTaskModelUpdate4.Designer.cs">
-      <DependentUpon>201508231911337_newTaskModelUpdate4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508251854562_newTaskModelUpdate5.cs" />
-    <Compile Include="Migrations\201508251854562_newTaskModelUpdate5.Designer.cs">
-      <DependentUpon>201508251854562_newTaskModelUpdate5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508300948092_newTaskModelUpdate6.cs" />
-    <Compile Include="Migrations\201508300948092_newTaskModelUpdate6.Designer.cs">
-      <DependentUpon>201508300948092_newTaskModelUpdate6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508301003418_newTaskModelUpdate7.cs" />
-    <Compile Include="Migrations\201508301003418_newTaskModelUpdate7.Designer.cs">
-      <DependentUpon>201508301003418_newTaskModelUpdate7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508301820423_newTaskModelUpdate8.cs" />
-    <Compile Include="Migrations\201508301820423_newTaskModelUpdate8.Designer.cs">
-      <DependentUpon>201508301820423_newTaskModelUpdate8.cs</DependentUpon>
+    <Compile Include="Migrations\201509021621476_Initial.cs" />
+    <Compile Include="Migrations\201509021621476_Initial.Designer.cs">
+      <DependentUpon>201509021621476_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -382,42 +342,12 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508231547228_InitialCreate.resx">
-      <DependentUpon>201508231547228_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508231630092_TaskModelUpdate.resx">
-      <DependentUpon>201508231630092_TaskModelUpdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508231632453_newTaskModelUpdate.resx">
-      <DependentUpon>201508231632453_newTaskModelUpdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508231634261_newTaskModelUpdate2.resx">
-      <DependentUpon>201508231634261_newTaskModelUpdate2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508231730290_newTaskModelUpdate3.resx">
-      <DependentUpon>201508231730290_newTaskModelUpdate3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508231859230_newTaskModelUpdate31.resx">
-      <DependentUpon>201508231859230_newTaskModelUpdate31.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508231911337_newTaskModelUpdate4.resx">
-      <DependentUpon>201508231911337_newTaskModelUpdate4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508251854562_newTaskModelUpdate5.resx">
-      <DependentUpon>201508251854562_newTaskModelUpdate5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508300948092_newTaskModelUpdate6.resx">
-      <DependentUpon>201508300948092_newTaskModelUpdate6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508301003418_newTaskModelUpdate7.resx">
-      <DependentUpon>201508301003418_newTaskModelUpdate7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508301820423_newTaskModelUpdate8.resx">
-      <DependentUpon>201508301820423_newTaskModelUpdate8.cs</DependentUpon>
-    </EmbeddedResource>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <EmbeddedResource Include="Migrations\201509021621476_Initial.resx">
+      <DependentUpon>201509021621476_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

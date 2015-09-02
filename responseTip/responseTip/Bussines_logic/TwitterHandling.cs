@@ -18,10 +18,10 @@ namespace responseTip.Bussines_logic
 
         internal static void twitterAuthentication()
         {
-            Auth.SetUserCredentials(WebConfigurationManager.AppSettings["Consumer_Key"],
-                WebConfigurationManager.AppSettings["Consumer_Secret"],
-                WebConfigurationManager.AppSettings["Acces_Token"],
-                WebConfigurationManager.AppSettings["Acces_Token_Secret"]);
+            Auth.SetUserCredentials(WebConfigurationManager.AppSettings["Twitter_ConsumerKey"],
+                WebConfigurationManager.AppSettings["Twitter_ConsumerSecret"],
+                WebConfigurationManager.AppSettings["Twitter_AccessToken"],
+                WebConfigurationManager.AppSettings["Twitter_AccessTokenSecret"]);
         }
 
         public static void PublishTweet(string tweet_string)
