@@ -9,6 +9,7 @@ using System.Text;
 using System.Diagnostics;
 using System.Security.Cryptography;
 using Tweetinvi;
+using System.Web.Configuration;
 
 namespace responseTip.Bussines_logic
 {
@@ -17,8 +18,12 @@ namespace responseTip.Bussines_logic
 
         internal static void twitterAuthentication()
         {
-            Auth.SetUserCredentials("f1rJMWbh7xgQOSsD6DKEwVWf9", "a0B7pdAs3bk6CRgZtnto3jrDf0XEA1UsgVL6Lnkg72Rfy0bcdn", "3503816421-tKHh2oHbX6TIgsYQR94Dew0CV7AwVpckHo1YbQL", "PQUpASYis0wOsPE6rDALMmBqvY5xx7zbSBA0qIlXNCdZ2");
+            Auth.SetUserCredentials(WebConfigurationManager.AppSettings["Consumer_Key"],
+                WebConfigurationManager.AppSettings["Consumer_Secret"],
+                WebConfigurationManager.AppSettings["Acces_Token"],
+                WebConfigurationManager.AppSettings["Acces_Token_Secret"]);
         }
+
         public static void PublishTweet(string tweet_string)
         {
             Tweet.PublishTweet(tweet_string);
