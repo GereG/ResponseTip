@@ -11,7 +11,7 @@ namespace responseTip
         {
             ConfigureAuth(app);
             TwitterHandling.twitterAuthentication();
- //           TwitterHandling.PublishTweet("This is new:)");
+            TwitterHandling.PublishTweet("Hello Peto!!!!");
         }
     }
 }
