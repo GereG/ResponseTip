@@ -9,8 +9,7 @@ namespace responseTip.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
-            ContextKey = "responseTip.Models.responseTipContext";
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(responseTip.Models.responseTipContext context)

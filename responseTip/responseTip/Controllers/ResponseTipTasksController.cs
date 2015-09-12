@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using responseTip.Models;
 using responseTip.Bussines_logic;
+using System.Diagnostics;
 
 namespace responseTip.Controllers
 {
@@ -16,6 +17,13 @@ namespace responseTip.Controllers
     public class ResponseTipTasksController : Controller
     {
         private responseTipContext db = new responseTipContext();
+
+        public ActionResult FindUser(string socialSiteUser)
+        {
+            Debug.WriteLine("taskcontroller: FindUser");
+            ViewBag.SearchResultsInBag=TwitterHandling.TwitterHandlingClass.SearchUsersM(socialSiteUser);
+            return RedirectToAction("Create");
+        }
 
         // GET: ResponseTipTasks
         public ActionResult Index()
@@ -39,8 +47,9 @@ namespace responseTip.Controllers
         }
 
         // GET: ResponseTipTasks/Create
-        public ActionResult Create()
+        public ActionResult Create(TwitterHandling.TwitterHandlingClass.SearchResults newSearchResults)
         {
+
             return View();
         }
 
