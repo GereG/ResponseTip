@@ -2,6 +2,7 @@
 using Owin;
 //using responseTip.Bussines_logic;
 using System.Web.Configuration;
+using System.Diagnostics;
 
 [assembly: OwinStartupAttribute(typeof(responseTip.Startup))]
 namespace responseTip
@@ -21,6 +22,8 @@ namespace responseTip
                 WebConfigurationManager.AppSettings["Bitcoin_RpcUsername"],
                 WebConfigurationManager.AppSettings["Bitcoin_RpcPassword"],
                 WebConfigurationManager.AppSettings["Bitcoin_WalletPassword"]);
+/*            string address=BtcHandling.BtcHandlingClass.GetNewBtcAdress();
+            Debug.WriteLine("new adress: " + address);*/
 
             //            TwitterHandling.TwitterHandlingClass.PublishTweet("separate project");
             //            TwitterHandling.TwitterHandlingClass.SearchUsersM("Macek");

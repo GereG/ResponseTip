@@ -11,7 +11,7 @@ using BitcoinLib.ExceptionHandling.Rpc;
 
 namespace BtcHandling
 {
-    public class BtcHandlingClass
+    public sealed class BtcHandlingClass
     {
         private static ICoinService CoinService;
 

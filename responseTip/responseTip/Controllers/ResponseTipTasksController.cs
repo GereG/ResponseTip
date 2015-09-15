@@ -50,7 +50,8 @@ namespace responseTip.Controllers
         // GET: ResponseTipTasks/Create
         public ActionResult Create(TwitterHandling.TwitterHandlingClass.SearchResults newSearchResults)
         {
-
+/*            string address = BtcHandling.BtcHandlingClass.GetNewBtcAdress();
+            Debug.WriteLine("new adress: " + address);*/
             return View();
         }
 
