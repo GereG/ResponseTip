@@ -1,23 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using BitcoinLib.Auxiliary;
-using BitcoinLib.ExceptionHandling.Rpc;
-using BitcoinLib.Responses;
+using System.Text;
+using System.Threading.Tasks;
 using BitcoinLib.Services.Coins.Base;
 using BitcoinLib.Services.Coins.Bitcoin;
 using System.Diagnostics;
+using BitcoinLib.ExceptionHandling.Rpc;
 
-namespace responseTip.Bussines_logic
+namespace BtcHandling
 {
-    internal sealed class BtcHandling
+    public class BtcHandlingClass
     {
-        private static readonly ICoinService CoinService = new BitcoinService(useTestnet: false);
+        private static ICoinService CoinService;
 
+        public static void ConnectToRpc(string daemonUrl, string rpcUsername, string rpcPassword, string walletPassword)
+        {
+            CoinService = new BitcoinService(daemonUrl, rpcUsername, rpcPassword, walletPassword);
+        }
         public static string GetNewBtcAdress()
         {
-            string newBtcAdress="";
+            string newBtcAdress = "";
             try
             {
                 newBtcAdress = CoinService.GetNewAddress();
@@ -26,9 +29,12 @@ namespace responseTip.Bussines_logic
             {
                 Debug.WriteLine("[Failed]\n\nPlease check your configuration and make sure that the daemon is up and running and that it is synchronized. \n\nException: " + exception);
             }
-            
+            catch (Exception e)
+            {
+                Debug.WriteLine("General exception at: " + e.StackTrace);
+            }
+
             return newBtcAdress;
         }
     }
 }
-   

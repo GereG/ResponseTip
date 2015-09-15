@@ -1,6 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
-using responseTip.Bussines_logic;
+//using responseTip.Bussines_logic;
 using System.Web.Configuration;
 
 [assembly: OwinStartupAttribute(typeof(responseTip.Startup))]
@@ -17,9 +17,13 @@ namespace responseTip
                     WebConfigurationManager.AppSettings["Twitter_ConsumerSecret"],
                     WebConfigurationManager.AppSettings["Twitter_AccessToken"],
                     WebConfigurationManager.AppSettings["Twitter_AccessTokenSecret"]);
+            BtcHandling.BtcHandlingClass.ConnectToRpc(WebConfigurationManager.AppSettings["Bitcoin_DaemonUrl"],
+                WebConfigurationManager.AppSettings["Bitcoin_RpcUsername"],
+                WebConfigurationManager.AppSettings["Bitcoin_RpcPassword"],
+                WebConfigurationManager.AppSettings["Bitcoin_WalletPassword"]);
 
             //            TwitterHandling.TwitterHandlingClass.PublishTweet("separate project");
-//            TwitterHandling.TwitterHandlingClass.SearchUsersM("Macek");
+            //            TwitterHandling.TwitterHandlingClass.SearchUsersM("Macek");
         }
     }
 }

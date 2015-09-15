@@ -206,7 +206,6 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Bussines_logic\BtcHandling.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -294,6 +293,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Bussines_logic\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -307,6 +307,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BtcHandling\BtcHandling.csproj">
+      <Project>{6f73fd85-294b-4c9a-823b-044241a9f458}</Project>
+      <Name>BtcHandling</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TwitterHandling\TwitterHandling.csproj">
       <Project>{d62664cc-9509-46d0-9b37-01213580f51e}</Project>
       <Name>TwitterHandling</Name>

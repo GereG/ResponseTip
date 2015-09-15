@@ -7,8 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using responseTip.Models;
-using responseTip.Bussines_logic;
+//using responseTip.Bussines_logic;
 using System.Diagnostics;
+using BtcHandling;
 
 namespace responseTip.Controllers
 {
@@ -64,7 +65,7 @@ namespace responseTip.Controllers
             {
                 responseTipTask.taskStatus = TaskStatusesEnum.created;
                 responseTipTask.userName = User.Identity.Name;
-                responseTipTask.BitcoinPublicAdress = BtcHandling.GetNewBtcAdress();
+                responseTipTask.BitcoinPublicAdress = BtcHandlingClass.GetNewBtcAdress();
                 db.ResponseTipTasks.Add(responseTipTask);
                 db.SaveChanges();
                 return RedirectToAction("Index");
