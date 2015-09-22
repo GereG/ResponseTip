@@ -10,10 +10,11 @@ namespace responseTip.Models
     [RequireHttps]
     public class ResponseTipTask
     {
- /*       internal ResponseTipTask()
+        public ResponseTipTask()
         {
             BitcoinPrice = 17.3f;
-        }*/
+            socialSiteUser = new SocialSiteUsers();
+        }
         public int ResponseTipTaskID { get; set; }
         public string userName { get; set; }
 
@@ -51,4 +52,6 @@ namespace responseTip.Models
     {
         created, notPaid, notPaid_expired, paid, questionAsked, questionAsked_expired, QuestionAnswered, AnswerValid, allPaymentsSettled, completed
     }
+
+    
 }

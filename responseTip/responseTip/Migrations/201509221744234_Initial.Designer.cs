@@ -13,7 +13,7 @@ namespace responseTip.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201509061108082_Initial"; }
+            get { return "201509221744234_Initial"; }
         }
         
         string IMigrationMetadata.Source
