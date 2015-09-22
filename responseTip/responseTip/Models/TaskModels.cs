@@ -22,6 +22,7 @@ namespace responseTip.Models
         //[RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$")]
         [StringLength(30)]
         public string question { get; set; }
+        public string answer { get; set; }
         [Required()]
         public SocialSiteUsers socialSiteUser;
 
