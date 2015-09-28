@@ -81,7 +81,7 @@ namespace responseTip.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ResponseTipTaskID,question,answer,twitterUserName,BitcoinPublicAdress,BitcoinPrice,isQuestionPublic")] ResponseTipTask responseTipTask)
+        public ActionResult Create([Bind(Include = "ResponseTipTaskID,question,answer,twitterUserNameWritten,BitcoinPublicAdress,BitcoinPrice,isQuestionPublic")] ResponseTipTask responseTipTask)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace responseTip.Controllers
                 responseTipTask.BitcoinPublicAdress = BtcHandlingClass.GetNewBtcAdress();
                 db.ResponseTipTasks.Add(responseTipTask);
                 db.SaveChanges();
-                return RedirectToAction("FindUser",new { id = responseTipTask.ResponseTipTaskID,socialSiteUser = responseTipTask.twitterUserName });
+                return RedirectToAction("FindUser",new { id = responseTipTask.ResponseTipTaskID,socialSiteUser = responseTipTask.twitterUserNameWritten });
             }
             return View(responseTipTask);
         }

@@ -12,7 +12,7 @@ namespace responseTip.Models
     {
         public ResponseTipTask()
         {
-            BitcoinPrice = 17.3f;
+            BitcoinPrice = 0.003f;
         }
         public int ResponseTipTaskID { get; set; }
         public string userName { get; set; }
@@ -25,14 +25,18 @@ namespace responseTip.Models
         public string answer { get; set; }
         [Required()]
         [StringLength(30)]
-        public string twitterUserName { get; set; }
+        public string twitterUserNameWritten { get; set; }
+        public string twitterUserNameSelected { get; set; }
         public int ArbiterCount { get; set; }
 
         public string BitcoinPublicAdress { get; set; }
 
         public float BitcoinPrice { get; set; }
         public bool isQuestionPublic { get; set; }
-        
+
+        public DateTime timeCreated { get; set; }
+        public DateTime timeQuestionAsked { get; set; }
+
         public TaskStatusesEnum taskStatus { get; set; }
 
 

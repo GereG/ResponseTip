@@ -222,7 +222,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\QRCodeHtmlHelper.cs" />
     <Compile Include="Migrations\201509221744234_Initial.cs" />
     <Compile Include="Migrations\201509221744234_Initial.Designer.cs">
@@ -239,6 +238,14 @@
     <Compile Include="Migrations\201509261420472_ArbiterCount2.cs" />
     <Compile Include="Migrations\201509261420472_ArbiterCount2.Designer.cs">
       <DependentUpon>201509261420472_ArbiterCount2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509281020030_twitteruserSelected.cs" />
+    <Compile Include="Migrations\201509281020030_twitteruserSelected.Designer.cs">
+      <DependentUpon>201509281020030_twitteruserSelected.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509281047015_timesAdded.cs" />
+    <Compile Include="Migrations\201509281047015_timesAdded.Designer.cs">
+      <DependentUpon>201509281047015_timesAdded.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -351,6 +358,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509261420472_ArbiterCount2.resx">
       <DependentUpon>201509261420472_ArbiterCount2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509281020030_twitteruserSelected.resx">
+      <DependentUpon>201509281020030_twitteruserSelected.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509281047015_timesAdded.resx">
+      <DependentUpon>201509281047015_timesAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

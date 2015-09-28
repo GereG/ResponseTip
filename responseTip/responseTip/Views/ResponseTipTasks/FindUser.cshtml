@@ -33,7 +33,13 @@
     </tr>
 }
 </table>
-Pay to this adress to send the conditioned payment.
 <p>
+    Pay to this bitcoin adress to send the conditioned payment. This adress will be valid for 2hours
+
+
+</p>
+
 @Html.GenerateQrCode("bitcoin:"+ Html.DisplayFor(model => model.BitcoinPublicAdress) + "?amount=" +Html.DisplayFor(model => model.BitcoinPrice)+"&message=Payment&label=responseTip&extra=other-param")
+</p>
+@Html.DisplayFor(model => model.BitcoinPublicAdress)
 </p>

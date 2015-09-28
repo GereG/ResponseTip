@@ -19,7 +19,7 @@
             @Html.DisplayNameFor(model => model.question)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.twitterUserName)
+            @Html.DisplayNameFor(model => model.twitterUserNameWritten)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.BitcoinPublicAdress)
@@ -45,10 +45,9 @@
             @Html.DisplayFor(modelItem => item.question)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.twitterUserName)
+            @Html.DisplayFor(modelItem => item.twitterUserNameWritten)
         </td>
         <td>
-            @Html.GenerateQrCode("bitcoin:12A1MyfXbW6RhdRAZEqofac5jCQQjwEPBu?amount=0.0002&message=Payment&label=Satoshi&extra=other-param")
             @Html.DisplayFor(modelItem => item.BitcoinPublicAdress)
         </td>
         <td>

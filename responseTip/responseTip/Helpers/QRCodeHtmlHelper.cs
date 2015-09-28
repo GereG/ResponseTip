@@ -10,7 +10,7 @@ namespace responseTip.Helpers
 {
     public static class QRHelper
     {
-        public static IHtmlString GenerateQrCode(this HtmlHelper html, string url, string alt = "QR code", int height = 500, int width = 500, int margin = 0)
+        public static IHtmlString GenerateQrCode(this HtmlHelper html, string url, string alt = "Bitcoin Payment Adress", int height = 500, int width = 500, int margin = 0)
         {
             var qrWriter = new BarcodeWriter();
             qrWriter.Format = BarcodeFormat.QR_CODE;
