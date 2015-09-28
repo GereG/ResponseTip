@@ -26,6 +26,7 @@ namespace responseTip.Models
         [Required()]
         [StringLength(30)]
         public string twitterUserNameWritten { get; set; }
+        public int twitterUserIdSelected { get; set; }
         public string twitterUserNameSelected { get; set; }
         public int ArbiterCount { get; set; }
 

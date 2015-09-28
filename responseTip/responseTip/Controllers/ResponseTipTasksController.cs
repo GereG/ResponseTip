@@ -31,7 +31,8 @@ namespace responseTip.Controllers
             }
         }*/
 
-        public ActionResult FindUser(int? id,string socialSiteUser)
+            //GET: ResponseTipTasks
+        public ActionResult FindUser(int? id)
         {
             if (id == null)
             {
@@ -42,8 +43,31 @@ namespace responseTip.Controllers
             {
                 return HttpNotFound();
             }
-            Debug.WriteLine("taskcontroller: FindUser");
-            ViewBag.SearchResultsInBag = TwitterHandling.TwitterHandlingClass.SearchUsersM(socialSiteUser);
+//            Debug.WriteLine("taskcontroller: FindUser");
+            ViewBag.SearchResultsInBag = TwitterHandling.TwitterHandlingClass.SearchUsersM(responseTipTask.twitterUserNameWritten);
+            return View(responseTipTask);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult FindUser(int? id,[Bind(Include = "ResponseTipTaskID,twitterUserNameSelected")] ResponseTipTask responseTipTaskChanged)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ResponseTipTask responseTipTask = db.ResponseTipTasks.Find(id);
+            if (responseTipTask == null)
+            {
+                return HttpNotFound();
+            }
+            responseTipTask.twitterUserNameSelected = responseTipTaskChanged.twitterUserNameSelected;
+            if (ModelState.IsValid && responseTipTask.twitterUserNameSelected!=null)
+            {
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.SearchResultsInBag = TwitterHandling.TwitterHandlingClass.SearchUsersM(responseTipTask.twitterUserNameWritten);
             return View(responseTipTask);
         }
 
@@ -69,7 +93,7 @@ namespace responseTip.Controllers
         }
 
         // GET: ResponseTipTasks/Create
-        public ActionResult Create(TwitterHandling.TwitterHandlingClass.SearchResults newSearchResults)
+        public ActionResult Create()
         {
 /*            string address = BtcHandling.BtcHandlingClass.GetNewBtcAdress();
             Debug.WriteLine("new adress: " + address);*/
@@ -88,9 +112,11 @@ namespace responseTip.Controllers
                 responseTipTask.taskStatus = TaskStatusesEnum.created;
                 responseTipTask.userName = User.Identity.Name;
                 responseTipTask.BitcoinPublicAdress = BtcHandlingClass.GetNewBtcAdress();
+                responseTipTask.timeCreated = DateTime.Now;
+                responseTipTask.timeQuestionAsked = DateTime.MinValue;
                 db.ResponseTipTasks.Add(responseTipTask);
                 db.SaveChanges();
-                return RedirectToAction("FindUser",new { id = responseTipTask.ResponseTipTaskID,socialSiteUser = responseTipTask.twitterUserNameWritten });
+                return RedirectToAction("FindUser",new { id = responseTipTask.ResponseTipTaskID });
             }
             return View(responseTipTask);
         }
