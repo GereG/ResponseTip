@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Tweetinvi;
 using System.Drawing;
 using System.Diagnostics;
+using System.IO;
+using System.Drawing.Imaging;
 
 namespace TwitterHandling
 {
@@ -44,7 +46,7 @@ namespace TwitterHandling
         }
         public class UserRecord
         {
-            public Image userProfileImage;
+            public string userProfileImageString;
             public string userProfileName;
             public string userName;
 
@@ -73,8 +75,16 @@ namespace TwitterHandling
             {
                 var uzivatel = users.ElementAt(i);
                 var stream = User.GetProfileImageStream(uzivatel);
+
                 var image = Bitmap.FromStream(stream);
-                searchResults.searchResultsData[i].userProfileImage = image;
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    image.Save(ms, ImageFormat.Png);
+                    string imgString = Convert.ToBase64String(ms.ToArray());
+                    searchResults.searchResultsData[i].userProfileImageString = String.Format("data:image/png;base64,{0}", imgString);
+                    // use the memory stream to base64 encode..
+                }
+
                 searchResults.searchResultsData[i].userProfileName=users.ElementAt(i).ScreenName;
                 searchResults.searchResultsData[i].userName = users.ElementAt(i).Name;
                 Debug.WriteLine("Username: " + username + "  ScreenName: " + searchResults.searchResultsData[i].userProfileName + " Name: " + searchResults.searchResultsData[i].userName);
@@ -86,7 +96,14 @@ namespace TwitterHandling
             //           return Search.SearchUsers(username);
         }
 
-//        public static void 
+        private static byte[] turnImageToByteArray(System.Drawing.Image img)
+        {
+            MemoryStream ms = new MemoryStream();
+            img.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+            return ms.ToArray();
+        }
+
+        //        public static void 
     }
 
 }

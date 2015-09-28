@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<responseTip.Models.ResponseTipTask>
+@using responseTip.Helpers
 
 @{
     ViewBag.Title = "Index";
@@ -18,7 +19,7 @@
             @Html.DisplayNameFor(model => model.question)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.socialSiteUser.UserName)
+            @Html.DisplayNameFor(model => model.twitterUserName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.BitcoinPublicAdress)
@@ -44,9 +45,10 @@
             @Html.DisplayFor(modelItem => item.question)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.socialSiteUser.UserName)
+            @Html.DisplayFor(modelItem => item.twitterUserName)
         </td>
         <td>
+            @Html.GenerateQrCode("bitcoin:12A1MyfXbW6RhdRAZEqofac5jCQQjwEPBu?amount=0.0002&message=Payment&label=Satoshi&extra=other-param")
             @Html.DisplayFor(modelItem => item.BitcoinPublicAdress)
         </td>
         <td>

@@ -75,6 +75,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -152,6 +153,14 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="zxing, Version=0.14.0.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.14.0.1\lib\net40\zxing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.14.0.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.14.0.1\lib\net40\zxing.presentation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
@@ -213,9 +222,23 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Helpers\QRCodeHtmlHelper.cs" />
     <Compile Include="Migrations\201509221744234_Initial.cs" />
     <Compile Include="Migrations\201509221744234_Initial.Designer.cs">
       <DependentUpon>201509221744234_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509261328384_second.cs" />
+    <Compile Include="Migrations\201509261328384_second.Designer.cs">
+      <DependentUpon>201509261328384_second.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509261335540_ArbiterCount.cs" />
+    <Compile Include="Migrations\201509261335540_ArbiterCount.Designer.cs">
+      <DependentUpon>201509261335540_ArbiterCount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509261420472_ArbiterCount2.cs" />
+    <Compile Include="Migrations\201509261420472_ArbiterCount2.Designer.cs">
+      <DependentUpon>201509261420472_ArbiterCount2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -239,6 +262,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\ResponseTipTasks\FindUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -318,6 +342,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201509221744234_Initial.resx">
       <DependentUpon>201509221744234_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509261328384_second.resx">
+      <DependentUpon>201509261328384_second.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509261335540_ArbiterCount.resx">
+      <DependentUpon>201509261335540_ArbiterCount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509261420472_ArbiterCount2.resx">
+      <DependentUpon>201509261420472_ArbiterCount2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

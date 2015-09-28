@@ -19,11 +19,32 @@ namespace responseTip.Controllers
     {
         private responseTipContext db = new responseTipContext();
 
-        public ActionResult FindUser(string socialSiteUser)
+
+ /*       public ActionResult GetImg()
         {
+            
+            var srcImage = Image.FromFile(imageFile);
+            using (var streak = new MemoryStream())
+            {
+                srcImage.Save(streak, ImageFormat.Png);
+                return File(streak.ToArray(), "image/png");
+            }
+        }*/
+
+        public ActionResult FindUser(int? id,string socialSiteUser)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ResponseTipTask responseTipTask = db.ResponseTipTasks.Find(id);
+            if (responseTipTask == null)
+            {
+                return HttpNotFound();
+            }
             Debug.WriteLine("taskcontroller: FindUser");
-            ViewBag.SearchResultsInBag=TwitterHandling.TwitterHandlingClass.SearchUsersM(socialSiteUser);
-            return RedirectToAction("Create");
+            ViewBag.SearchResultsInBag = TwitterHandling.TwitterHandlingClass.SearchUsersM(socialSiteUser);
+            return View(responseTipTask);
         }
 
         // GET: ResponseTipTasks
@@ -60,7 +81,7 @@ namespace responseTip.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ResponseTipTaskID,question,socialSiteUser,BitcoinPublicAdress,BitcoinPrice,isQuestionPublic")] ResponseTipTask responseTipTask)
+        public ActionResult Create([Bind(Include = "ResponseTipTaskID,question,answer,twitterUserName,BitcoinPublicAdress,BitcoinPrice,isQuestionPublic")] ResponseTipTask responseTipTask)
         {
             if (ModelState.IsValid)
             {
@@ -69,7 +90,7 @@ namespace responseTip.Controllers
                 responseTipTask.BitcoinPublicAdress = BtcHandlingClass.GetNewBtcAdress();
                 db.ResponseTipTasks.Add(responseTipTask);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("FindUser",new { id = responseTipTask.ResponseTipTaskID,socialSiteUser = responseTipTask.twitterUserName });
             }
             return View(responseTipTask);
         }

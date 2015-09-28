@@ -1,0 +1,39 @@
+﻿@model responseTip.Models.ResponseTipTask
+@using responseTip.Helpers
+
+@{
+    ViewBag.Title = "FindUser";
+}
+
+<h2>FindUser</h2>
+<table class="table">
+    <tr>
+        <th>
+            user image
+        </th>
+        <th>
+            user profile name
+        </th>
+        <th>
+            user name
+        </th>
+    </tr>
+@foreach (var SearchResult in ViewBag.SearchResultsInBag.searchResultsData)
+{
+    <tr>
+        <th>
+           <img src="@SearchResult.userProfileImageString" />
+        </th>
+        <th>
+            @SearchResult.userProfileName
+        </th>
+        <th>
+            @SearchResult.userName
+        </th>
+    </tr>
+}
+</table>
+Pay to this adress to send the conditioned payment.
+<p>
+@Html.GenerateQrCode("bitcoin:"+ Html.DisplayFor(model => model.BitcoinPublicAdress) + "?amount=" +Html.DisplayFor(model => model.BitcoinPrice)+"&message=Payment&label=responseTip&extra=other-param")
+</p>

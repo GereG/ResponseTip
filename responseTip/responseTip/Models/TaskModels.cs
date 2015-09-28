@@ -13,7 +13,6 @@ namespace responseTip.Models
         public ResponseTipTask()
         {
             BitcoinPrice = 17.3f;
-            socialSiteUser = new SocialSiteUsers();
         }
         public int ResponseTipTaskID { get; set; }
         public string userName { get; set; }
@@ -25,7 +24,9 @@ namespace responseTip.Models
         public string question { get; set; }
         public string answer { get; set; }
         [Required()]
-        public SocialSiteUsers socialSiteUser;
+        [StringLength(30)]
+        public string twitterUserName { get; set; }
+        public int ArbiterCount { get; set; }
 
         public string BitcoinPublicAdress { get; set; }
 
