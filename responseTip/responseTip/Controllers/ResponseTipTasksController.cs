@@ -17,6 +17,8 @@ namespace responseTip.Controllers
     [Authorize]
     public class ResponseTipTasksController : Controller
     {
+        private TwitterHandling.TwitterHandlingClass.SearchResults UserSearchResults;
+        
         private responseTipContext db = new responseTipContext();
 
 
@@ -43,8 +45,12 @@ namespace responseTip.Controllers
             {
                 return HttpNotFound();
             }
-//            Debug.WriteLine("taskcontroller: FindUser");
-            ViewBag.SearchResultsInBag = TwitterHandling.TwitterHandlingClass.SearchUsersM(responseTipTask.twitterUserNameWritten);
+            //            Debug.WriteLine("taskcontroller: FindUser");
+            //            TwitterHandling.TwitterHandlingClass.PublishTweet("hello " + responseTipTask.twitterUserNameWritten);
+            //            UserSearchResults= TwitterHandling.TwitterHandlingClass.SearchUsersM(responseTipTask.twitterUserNameWritten);
+            UserSearchResults = TwitterHandling.TwitterHandlingClass.SearchUsersM(responseTipTask.twitterUserNameWritten);
+            //ViewBag.SearchResultsInBag = TwitterHandling.TwitterHandlingClass.SearchUsersM(responseTipTask.twitterUserNameWritten);
+            ViewBag.SearchResultsInBag = UserSearchResults;
             return View(responseTipTask);
         }
 
@@ -62,13 +68,17 @@ namespace responseTip.Controllers
                 return HttpNotFound();
             }
             responseTipTask.twitterUserNameSelected = responseTipTaskChanged.twitterUserNameSelected;
-            if (ModelState.IsValid && responseTipTask.twitterUserNameSelected!=null)
+            if (responseTipTask.twitterUserNameSelected!=null)
             {
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                ResponseTipTask responseTipTasktest = db.ResponseTipTasks.Find(id);
+                return RedirectToAction("Create");
             }
-            ViewBag.SearchResultsInBag = TwitterHandling.TwitterHandlingClass.SearchUsersM(responseTipTask.twitterUserNameWritten);
+            //            return RedirectToAction("FindUser", new { id = responseTipTask.ResponseTipTaskID });
+            //            ViewBag.SearchResultsInBag = TwitterHandling.TwitterHandlingClass.SearchUsersM(responseTipTask.twitterUserNameWritten); 
+            UserSearchResults = TwitterHandling.TwitterHandlingClass.SearchUsersM(responseTipTask.twitterUserNameWritten);
             return View(responseTipTask);
+ //           return View();
         }
 
         // GET: ResponseTipTasks
@@ -95,8 +105,9 @@ namespace responseTip.Controllers
         // GET: ResponseTipTasks/Create
         public ActionResult Create()
         {
-/*            string address = BtcHandling.BtcHandlingClass.GetNewBtcAdress();
-            Debug.WriteLine("new adress: " + address);*/
+            /*            string address = BtcHandling.BtcHandlingClass.GetNewBtcAdress();
+                        Debug.WriteLine("new adress: " + address);*/
+//            UserSearchResults = TwitterHandling.TwitterHandlingClass.SearchUsersM("bb");
             return View();
         }
 

@@ -4,3 +4,6 @@ responseTip/responseTip/Web.config
 responseTip/packages/
 responseTip/responseTip/obj/
 responseTip/responseTip/bin/
+responseTip/responseTip_backend/obj/
+responseTip/responseTip_backend/bin/
+responseTip/responseTip_backend/App.config

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D62664CC-9509-46D0-9B37-01213580F51E}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{6942925A-1A65-4460-90F5-C3E8EC34A73F}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TwitterHandling</RootNamespace>
-    <AssemblyName>TwitterHandling</AssemblyName>
+    <RootNamespace>responseTip_backend</RootNamespace>
+    <AssemblyName>responseTip_backend</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -31,9 +31,16 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -48,14 +55,11 @@
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
       <Private>True</Private>
@@ -65,56 +69,35 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tweetinvi, Version=0.9.9.7, Culture=neutral, PublicKeyToken=7247f14397bf67b9, processorArchitecture=MSIL">
-      <HintPath>..\packages\TweetinviAPI.0.9.9.7\lib\net45\Tweetinvi.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Tweetinvi.Controllers, Version=0.9.9.7, Culture=neutral, PublicKeyToken=7247f14397bf67b9, processorArchitecture=MSIL">
-      <HintPath>..\packages\TweetinviAPI.0.9.9.7\lib\net45\Tweetinvi.Controllers.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Tweetinvi.Core, Version=0.9.9.7, Culture=neutral, PublicKeyToken=7247f14397bf67b9, processorArchitecture=MSIL">
-      <HintPath>..\packages\TweetinviAPI.0.9.9.7\lib\net45\Tweetinvi.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Tweetinvi.Credentials, Version=0.9.9.7, Culture=neutral, PublicKeyToken=7247f14397bf67b9, processorArchitecture=MSIL">
-      <HintPath>..\packages\TweetinviAPI.0.9.9.7\lib\net45\Tweetinvi.Credentials.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Tweetinvi.Factories, Version=0.9.9.7, Culture=neutral, PublicKeyToken=7247f14397bf67b9, processorArchitecture=MSIL">
-      <HintPath>..\packages\TweetinviAPI.0.9.9.7\lib\net45\Tweetinvi.Factories.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Tweetinvi.Logic, Version=0.9.9.7, Culture=neutral, PublicKeyToken=7247f14397bf67b9, processorArchitecture=MSIL">
-      <HintPath>..\packages\TweetinviAPI.0.9.9.7\lib\net45\Tweetinvi.Logic.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Tweetinvi.Security, Version=0.9.9.7, Culture=neutral, PublicKeyToken=7247f14397bf67b9, processorArchitecture=MSIL">
-      <HintPath>..\packages\TweetinviAPI.0.9.9.7\lib\net45\Tweetinvi.Security.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Tweetinvi.Streams, Version=0.9.9.7, Culture=neutral, PublicKeyToken=7247f14397bf67b9, processorArchitecture=MSIL">
-      <HintPath>..\packages\TweetinviAPI.0.9.9.7\lib\net45\Tweetinvi.Streams.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Tweetinvi.WebLogic, Version=0.9.9.7, Culture=neutral, PublicKeyToken=7247f14397bf67b9, processorArchitecture=MSIL">
-      <HintPath>..\packages\TweetinviAPI.0.9.9.7\lib\net45\Tweetinvi.WebLogic.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TwitterHandlingClass.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BtcHandling\BtcHandling.csproj">
+      <Project>{6f73fd85-294b-4c9a-823b-044241a9f458}</Project>
+      <Name>BtcHandling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\responseTip\responseTip.csproj">
+      <Project>{194cb54e-bada-48e2-b3a4-171477e969b2}</Project>
+      <Name>responseTip</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TwitterHandling\TwitterHandling.csproj">
+      <Project>{d62664cc-9509-46d0-9b37-01213580f51e}</Project>
+      <Name>TwitterHandling</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

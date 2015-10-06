@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterHandling", "TwitterH
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BtcHandling", "BtcHandling\BtcHandling.csproj", "{6F73FD85-294B-4C9A-823B-044241A9F458}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "responseTip_backend", "responseTip_backend\responseTip_backend.csproj", "{6942925A-1A65-4460-90F5-C3E8EC34A73F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CCNET|Any CPU = CCNET|Any CPU
@@ -75,6 +77,26 @@ Global
 		{6F73FD85-294B-4C9A-823B-044241A9F458}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6F73FD85-294B-4C9A-823B-044241A9F458}.Release|x86-Only.ActiveCfg = Release|Any CPU
 		{6F73FD85-294B-4C9A-823B-044241A9F458}.Release|x86-Only.Build.0 = Release|Any CPU
+		{6942925A-1A65-4460-90F5-C3E8EC34A73F}.CCNET|Any CPU.ActiveCfg = Release|Any CPU
+		{6942925A-1A65-4460-90F5-C3E8EC34A73F}.CCNET|Any CPU.Build.0 = Release|Any CPU
+		{6942925A-1A65-4460-90F5-C3E8EC34A73F}.CCNET|x86-Only.ActiveCfg = Release|Any CPU
+		{6942925A-1A65-4460-90F5-C3E8EC34A73F}.CCNET|x86-Only.Build.0 = Release|Any CPU
+		{6942925A-1A65-4460-90F5-C3E8EC34A73F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6942925A-1A65-4460-90F5-C3E8EC34A73F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6942925A-1A65-4460-90F5-C3E8EC34A73F}.Debug|x86-Only.ActiveCfg = Debug|Any CPU
+		{6942925A-1A65-4460-90F5-C3E8EC34A73F}.Debug|x86-Only.Build.0 = Debug|Any CPU
+		{6942925A-1A65-4460-90F5-C3E8EC34A73F}.Mono-Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6942925A-1A65-4460-90F5-C3E8EC34A73F}.Mono-Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6942925A-1A65-4460-90F5-C3E8EC34A73F}.Mono-Debug|x86-Only.ActiveCfg = Debug|Any CPU
+		{6942925A-1A65-4460-90F5-C3E8EC34A73F}.Mono-Debug|x86-Only.Build.0 = Debug|Any CPU
+		{6942925A-1A65-4460-90F5-C3E8EC34A73F}.Mono-Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6942925A-1A65-4460-90F5-C3E8EC34A73F}.Mono-Release|Any CPU.Build.0 = Release|Any CPU
+		{6942925A-1A65-4460-90F5-C3E8EC34A73F}.Mono-Release|x86-Only.ActiveCfg = Release|Any CPU
+		{6942925A-1A65-4460-90F5-C3E8EC34A73F}.Mono-Release|x86-Only.Build.0 = Release|Any CPU
+		{6942925A-1A65-4460-90F5-C3E8EC34A73F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6942925A-1A65-4460-90F5-C3E8EC34A73F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6942925A-1A65-4460-90F5-C3E8EC34A73F}.Release|x86-Only.ActiveCfg = Release|Any CPU
+		{6942925A-1A65-4460-90F5-C3E8EC34A73F}.Release|x86-Only.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

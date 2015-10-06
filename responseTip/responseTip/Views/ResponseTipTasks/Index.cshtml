@@ -13,13 +13,16 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.ResponseTipTaskID)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.userName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.question)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.twitterUserNameWritten)
+            @Html.DisplayNameFor(model => model.twitterUserNameSelected)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.BitcoinPublicAdress)
@@ -39,13 +42,16 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.ResponseTipTaskID)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.userName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.question)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.twitterUserNameWritten)
+            @Html.DisplayFor(modelItem => item.twitterUserNameSelected)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.BitcoinPublicAdress)
