@@ -39,5 +39,20 @@ namespace BtcHandling
 
             return newBtcAdress;
         }
+
+        public static decimal CheckAdressBalance(string adress)
+        {
+            decimal addressBalance = 0;
+            if(CoinService!=null)
+            {
+                addressBalance=CoinService.GetAddressBalance(adress, 2,true);
+            }
+            else
+            {
+                throw new BitcoinLib.ExceptionHandling.Rpc.RpcException();
+            }
+
+            return addressBalance;
+        }
     }
 }

@@ -22,11 +22,8 @@ namespace responseTip
                 WebConfigurationManager.AppSettings["Bitcoin_RpcUsername"],
                 WebConfigurationManager.AppSettings["Bitcoin_RpcPassword"],
                 WebConfigurationManager.AppSettings["Bitcoin_WalletPassword"]);
-/*            string address=BtcHandling.BtcHandlingClass.GetNewBtcAdress();
-            Debug.WriteLine("new adress: " + address);*/
+/*            string address=BtcHandling.BtcHandlingClass.GetNewBtcAdress();*/
 
-            //            TwitterHandling.TwitterHandlingClass.PublishTweet("separate project");
-            //            TwitterHandling.TwitterHandlingClass.SearchUsersM("Macek");
         }
     }
 }
