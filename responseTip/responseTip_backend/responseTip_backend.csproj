@@ -94,6 +94,10 @@
       <Project>{6f73fd85-294b-4c9a-823b-044241a9f458}</Project>
       <Name>BtcHandling</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Exceptions\Exceptions.csproj">
+      <Project>{0a638040-b6d6-4b81-a6a4-894099f18f82}</Project>
+      <Name>Exceptions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\responseTip\responseTip.csproj">
       <Project>{194cb54e-bada-48e2-b3a4-171477e969b2}</Project>
       <Name>responseTip</Name>

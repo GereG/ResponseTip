@@ -287,6 +287,10 @@
     <Compile Include="Migrations\201509281630230_twitterUserIdSelected.Designer.cs">
       <DependentUpon>201509281630230_twitterUserIdSelected.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510091629076_btcpriceIsDecimal.cs" />
+    <Compile Include="Migrations\201510091629076_btcpriceIsDecimal.Designer.cs">
+      <DependentUpon>201510091629076_btcpriceIsDecimal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\SocialSiteUsers.cs" />
@@ -408,6 +412,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509281630230_twitterUserIdSelected.resx">
       <DependentUpon>201509281630230_twitterUserIdSelected.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510091629076_btcpriceIsDecimal.resx">
+      <DependentUpon>201510091629076_btcpriceIsDecimal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

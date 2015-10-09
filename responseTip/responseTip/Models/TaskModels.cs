@@ -12,7 +12,7 @@ namespace responseTip.Models
     {
         public ResponseTipTask()
         {
-            BitcoinPrice = 0.003f;
+            BitcoinPrice = 300000;
         }
         public int ResponseTipTaskID { get; set; }
         public string userName { get; set; }
@@ -32,7 +32,7 @@ namespace responseTip.Models
 
         public string BitcoinPublicAdress { get; set; }
 
-        public float BitcoinPrice { get; set; }
+        public decimal BitcoinPrice { get; set; }
         public bool isQuestionPublic { get; set; }
 
         public DateTime timeCreated { get; set; }
