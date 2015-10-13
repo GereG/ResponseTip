@@ -18,6 +18,8 @@ namespace responseTip_backend
         private static Logger backendLogger=new Logger();
         private static responseTipContext responseTipDatabase = new responseTipContext();
 
+        private const double taskExpirationTime = 2; //time from creation of task (in days) after which task expires
+
 
         
         static void Main(string[] args)
@@ -27,13 +29,14 @@ namespace responseTip_backend
 
             Startup.Configuration();
 
+            backendLogger.LogLine("Backend_main configured...continuing",Logger.log_types.MESSAGE_LOG);
+
             CleanTaskDatabase();
 
            
             while (true)//infinite loop
             {
-//                TwitterHandling.TwitterHandlingClass.PublishTweet("connected");
-                Console.ReadKey();
+                taskStatePusherCycle();
             }
         }
 
@@ -48,14 +51,17 @@ namespace responseTip_backend
                     {
                         responseTipDatabase.ResponseTipTasks.Remove(task);
                         string line = "Deleted Task" + ": " + task.ResponseTipTaskID + "    " + task.twitterUserNameSelected;
-                        
                         backendLogger.LogLine(line,Logger.log_types.MESSAGE_LOG);
+                    }
+                    else if(!BtcHandlingClass.IsAdressValidAndMine(task.BitcoinPublicAdress))
+                    {
+                        responseTipDatabase.ResponseTipTasks.Remove(task);
+                        backendLogger.LogLine("Deleted Task" + ": " + task.ResponseTipTaskID + " because bitcoin address "+task.BitcoinPublicAdress+" is not valid or mine", Logger.log_types.WARNING_LOG);
                     }
                     else
                     {
-                        string line = "Task" + ": " + task.ResponseTipTaskID + "    " + task.twitterUserNameSelected;
- //                       Console.WriteLine(line);
-                        backendLogger.LogLine(line, Logger.log_types.MESSAGE_LOG);
+//                        string line = "Task" + ": " + task.ResponseTipTaskID + "    " + task.twitterUserNameSelected;
+//                        backendLogger.LogLine(line, Logger.log_types.MESSAGE_LOG);
                     }
 
                 }
@@ -78,7 +84,7 @@ namespace responseTip_backend
                             ismodified = true;
                             break;
                         case TaskStatusesEnum.notPaid:
-                            TaskCreated(task);
+                            TaskNotPaid(task);
                             ismodified = true;
                             break;
 
@@ -88,9 +94,8 @@ namespace responseTip_backend
                     }
 
                 }
-                responseTipDatabase.Entry(task).State = EntityState.Modified;
-                responseTipDatabase.SaveChanges();
             }
+            responseTipDatabase.SaveChanges();
         }
 
         private static void TaskCreated(ResponseTipTask task)
@@ -107,7 +112,19 @@ namespace responseTip_backend
                 task.taskStatus = TaskStatusesEnum.paid;
             }
             TimeSpan timeElapsedFromCreation= DateTime.Now.Subtract(task.timeCreated);
-            task.taskStatus = TaskStatusesEnum.notPaid;
+            if (timeElapsedFromCreation.TotalDays > taskExpirationTime)
+            {
+                task.taskStatus = TaskStatusesEnum.notPaid_expired;
+            }
+            else
+            {
+                task.taskStatus = TaskStatusesEnum.notPaid;
+            }
+        }
+
+        private static void TaskPaid(ResponseTipTask task)
+        {
+
         }
 
 

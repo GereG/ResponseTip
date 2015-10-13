@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,7 @@ namespace responseTip.Helpers
                     log = new System.IO.StreamWriter(directoryPath + "\\error_log.log", true);
 
                     log.WriteLine(time + "\t" + type.ToString() + "\t" + lines);
+                    Debug.WriteLine(time + "\t" + type.ToString() + "\t" + lines);
                     log.Close();
                     break;
 
