@@ -29,12 +29,12 @@ namespace BtcHandling
             catch (RpcException exception)
             {
                 Debug.WriteLine("[Failed]\n\nPlease check your configuration and make sure that the daemon is up and running and that it is synchronized. \n\nException: " + exception);
-                newBtcAdress = "RPC exception";
+//                newBtcAdress = "RPC exception";
             }
             catch (Exception e)
             {
                 Debug.WriteLine("General exception at: " + e.StackTrace);
-                newBtcAdress = "General exception";
+//                newBtcAdress = "General exception";
             }
 
             return newBtcAdress;

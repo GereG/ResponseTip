@@ -22,8 +22,8 @@ namespace responseTip
                 WebConfigurationManager.AppSettings["Bitcoin_RpcUsername"],
                 WebConfigurationManager.AppSettings["Bitcoin_RpcPassword"],
                 WebConfigurationManager.AppSettings["Bitcoin_WalletPassword"]);
-/*            string address=BtcHandling.BtcHandlingClass.GetNewBtcAdress();*/
-
+            string address=BtcHandling.BtcHandlingClass.GetNewBtcAdress();
+            Debug.WriteLine("adress: "+address);
         }
     }
 }
