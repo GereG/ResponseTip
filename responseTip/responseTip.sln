@@ -11,7 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BtcHandling", "BtcHandling\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "responseTip_backend", "responseTip_backend\responseTip_backend.csproj", "{6942925A-1A65-4460-90F5-C3E8EC34A73F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exceptions", "Exceptions\Exceptions.csproj", "{0A638040-B6D6-4B81-A6A4-894099F18F82}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "responseTipExceptions", "Exceptions\responseTipExceptions.csproj", "{0A638040-B6D6-4B81-A6A4-894099F18F82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "Helpers\Helpers.csproj", "{3ED1B7D0-B502-4147-90F0-9328687B4122}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -119,6 +121,26 @@ Global
 		{0A638040-B6D6-4B81-A6A4-894099F18F82}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0A638040-B6D6-4B81-A6A4-894099F18F82}.Release|x86-Only.ActiveCfg = Release|Any CPU
 		{0A638040-B6D6-4B81-A6A4-894099F18F82}.Release|x86-Only.Build.0 = Release|Any CPU
+		{3ED1B7D0-B502-4147-90F0-9328687B4122}.CCNET|Any CPU.ActiveCfg = Release|Any CPU
+		{3ED1B7D0-B502-4147-90F0-9328687B4122}.CCNET|Any CPU.Build.0 = Release|Any CPU
+		{3ED1B7D0-B502-4147-90F0-9328687B4122}.CCNET|x86-Only.ActiveCfg = Release|Any CPU
+		{3ED1B7D0-B502-4147-90F0-9328687B4122}.CCNET|x86-Only.Build.0 = Release|Any CPU
+		{3ED1B7D0-B502-4147-90F0-9328687B4122}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ED1B7D0-B502-4147-90F0-9328687B4122}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ED1B7D0-B502-4147-90F0-9328687B4122}.Debug|x86-Only.ActiveCfg = Debug|Any CPU
+		{3ED1B7D0-B502-4147-90F0-9328687B4122}.Debug|x86-Only.Build.0 = Debug|Any CPU
+		{3ED1B7D0-B502-4147-90F0-9328687B4122}.Mono-Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ED1B7D0-B502-4147-90F0-9328687B4122}.Mono-Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ED1B7D0-B502-4147-90F0-9328687B4122}.Mono-Debug|x86-Only.ActiveCfg = Debug|Any CPU
+		{3ED1B7D0-B502-4147-90F0-9328687B4122}.Mono-Debug|x86-Only.Build.0 = Debug|Any CPU
+		{3ED1B7D0-B502-4147-90F0-9328687B4122}.Mono-Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ED1B7D0-B502-4147-90F0-9328687B4122}.Mono-Release|Any CPU.Build.0 = Release|Any CPU
+		{3ED1B7D0-B502-4147-90F0-9328687B4122}.Mono-Release|x86-Only.ActiveCfg = Release|Any CPU
+		{3ED1B7D0-B502-4147-90F0-9328687B4122}.Mono-Release|x86-Only.Build.0 = Release|Any CPU
+		{3ED1B7D0-B502-4147-90F0-9328687B4122}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ED1B7D0-B502-4147-90F0-9328687B4122}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ED1B7D0-B502-4147-90F0-9328687B4122}.Release|x86-Only.ActiveCfg = Release|Any CPU
+		{3ED1B7D0-B502-4147-90F0-9328687B4122}.Release|x86-Only.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

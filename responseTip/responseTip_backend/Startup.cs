@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
-
+using System.IO;
 
 namespace responseTip_backend
 {
-    class Startup
+    static class Startup
     {
-        public void Configuration()
+        public static void Configuration()
         {
             TwitterHandling.TwitterHandlingClass.twitterAuthentication(ConfigurationManager.AppSettings["Twitter_ConsumerKey"],
                         ConfigurationManager.AppSettings["Twitter_ConsumerSecret"],
@@ -20,6 +20,8 @@ namespace responseTip_backend
                 ConfigurationManager.AppSettings["Bitcoin_RpcUsername"],
                 ConfigurationManager.AppSettings["Bitcoin_RpcPassword"],
                 ConfigurationManager.AppSettings["Bitcoin_WalletPassword"]);
+            string path = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
+            responseTip.Helpers.Logger.InitiateLogs(path);
         }
     }
 }

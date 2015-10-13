@@ -8,6 +8,7 @@ using responseTip.Models;
 using System.Data.Entity;
 using BtcHandling;
 using TwitterHandling;
+using responseTip.Helpers;
 
 namespace responseTip_backend
 {
@@ -17,6 +18,9 @@ namespace responseTip_backend
         
         static void Main(string[] args)
         {
+            Startup.Configuration();
+            
+
             while (true)//infinite loop
             {
 //                TwitterHandling.TwitterHandlingClass.PublishTweet("connected");
@@ -50,11 +54,15 @@ namespace responseTip_backend
                     if (task.twitterUserNameSelected == null)
                     {
                         responseTipDatabase.ResponseTipTasks.Remove(task);
-                        Console.WriteLine("Deleted Task" + ": " + task.ResponseTipTaskID + "    " + task.twitterUserNameSelected);
+                        string line = "Deleted Task" + ": " + task.ResponseTipTaskID + "    " + task.twitterUserNameSelected;
+                        Console.WriteLine(line);
+                        Logger.LogLine(line,Logger.log_types.MESSAGE_LOG);
                     }
                     else
                     {
-                        Console.WriteLine("Task" + ": " + task.ResponseTipTaskID + "    " + task.twitterUserNameSelected);
+                        string line = "Task" + ": " + task.ResponseTipTaskID + "    " + task.twitterUserNameSelected;
+                        Console.WriteLine(line);
+                        Logger.LogLine(line, Logger.log_types.MESSAGE_LOG);
                     }
 
                 }
@@ -81,6 +89,7 @@ namespace responseTip_backend
                             break;
 
                         default:
+                            
                             throw new responseTip.Exceptions.InvalidTaskStatus();
                     }
 
@@ -93,6 +102,7 @@ namespace responseTip_backend
         private void TaskCreated(ResponseTipTask task)
         {
             task.taskStatus = TaskStatusesEnum.notPaid;
+            
         }
 
         private void TaskNotPaid(ResponseTipTask task)
