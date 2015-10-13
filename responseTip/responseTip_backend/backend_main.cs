@@ -9,42 +9,35 @@ using System.Data.Entity;
 using BtcHandling;
 using TwitterHandling;
 using responseTip.Helpers;
+using System.IO;
 
 namespace responseTip_backend
 {
     public class backend_main
     {
+        private static Logger backendLogger=new Logger();
         private static responseTipContext responseTipDatabase = new responseTipContext();
+
+
         
         static void Main(string[] args)
         {
-            Startup.Configuration();
-            
+            string directoryPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+            backendLogger.SetPath(directoryPath);
 
+            Startup.Configuration();
+
+            CleanTaskDatabase();
+
+           
             while (true)//infinite loop
             {
 //                TwitterHandling.TwitterHandlingClass.PublishTweet("connected");
-                IEnumerable<ResponseTipTask> enumerator = responseTipDatabase.ResponseTipTasks.AsEnumerable();
-                foreach (ResponseTipTask task in enumerator)
-                {
-                    if (task != null)
-                    {
-                        if (task.twitterUserNameSelected == null)
-                        {
-                            responseTipDatabase.ResponseTipTasks.Remove(task);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Task" + ": " + task.ResponseTipTaskID + "    " + task.twitterUserNameSelected);
-                        }
-                        
-                    }
-                }
                 Console.ReadKey();
             }
         }
 
-        private void CleanTaskDatabase()
+        private static void CleanTaskDatabase()
         {
             IEnumerable<ResponseTipTask> enumerator = responseTipDatabase.ResponseTipTasks.AsEnumerable();
             foreach (ResponseTipTask task in enumerator)
@@ -55,21 +48,22 @@ namespace responseTip_backend
                     {
                         responseTipDatabase.ResponseTipTasks.Remove(task);
                         string line = "Deleted Task" + ": " + task.ResponseTipTaskID + "    " + task.twitterUserNameSelected;
-                        Console.WriteLine(line);
-                        Logger.LogLine(line,Logger.log_types.MESSAGE_LOG);
+                        
+                        backendLogger.LogLine(line,Logger.log_types.MESSAGE_LOG);
                     }
                     else
                     {
                         string line = "Task" + ": " + task.ResponseTipTaskID + "    " + task.twitterUserNameSelected;
-                        Console.WriteLine(line);
-                        Logger.LogLine(line, Logger.log_types.MESSAGE_LOG);
+ //                       Console.WriteLine(line);
+                        backendLogger.LogLine(line, Logger.log_types.MESSAGE_LOG);
                     }
 
                 }
             }
+            responseTipDatabase.SaveChanges();
         }
 
-        private void taskStatePusherCycle()
+        private static void taskStatePusherCycle()
         {
             bool ismodified = false;
             IEnumerable<ResponseTipTask> enumerator = responseTipDatabase.ResponseTipTasks.AsEnumerable();
@@ -99,13 +93,13 @@ namespace responseTip_backend
             }
         }
 
-        private void TaskCreated(ResponseTipTask task)
+        private static void TaskCreated(ResponseTipTask task)
         {
             task.taskStatus = TaskStatusesEnum.notPaid;
             
         }
 
-        private void TaskNotPaid(ResponseTipTask task)
+        private static void TaskNotPaid(ResponseTipTask task)
         {
             decimal addressBalance=BtcHandling.BtcHandlingClass.CheckAdressBalance(task.BitcoinPublicAdress);
             if (addressBalance == task.BitcoinPrice)

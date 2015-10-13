@@ -20,8 +20,7 @@ namespace responseTip_backend
                 ConfigurationManager.AppSettings["Bitcoin_RpcUsername"],
                 ConfigurationManager.AppSettings["Bitcoin_RpcPassword"],
                 ConfigurationManager.AppSettings["Bitcoin_WalletPassword"]);
-            string path = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
-            responseTip.Helpers.Logger.InitiateLogs(path);
+           
         }
     }
 }

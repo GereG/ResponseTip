@@ -1,47 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace responseTip.Helpers
 {
-    public static class Logger
+    public class Logger
     {
-        private static System.IO.StreamWriter[] logs;
+        string directoryPath= Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
-        public static void InitiateLogs(string path)
+        public void SetPath(string path)
         {
-            if (logs == null) logs = new System.IO.StreamWriter[4];
-
-            logs[0] = new System.IO.StreamWriter(path + "\\error_log.log", true);
-            logs[1] = new System.IO.StreamWriter(path + "\\warning_log.log", true);
-            logs[2] = new System.IO.StreamWriter(path + "\\message_log.log", true);
-            logs[3] = new System.IO.StreamWriter(path + "\\all_logs.log", true);
-
-
+            directoryPath = path;
         }
 
-        public static void LogLine(string lines, log_types type)
+        public void LogLine(string lines, log_types type)
         {
+            System.IO.StreamWriter log;
+            Console.WriteLine(lines);
+            string time = DateTime.Now.ToString();
             switch (type)
             {
                 case log_types.ERROR_LOG:
-                    logs[0].WriteLine(lines);
+                    log = new System.IO.StreamWriter(directoryPath + "\\error_log.log", true);
+
+                    log.WriteLine(time + "\t" + type.ToString() + "\t" + lines);
+                    log.Close();
                     break;
+
                 case log_types.WARNING_LOG:
-                    logs[1].WriteLine(lines);
+                    log = new System.IO.StreamWriter(directoryPath + "\\warning_log.log", true);
+                    log.WriteLine(time + "\t" + type.ToString() + "\t" + lines);
+                    log.Close();
                     break;
+
                 case log_types.MESSAGE_LOG:
-                    logs[2].WriteLine(lines);
+                    log = new System.IO.StreamWriter(directoryPath + "\\message_log.log", true);
+                    log.WriteLine(time + "\t" + type.ToString() + "\t" + lines);
+                    log.Close();
                     break;
+
             }
-            logs[3].WriteLine(lines);
+            log = new System.IO.StreamWriter(directoryPath + "\\all_logs.log", true);
+            log.WriteLine(time + "\t" +type.ToString()+"\t"+ lines);
+            log.Close();
+
+    
         }
 
         public enum log_types {ERROR_LOG=0,WARNING_LOG=1,MESSAGE_LOG=2 };
-
-        
+    
     }
 
     
