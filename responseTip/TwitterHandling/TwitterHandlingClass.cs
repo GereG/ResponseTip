@@ -93,12 +93,24 @@ namespace TwitterHandling
             //           return Search.SearchUsers(username);
         }
 
+        public static void PostATweetOnAWall(string username,string question)
+        {
+            if (username != null)
+            {
+                string tweetText = "@" + username + " " + question;
+                Tweet.PublishTweet(tweetText);
+            }
+            else throw new NullReferenceException();
+        }
+
         private static byte[] turnImageToByteArray(System.Drawing.Image img)
         {
             MemoryStream ms = new MemoryStream();
             img.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
             return ms.ToArray();
         }
+
+
 
         //        public static void 
     }

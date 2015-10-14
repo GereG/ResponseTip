@@ -87,6 +87,10 @@ namespace responseTip_backend
                             TaskNotPaid(task);
                             ismodified = true;
                             break;
+                        case TaskStatusesEnum.paid:
+                            TaskPaid();
+
+                            break;
 
                         default:
                             
