@@ -54,7 +54,7 @@ namespace responseTip_backend
                         string line = "Deleted Task" + ": " + task.ResponseTipTaskID + "    " + task.twitterUserNameSelected;
                         backendLogger.LogLine(line,Logger.log_types.MESSAGE_LOG);
                     }
-                    else if(!BtcHandlingClass.IsAdressValidAndMine(task.BitcoinPublicAdress))
+                    else if(!BtcHandlingClass.IsAddressValidAndMine(task.BitcoinPublicAdress))
                     {
                         responseTipDatabase.ResponseTipTasks.Remove(task);
                         backendLogger.LogLine("Deleted Task" + ": " + task.ResponseTipTaskID + " because bitcoin address "+task.BitcoinPublicAdress+" is not valid or mine", Logger.log_types.WARNING_LOG);

@@ -51,7 +51,7 @@ namespace BtcHandling
             decimal addressBalance = 0;
             bool isAdressValidAndMine=false;
 
-                isAdressValidAndMine = IsAdressValidAndMine(address);
+                isAdressValidAndMine = IsAddressValidAndMine(address);
             try
             {
                 addressBalance = CoinService.GetAddressBalance(address, 2, true);
@@ -74,7 +74,7 @@ namespace BtcHandling
             return addressBalance;
         }
 
-        public static bool IsAdressValidAndMine(string address)
+        public static bool IsAddressValidAndMine(string address)
         {
             bool isValid = false;
             bool isMine = false;
@@ -101,6 +101,33 @@ namespace BtcHandling
             isMine = validateResponse.IsMine;
 
             return (isValid && isMine);
+        }
+
+        public static bool IsAddressValid(string address)
+        {
+            bool isValid = false;
+            BitcoinLib.Responses.ValidateAddressResponse validateResponse = null;
+
+            try
+            {
+                validateResponse = CoinService.ValidateAddress(address);
+            }
+            catch (RpcException exception)
+            {
+                //                Debug.WriteLine("[Failed]\n\nPlease check your configuration and make sure that the daemon is up and running and that it is synchronized. \n\nException: " + exception);
+                bitcoin_Logger.LogLine("[Failed]\n\nPlease check your configuration and make sure that the daemon is up and running and that it is synchronized. \n\nException: " + exception, responseTip.Helpers.Logger.log_types.ERROR_LOG);
+                //                newBtcAdress = "RPC exception";
+            }
+            catch (Exception e)
+            {
+                //                Debug.WriteLine("General exception at: " + e.StackTrace);
+                bitcoin_Logger.LogLine("General exception at: " + e.StackTrace, responseTip.Helpers.Logger.log_types.ERROR_LOG);
+                //                newBtcAdress = "General exception";
+            }
+
+            isValid = validateResponse.IsValid;
+
+            return (isValid);
         }
 
 
