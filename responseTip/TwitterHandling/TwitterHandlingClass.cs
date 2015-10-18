@@ -17,10 +17,10 @@ namespace TwitterHandling
         {
             public UserRecord[] searchResultsData;
 
-            public SearchResults()
+            public SearchResults(int numOfUsers)
             {
-                searchResultsData = new UserRecord[20];
-                for(int i=0;i<20;i++)
+                searchResultsData = new UserRecord[numOfUsers];
+                for(int i=0;i<numOfUsers;i++)
                 {
                     searchResultsData[i] = new UserRecord();
                 }
@@ -34,7 +34,7 @@ namespace TwitterHandling
 
             public void Copy(SearchResults original)
             {
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < searchResultsData.Count(); i++)
                 {
                     searchResultsData[i] = original.searchResultsData[i];
                 }
@@ -64,12 +64,12 @@ namespace TwitterHandling
         }
         public static SearchResults SearchUsersM(string username)
         {
-            SearchResults searchResults=new SearchResults();
             IEnumerable < Tweetinvi.Core.Interfaces.IUser> users = Search.SearchUsers(username,20,0);
-            //            Search.SearchUsers(username)
-            //            IEnumerator<Tweetinvi.Core.Interfaces.IUser> enumerator=user.GetEnumerator();
+
             int maxUsers = users.Count();
             if (maxUsers > 20) maxUsers = 20;
+
+            SearchResults searchResults = new SearchResults(maxUsers);
 
             for (int i=0; i<maxUsers; i++)
             {
