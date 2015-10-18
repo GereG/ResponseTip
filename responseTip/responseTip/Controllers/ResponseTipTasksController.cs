@@ -105,10 +105,15 @@ namespace responseTip.Controllers
         // GET: ResponseTipTasks/Create
         public ActionResult Create()
         {
+            ResponseTipTask newTask = new ResponseTipTask();
+            newTask.question = "AutomaticQuestion";
+            newTask.twitterUserNameWritten = "elon";
+            newTask.BitcoinReturnPublicAddress = "17xm46Mm8ZFGWKdqknF5QF3HLtFb2zd6fb";
+            newTask.BitcoinPrice = (decimal)100;
             /*            string address = BtcHandling.BtcHandlingClass.GetNewBtcAdress();
                         Debug.WriteLine("new adress: " + address);*/
             //            UserSearchResults = TwitterHandling.TwitterHandlingClass.SearchUsersM("bb");
-            return View();
+            return View(newTask);
         }
 
         // POST: ResponseTipTasks/Create
@@ -118,11 +123,6 @@ namespace responseTip.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ResponseTipTaskID,question,answer,twitterUserNameWritten,BitcoinReturnPublicAddress,BitcoinPrice,isQuestionPublic")] ResponseTipTask responseTipTask)
         {
-            /*            bool isReturnAddressValid = BtcHandlingClass.IsAddressValid(responseTipTask.BitcoinReturnPublicAddress);
-                        if(!isReturnAddressValid)
-                        {
-                            yield return
-                        }*/
             responseTipTask.BitcoinPublicAdress = BtcHandlingClass.GetNewBtcAdress();
             ModelState.Clear();
             TryValidateModel(responseTipTask);
