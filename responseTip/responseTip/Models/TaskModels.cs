@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BtcHandling;
 
 namespace responseTip.Models
 {
@@ -13,6 +14,7 @@ namespace responseTip.Models
         public ResponseTipTask()
         {
             BitcoinPrice = 300000;
+            BitcoinReturnPublicAddress = "17xm46Mm8ZFGWKdqknF5QF3HLtFb2zd6fb";
         }
         public int ResponseTipTaskID { get; set; }
         public string userName { get; set; }
@@ -30,8 +32,12 @@ namespace responseTip.Models
         public string twitterUserNameSelected { get; set; }
         public int ArbiterCount { get; set; }
 
+        [Required]
+        [BtcAddress]
         public string BitcoinPublicAdress { get; set; }
-        public string BitcoinReturnPublicAddress { get; set; }
+
+        [Required]
+        [BtcAddress] public string BitcoinReturnPublicAddress { get; set; }
 
         public decimal BitcoinPrice { get; set; }
         public bool isQuestionPublic { get; set; }
@@ -41,6 +47,14 @@ namespace responseTip.Models
 
         public TaskStatusesEnum taskStatus { get; set; }
 
+/*        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            bool isReturnAddressValid = BtcHandling.BtcHandlingClass.IsAddressValid(this.BitcoinReturnPublicAddress);
+            if (!isReturnAddressValid)
+            {
+                yield return new ValidationResult("This is not valid bitcoin address.", new[] { "BitcoinReturnPublicAddress" });
+            }
+        }*/
 
     }
 

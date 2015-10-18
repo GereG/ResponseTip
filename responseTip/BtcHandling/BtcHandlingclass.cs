@@ -19,7 +19,7 @@ namespace BtcHandling
         public static void ConnectToRpc(string daemonUrl, string rpcUsername, string rpcPassword, string walletPassword)
         {
             bitcoin_Logger = new responseTip.Helpers.Logger();
-            bitcoin_Logger.SetPath(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory())));
+            bitcoin_Logger.SetPath("C:\\Users\\GereG\\Source\\Repos\\ResponseTip\\responseTip");
             CoinService = new BitcoinService(daemonUrl, rpcUsername, rpcPassword, walletPassword);
             
         }
@@ -125,7 +125,10 @@ namespace BtcHandling
                 //                newBtcAdress = "General exception";
             }
 
-            isValid = validateResponse.IsValid;
+            if (validateResponse != null)
+            {
+                isValid = validateResponse.IsValid;
+            }
 
             return (isValid);
         }

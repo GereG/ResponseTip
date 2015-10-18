@@ -107,7 +107,7 @@ namespace responseTip.Controllers
         {
             /*            string address = BtcHandling.BtcHandlingClass.GetNewBtcAdress();
                         Debug.WriteLine("new adress: " + address);*/
-//            UserSearchResults = TwitterHandling.TwitterHandlingClass.SearchUsersM("bb");
+            //            UserSearchResults = TwitterHandling.TwitterHandlingClass.SearchUsersM("bb");
             return View();
         }
 
@@ -116,13 +116,22 @@ namespace responseTip.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ResponseTipTaskID,question,answer,twitterUserNameWritten,BitcoinPublicAdress,BitcoinPrice,isQuestionPublic")] ResponseTipTask responseTipTask)
+        public ActionResult Create([Bind(Include = "ResponseTipTaskID,question,answer,twitterUserNameWritten,BitcoinReturnPublicAddress,BitcoinPrice,isQuestionPublic")] ResponseTipTask responseTipTask)
         {
+            /*            bool isReturnAddressValid = BtcHandlingClass.IsAddressValid(responseTipTask.BitcoinReturnPublicAddress);
+                        if(!isReturnAddressValid)
+                        {
+                            yield return
+                        }*/
+            responseTipTask.BitcoinPublicAdress = BtcHandlingClass.GetNewBtcAdress();
+            ModelState.Clear();
+            TryValidateModel(responseTipTask);
+
             if (ModelState.IsValid)
             {
                 responseTipTask.taskStatus = TaskStatusesEnum.created;
                 responseTipTask.userName = User.Identity.Name;
-                responseTipTask.BitcoinPublicAdress = BtcHandlingClass.GetNewBtcAdress();
+                
                 responseTipTask.timeCreated = DateTime.Now;
                 responseTipTask.timeQuestionAsked = DateTime.MinValue;
                 db.ResponseTipTasks.Add(responseTipTask);
