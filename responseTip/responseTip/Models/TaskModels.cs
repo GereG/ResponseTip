@@ -20,7 +20,7 @@ namespace responseTip.Models
         [Required()]
         [Display(Name = "Asked Question")]
         //[RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$")]
-        [StringLength(30)]
+        [StringLength(137)]
         public string question { get; set; }
         public string answer { get; set; }
         [Required()]
@@ -31,6 +31,7 @@ namespace responseTip.Models
         public int ArbiterCount { get; set; }
 
         public string BitcoinPublicAdress { get; set; }
+        public string BitcoinReturnPublicAddress { get; set; }
 
         public decimal BitcoinPrice { get; set; }
         public bool isQuestionPublic { get; set; }
@@ -56,7 +57,7 @@ namespace responseTip.Models
 
     public enum TaskStatusesEnum
     {
-        created, notPaid, notPaid_expired, paid, questionAsked, questionAsked_expired, QuestionAnswered, AnswerValid, allPaymentsSettled, completed
+        created, notPaid, notPaid_expired, paid, questionAsked, questionAsked_expired, QuestionAnswered, AnswerValid, allPaymentsSettled, completed, closed
     }
 
     

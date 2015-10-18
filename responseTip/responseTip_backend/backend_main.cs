@@ -18,10 +18,11 @@ namespace responseTip_backend
         private static Logger backendLogger=new Logger();
         private static responseTipContext responseTipDatabase = new responseTipContext();
 
-        private const double taskExpirationTime = 2; //time from creation of task (in days) after which task expires
+        private const double taskNotPaidExpirationTime = 2; //time from creation of task (in days) after which task expires
+        private const double taskQuestionAskedExpirationTime = 15; //time from asking the question of task (in days) after which task expires and money is returned
 
 
-        
+
         static void Main(string[] args)
         {
             string directoryPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
@@ -88,8 +89,17 @@ namespace responseTip_backend
                             ismodified = true;
                             break;
                         case TaskStatusesEnum.paid:
-                            TaskPaid();
-
+                            TaskPaid(task);
+                            break;
+                        case TaskStatusesEnum.questionAsked:
+                            break;
+                        case TaskStatusesEnum.questionAsked_expired:
+                            break;
+                        case TaskStatusesEnum.AnswerValid:
+                            break;
+                        case TaskStatusesEnum.allPaymentsSettled:
+                            break;
+                        case TaskStatusesEnum.completed:
                             break;
 
                         default:
@@ -116,7 +126,7 @@ namespace responseTip_backend
                 task.taskStatus = TaskStatusesEnum.paid;
             }
             TimeSpan timeElapsedFromCreation= DateTime.Now.Subtract(task.timeCreated);
-            if (timeElapsedFromCreation.TotalDays > taskExpirationTime)
+            if (timeElapsedFromCreation.TotalDays > taskNotPaidExpirationTime)
             {
                 task.taskStatus = TaskStatusesEnum.notPaid_expired;
             }
@@ -128,8 +138,43 @@ namespace responseTip_backend
 
         private static void TaskPaid(ResponseTipTask task)
         {
+            TwitterHandlingClass.PostATweetOnAWall(task.twitterUserNameSelected, task.question);
+            task.taskStatus = TaskStatusesEnum.questionAsked;
+            task.timeQuestionAsked = DateTime.Now;
+        }
+
+        private static void TaskQuestionAsked(ResponseTipTask task)
+        {
+            TimeSpan timeElapsedFromQuestionAsked = DateTime.Now.Subtract(task.timeQuestionAsked);
+            if (timeElapsedFromQuestionAsked.TotalDays > taskQuestionAskedExpirationTime)
+            {
+                task.taskStatus = TaskStatusesEnum.questionAsked_expired;
+            }
+            else
+            {
+                task.taskStatus = TaskStatusesEnum.questionAsked;
+            }
+        }
+
+        private static void TaskQuestionAskedExpired(ResponseTipTask task)
+        {
+            // TODO return money to return address, set state to closed
+        }
+        private static void TaskQuestionAnswered(ResponseTipTask task)
+        {
 
         }
+        private static void TaskAnswerValid(ResponseTipTask task)
+        {
+
+        }
+        private static void TaskAllPaymentsSettled(ResponseTipTask task)
+        {
+
+        }
+
+
+       
 
 
     }

@@ -263,6 +263,18 @@
     <Compile Include="Migrations\201510121853059_first.Designer.cs">
       <DependentUpon>201510121853059_first.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510171955131_questionLength.cs" />
+    <Compile Include="Migrations\201510171955131_questionLength.Designer.cs">
+      <DependentUpon>201510171955131_questionLength.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510181114430_TaskStatusesEnum.closed.cs" />
+    <Compile Include="Migrations\201510181114430_TaskStatusesEnum.closed.Designer.cs">
+      <DependentUpon>201510181114430_TaskStatusesEnum.closed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510181119143_returnBitcoinAddress.cs" />
+    <Compile Include="Migrations\201510181119143_returnBitcoinAddress.Designer.cs">
+      <DependentUpon>201510181119143_returnBitcoinAddress.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\SocialSiteUsers.cs" />
@@ -366,6 +378,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201510121853059_first.resx">
       <DependentUpon>201510121853059_first.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510171955131_questionLength.resx">
+      <DependentUpon>201510171955131_questionLength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510181114430_TaskStatusesEnum.closed.resx">
+      <DependentUpon>201510181114430_TaskStatusesEnum.closed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510181119143_returnBitcoinAddress.resx">
+      <DependentUpon>201510181119143_returnBitcoinAddress.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
