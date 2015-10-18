@@ -107,9 +107,9 @@ namespace responseTip.Controllers
         {
             ResponseTipTask newTask = new ResponseTipTask();
             newTask.question = "AutomaticQuestion";
-            newTask.twitterUserNameWritten = "elon";
-            newTask.BitcoinReturnPublicAddress = "17xm46Mm8ZFGWKdqknF5QF3HLtFb2zd6fb";
-            newTask.BitcoinPrice = (decimal)100;
+            newTask.twitterUserNameWritten = "RichardVelky";
+            newTask.BitcoinReturnPublicAddress = "n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi";
+            newTask.BitcoinPrice = (decimal)1;
             /*            string address = BtcHandling.BtcHandlingClass.GetNewBtcAdress();
                         Debug.WriteLine("new adress: " + address);*/
             //            UserSearchResults = TwitterHandling.TwitterHandlingClass.SearchUsersM("bb");

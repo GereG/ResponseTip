@@ -66,9 +66,12 @@ namespace TwitterHandling
         {
             SearchResults searchResults=new SearchResults();
             IEnumerable < Tweetinvi.Core.Interfaces.IUser> users = Search.SearchUsers(username,20,0);
-//            Search.SearchUsers(username)
+            //            Search.SearchUsers(username)
             //            IEnumerator<Tweetinvi.Core.Interfaces.IUser> enumerator=user.GetEnumerator();
-            for (int i=0; i<20; i++)
+            int maxUsers = users.Count();
+            if (maxUsers > 20) maxUsers = 20;
+
+            for (int i=0; i<maxUsers; i++)
             {
                 var uzivatel = users.ElementAt(i);
                 var stream = User.GetProfileImageStream(uzivatel);

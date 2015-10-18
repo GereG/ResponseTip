@@ -15,6 +15,10 @@ namespace BtcHandling
     {
         private static ICoinService CoinService;
         private static responseTip.Helpers.Logger bitcoin_Logger;
+        private static decimal estimatedFee=0;
+        private static uint currentBlockCount=0;
+
+
 
         public static void ConnectToRpc(string daemonUrl, string rpcUsername, string rpcPassword, string walletPassword)
         {
@@ -22,6 +26,57 @@ namespace BtcHandling
             bitcoin_Logger.SetPath("C:\\Users\\GereG\\Source\\Repos\\ResponseTip\\responseTip");
             CoinService = new BitcoinService(daemonUrl, rpcUsername, rpcPassword, walletPassword);
             
+        }
+
+        public static bool IsNextBlock()
+        {
+            uint newBlockCount = 0;
+            try
+            {
+                newBlockCount = CoinService.GetBlockCount();
+            }
+            catch (RpcException exception)
+            {
+                //                Debug.WriteLine("[Failed]\n\nPlease check your configuration and make sure that the daemon is up and running and that it is synchronized. \n\nException: " + exception);
+                bitcoin_Logger.LogLine("[Failed]\n\nPlease check your configuration and make sure that the daemon is up and running and that it is synchronized. \n\nException: " + exception, responseTip.Helpers.Logger.log_types.ERROR_LOG);
+                //                newBtcAdress = "RPC exception";
+            }
+            catch (Exception e)
+            {
+                //                Debug.WriteLine("General exception at: " + e.StackTrace);
+                bitcoin_Logger.LogLine("General exception at: " + e.StackTrace, responseTip.Helpers.Logger.log_types.ERROR_LOG);
+                //                newBtcAdress = "General exception";
+            }
+
+            if (newBlockCount>currentBlockCount)
+            {
+                EstimateTxFee();
+                return true;
+            }
+            else { return false; }
+        }
+
+
+        public static void EstimateTxFee()
+        {
+            try
+            {
+                estimatedFee = CoinService.EstimateFee(50);
+            }
+            catch (RpcException exception)
+            {
+                //                Debug.WriteLine("[Failed]\n\nPlease check your configuration and make sure that the daemon is up and running and that it is synchronized. \n\nException: " + exception);
+                bitcoin_Logger.LogLine("[Failed]\n\nPlease check your configuration and make sure that the daemon is up and running and that it is synchronized. \n\nException: " + exception, responseTip.Helpers.Logger.log_types.ERROR_LOG);
+                //                newBtcAdress = "RPC exception";
+            }
+            catch (Exception e)
+            {
+                //                Debug.WriteLine("General exception at: " + e.StackTrace);
+                bitcoin_Logger.LogLine("General exception at: " + e.StackTrace, responseTip.Helpers.Logger.log_types.ERROR_LOG);
+                //                newBtcAdress = "General exception";
+            }
+
+            return;
         }
         public static string GetNewBtcAdress()
         {
@@ -131,6 +186,29 @@ namespace BtcHandling
             }
 
             return (isValid);
+        }
+
+        public static void SendToAddress(string targetAddress,decimal amount)
+        {
+//            decimal originAddressBalance = CheckAdressBalance(originAddress);
+            decimal txFee = BtcHandlingClass.estimatedFee;
+            try
+            {
+                CoinService.SetTxFee(txFee);
+                CoinService.SendToAddress(targetAddress, amount - txFee);
+            }
+            catch (RpcException exception)
+            {
+                //                Debug.WriteLine("[Failed]\n\nPlease check your configuration and make sure that the daemon is up and running and that it is synchronized. \n\nException: " + exception);
+                bitcoin_Logger.LogLine("[Failed]\n\nPlease check your configuration and make sure that the daemon is up and running and that it is synchronized. \n\nException: " + exception, responseTip.Helpers.Logger.log_types.ERROR_LOG);
+                //                newBtcAdress = "RPC exception";
+            }
+            catch (Exception e)
+            {
+                //                Debug.WriteLine("General exception at: " + e.StackTrace);
+                bitcoin_Logger.LogLine("General exception at: " + e.StackTrace, responseTip.Helpers.Logger.log_types.ERROR_LOG);
+                //                newBtcAdress = "General exception";
+            }
         }
 
 

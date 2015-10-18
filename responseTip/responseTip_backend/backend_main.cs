@@ -37,6 +37,11 @@ namespace responseTip_backend
            
             while (true)//infinite loop
             {
+                if(BtcHandlingClass.IsNextBlock())
+                {
+                    //TODO update only tasks with new block dependent task status
+                }
+                //TODO update task not dependent on new blocks
                 taskStatePusherCycle();
             }
         }
@@ -72,7 +77,6 @@ namespace responseTip_backend
 
         private static void taskStatePusherCycle()
         {
-            bool ismodified = false;
             IEnumerable<ResponseTipTask> enumerator = responseTipDatabase.ResponseTipTasks.AsEnumerable();
             foreach (ResponseTipTask task in enumerator)
             {
@@ -82,11 +86,9 @@ namespace responseTip_backend
                     {
                         case TaskStatusesEnum.created:
                             TaskCreated(task);
-                            ismodified = true;
                             break;
                         case TaskStatusesEnum.notPaid:
                             TaskNotPaid(task);
-                            ismodified = true;
                             break;
                         case TaskStatusesEnum.paid:
                             TaskPaid(task);
