@@ -13,7 +13,7 @@ namespace responseTip.Models
     {
         public ResponseTipTask()
         {
-            BitcoinPrice = 300000;
+            BitcoinPrice = 0.0005m;
             BitcoinReturnPublicAddress = "17xm46Mm8ZFGWKdqknF5QF3HLtFb2zd6fb";
         }
         public int ResponseTipTaskID { get; set; }
@@ -38,7 +38,8 @@ namespace responseTip.Models
 
         [Required]
         [BtcAddress] public string BitcoinReturnPublicAddress { get; set; }
-
+        
+        [DisplayFormat(DataFormatString = "{0:F8}", ApplyFormatInEditMode =true)]
         public decimal BitcoinPrice { get; set; }
         public bool isQuestionPublic { get; set; }
 

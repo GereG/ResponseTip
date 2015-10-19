@@ -16,7 +16,7 @@ namespace responseTip_backend
                         ConfigurationManager.AppSettings["Twitter_ConsumerSecret"],
                         ConfigurationManager.AppSettings["Twitter_AccessToken"],
                         ConfigurationManager.AppSettings["Twitter_AccessTokenSecret"]);
-            BtcHandling.BtcHandlingClass.ConnectToRpc(ConfigurationManager.AppSettings["Bitcoin_DaemonUrl"],
+            BtcHandling.BtcHandlingClass.ConnectToRpc(ConfigurationManager.AppSettings["Bitcoin_DaemonUrl_Testnet"],
                 ConfigurationManager.AppSettings["Bitcoin_RpcUsername"],
                 ConfigurationManager.AppSettings["Bitcoin_RpcPassword"],
                 ConfigurationManager.AppSettings["Bitcoin_WalletPassword"]);

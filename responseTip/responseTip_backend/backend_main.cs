@@ -39,6 +39,7 @@ namespace responseTip_backend
             {
                 if(BtcHandlingClass.IsNextBlock())
                 {
+                    backendLogger.LogLine("New Block",Logger.log_types.MESSAGE_LOG);
                     //TODO update only tasks with new block dependent task status
                 }
                 //TODO update task not dependent on new blocks

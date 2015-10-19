@@ -50,6 +50,7 @@ namespace BtcHandling
 
             if (newBlockCount>currentBlockCount)
             {
+                currentBlockCount = newBlockCount;
                 EstimateTxFee();
                 return true;
             }

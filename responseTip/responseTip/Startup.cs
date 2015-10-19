@@ -24,6 +24,8 @@ namespace responseTip
                 WebConfigurationManager.AppSettings["Bitcoin_WalletPassword"]);
             string address=BtcHandling.BtcHandlingClass.GetNewBtcAdress();
             Debug.WriteLine("adress: "+address);
+
+//            DecimalFormat format = new DecimalFormat("###,###,###,###,###.##");
         }
     }
 }
