@@ -288,6 +288,10 @@
     <Compile Include="Migrations\201510191955182_bitcoinPriceFormat.Designer.cs">
       <DependentUpon>201510191955182_bitcoinPriceFormat.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510201549020_bitcoinPricePrecission.cs" />
+    <Compile Include="Migrations\201510201549020_bitcoinPricePrecission.Designer.cs">
+      <DependentUpon>201510201549020_bitcoinPricePrecission.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\SocialSiteUsers.cs" />
@@ -409,6 +413,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510191955182_bitcoinPriceFormat.resx">
       <DependentUpon>201510191955182_bitcoinPriceFormat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510201549020_bitcoinPricePrecission.resx">
+      <DependentUpon>201510201549020_bitcoinPricePrecission.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
