@@ -3,6 +3,8 @@ using Owin;
 //using responseTip.Bussines_logic;
 using System.Web.Configuration;
 using System.Diagnostics;
+using System.Threading;
+using System.Globalization;
 
 [assembly: OwinStartupAttribute(typeof(responseTip.Startup))]
 namespace responseTip
@@ -25,7 +27,6 @@ namespace responseTip
             string address=BtcHandling.BtcHandlingClass.GetNewBtcAdress();
             Debug.WriteLine("adress: "+address);
 
-//            DecimalFormat format = new DecimalFormat("###,###,###,###,###.##");
         }
     }
 }

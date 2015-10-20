@@ -41,6 +41,9 @@ namespace responseTip.Models
         
         [DisplayFormat(DataFormatString = "{0:F8}", ApplyFormatInEditMode =true)]
         public decimal BitcoinPrice { get; set; }
+        [Range(1,20)]
+        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = false)]
+        public decimal DollarPrice { get; set; }
         public bool isQuestionPublic { get; set; }
 
         public DateTime timeCreated { get; set; }

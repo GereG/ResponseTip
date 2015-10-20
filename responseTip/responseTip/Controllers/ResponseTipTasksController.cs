@@ -109,7 +109,7 @@ namespace responseTip.Controllers
             newTask.question = "AutomaticQuestion";
             newTask.twitterUserNameWritten = "RichardVelky";
             newTask.BitcoinReturnPublicAddress = "n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi";
-            newTask.BitcoinPrice = (decimal)0.00050000m;
+            newTask.DollarPrice = (decimal)0.5;
             /*            string address = BtcHandling.BtcHandlingClass.GetNewBtcAdress();
                         Debug.WriteLine("new adress: " + address);*/
             //            UserSearchResults = TwitterHandling.TwitterHandlingClass.SearchUsersM("bb");
@@ -121,7 +121,7 @@ namespace responseTip.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ResponseTipTaskID,question,twitterUserNameWritten,BitcoinReturnPublicAddress,BitcoinPrice,isQuestionPublic")] ResponseTipTask responseTipTask)
+        public ActionResult Create([Bind(Include = "ResponseTipTaskID,question,twitterUserNameWritten,BitcoinReturnPublicAddress,DollarPrice,isQuestionPublic")] ResponseTipTask responseTipTask)
         {
             responseTipTask.BitcoinPublicAdress = BtcHandlingClass.GetNewBtcAdress();
             ModelState.Clear();
