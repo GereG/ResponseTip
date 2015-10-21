@@ -34,6 +34,7 @@ namespace responseTip_backend
 
             CleanTaskDatabase();
 
+            decimal dollarPrice=bitcoinAverageAPI.CallForBitcoinAverageDollarPrice();
            
             while (true)//infinite loop
             {
