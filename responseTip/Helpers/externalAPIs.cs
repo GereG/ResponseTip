@@ -9,7 +9,7 @@ using System.Globalization;
 
 namespace responseTip.Helpers
 {
-    public class bitcoinAverageAPI
+    public class externalAPIs
     {
         public static decimal CallForBitcoinAverageDollarPrice()
         {
