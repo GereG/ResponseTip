@@ -16,7 +16,10 @@ namespace BtcHandling
         private static ICoinService CoinService;
         private static responseTip.Helpers.Logger bitcoin_Logger;
         private static decimal estimatedFee=0;
+        public static DateTime timeEstimatedFeeChecked;
+        public const int estimatedFeeCheckingIntervalInMinutes = 100;
         private static uint currentBlockCount=0;
+        private static uint actualKeyPoolSize = 0;
 
 
 
@@ -57,12 +60,44 @@ namespace BtcHandling
             else { return false; }
         }
 
+        public static decimal UpdateEstimatedTxFee()
+        {
+            TimeSpan timeFromLastUpdate = DateTime.Now.Subtract(timeEstimatedFeeChecked);
+            if (estimatedFeeCheckingIntervalInMinutes < timeFromLastUpdate.TotalMinutes)
+            {
+                EstimateTxFee();
+            }
+
+
+            return estimatedFee;
+        }
+
+        public static void WalletPassphrase()
+        {
+            try
+            {
+                CoinService.WalletPassphrase("KPh,D%ks^9rg", 60); //works as keypool refill
+            }
+            catch (RpcException exception)
+            {
+                //                Debug.WriteLine("[Failed]\n\nPlease check your configuration and make sure that the daemon is up and running and that it is synchronized. \n\nException: " + exception);
+                bitcoin_Logger.LogLine("[Failed]\n\nPlease check your configuration and make sure that the daemon is up and running and that it is synchronized. \n\nException: " + exception, responseTip.Helpers.Logger.log_types.ERROR_LOG);
+                //                newBtcAdress = "RPC exception";
+            }
+            catch (Exception e)
+            {
+                //                Debug.WriteLine("General exception at: " + e.StackTrace);
+                bitcoin_Logger.LogLine("General exception at: " + e.StackTrace, responseTip.Helpers.Logger.log_types.ERROR_LOG);
+                //                newBtcAdress = "General exception";
+            }
+        }
 
         public static void EstimateTxFee()
         {
             try
             {
-                estimatedFee = CoinService.EstimateFee(50);
+//                estimatedFee = CoinService.EstimateFee(500);
+                estimatedFee= CoinService.GetMinimumNonZeroTransactionFeeEstimate(1, 1);
             }
             catch (RpcException exception)
             {
@@ -85,6 +120,18 @@ namespace BtcHandling
             try
             {
                 newBtcAdress = CoinService.GetNewAddress();
+                CoinService.SetAccount(newBtcAdress, newBtcAdress);
+                actualKeyPoolSize--;
+            }
+            catch(RpcInternalServerErrorException exception)
+            {
+                if(exception.RpcErrorCode==BitcoinLib.RPC.Specifications.RpcErrorCode.RPC_WALLET_KEYPOOL_RAN_OUT)
+                {
+                    //                    CoinService.WalletPassphrase(passphrase, 60);
+                    //                    CoinService.KeyPoolRefill(1000);
+                    //                    newBtcAdress = GetNewBtcAdress();
+                    bitcoin_Logger.LogLine("keypool ran out", responseTip.Helpers.Logger.log_types.ERROR_LOG);
+                }
             }
             catch (RpcException exception)
             {
@@ -101,6 +148,7 @@ namespace BtcHandling
 
             return newBtcAdress;
         }
+
 
         public static decimal CheckAdressBalance(string address)
         {
@@ -189,10 +237,15 @@ namespace BtcHandling
             return (isValid);
         }
 
-        public static void SendToAddress(string targetAddress,decimal amount)
+/*        public static void SendToAddress(string targetAddress,decimal amount) //depreciated - dont use
         {
 //            decimal originAddressBalance = CheckAdressBalance(originAddress);
-            decimal txFee = BtcHandlingClass.estimatedFee;
+            decimal txFee = BtcHandlingClass.UpdateEstimatedTxFee();
+            if (txFee >= amount)
+            {
+                bitcoin_Logger.LogLine("Amount too low to send(amount lower then TxFee).", responseTip.Helpers.Logger.log_types.MESSAGE_LOG);
+                return;
+            }
             try
             {
                 CoinService.SetTxFee(txFee);
@@ -209,6 +262,71 @@ namespace BtcHandling
                 //                Debug.WriteLine("General exception at: " + e.StackTrace);
                 bitcoin_Logger.LogLine("General exception at: " + e.StackTrace, responseTip.Helpers.Logger.log_types.ERROR_LOG);
                 //                newBtcAdress = "General exception";
+            }
+        }*/
+
+        public static void SendFromAndToAddress(string sourceAddress,string targetAddress, decimal amount,string passphrase) // since every generation of new address creates account with same name, we can use sendFrom to send from particular address
+        {
+            decimal txFee = BtcHandlingClass.UpdateEstimatedTxFee();
+            if (txFee >= amount)
+            {
+                bitcoin_Logger.LogLine("Amount too low to send(amount lower then TxFee).", responseTip.Helpers.Logger.log_types.MESSAGE_LOG);
+                return;
+            }
+            try
+            {
+                CoinService.WalletPassphrase(passphrase, 10);
+                CoinService.SetTxFee(txFee);
+                CoinService.SendFrom(sourceAddress, targetAddress, amount - txFee, 2);
+                CoinService.WalletLock();
+            }
+            catch (RpcException exception)
+            {
+                //                Debug.WriteLine("[Failed]\n\nPlease check your configuration and make sure that the daemon is up and running and that it is synchronized. \n\nException: " + exception);
+                bitcoin_Logger.LogLine("[Failed]\n\nPlease check your configuration and make sure that the daemon is up and running and that it is synchronized. \n\nException: " + exception, responseTip.Helpers.Logger.log_types.ERROR_LOG);
+                //                newBtcAdress = "RPC exception";
+            }
+            catch (Exception e)
+            {
+                //                Debug.WriteLine("General exception at: " + e.StackTrace);
+                bitcoin_Logger.LogLine("General exception at: " + e.StackTrace, responseTip.Helpers.Logger.log_types.ERROR_LOG);
+                //                newBtcAdress = "General exception";
+            }
+        }
+
+        public static double KeyPoolSize(string passphrase)
+        {
+            double keyPoolSize = 0;
+            BitcoinLib.Responses.GetInfoResponse getInfoResponse=null;
+            try {
+                getInfoResponse = CoinService.GetInfo();
+            }
+            catch (RpcException exception)
+            {
+                //                Debug.WriteLine("[Failed]\n\nPlease check your configuration and make sure that the daemon is up and running and that it is synchronized. \n\nException: " + exception);
+                bitcoin_Logger.LogLine("[Failed]\n\nPlease check your configuration and make sure that the daemon is up and running and that it is synchronized. \n\nException: " + exception, responseTip.Helpers.Logger.log_types.ERROR_LOG);
+                //                newBtcAdress = "RPC exception";
+            }
+            catch (Exception e)
+            {
+                //                Debug.WriteLine("General exception at: " + e.StackTrace);
+                bitcoin_Logger.LogLine("General exception at: " + e.StackTrace, responseTip.Helpers.Logger.log_types.ERROR_LOG);
+                //                newBtcAdress = "General exception";
+            }
+            keyPoolSize = getInfoResponse.KeyPoolSize;
+
+            return keyPoolSize;
+        }
+
+        public static void UpdateKeyPool(string passphrase)
+        {
+            if(actualKeyPoolSize<100)
+            {
+                CoinService.WalletPassphrase(passphrase, 60);
+                CoinService.KeyPoolRefill(1000);
+                CoinService.WalletLock();
+                //TODO add wallet backup 
+                actualKeyPoolSize = 1000;
             }
         }
 

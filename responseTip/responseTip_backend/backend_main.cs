@@ -10,6 +10,7 @@ using BtcHandling;
 using TwitterHandling;
 using responseTip.Helpers;
 using System.IO;
+using System.Configuration;
 
 namespace responseTip_backend
 {
@@ -126,20 +127,31 @@ namespace responseTip_backend
 
         private static void TaskNotPaid(ResponseTipTask task)
         {
+//            backendLogger.LogLine(""+task.ResponseTipTaskID, Logger.log_types.MESSAGE_LOG);
             decimal addressBalance=BtcHandling.BtcHandlingClass.CheckAdressBalance(task.BitcoinPublicAdress);
+
             if (addressBalance == task.BitcoinPrice)
             {
                 task.taskStatus = TaskStatusesEnum.paid;
             }
-            TimeSpan timeElapsedFromCreation= DateTime.Now.Subtract(task.timeCreated);
-            if (timeElapsedFromCreation.TotalDays > taskNotPaidExpirationTime)
+            else if (addressBalance > task.BitcoinPrice + BtcHandlingClass.UpdateEstimatedTxFee()) //if amount higher than neccessary and difference higher than txfee --return it to return address
             {
-                task.taskStatus = TaskStatusesEnum.notPaid_expired;
+                BtcHandlingClass.SendFromAndToAddress(task.BitcoinPublicAdress,task.BitcoinReturnPublicAddress, addressBalance - task.BitcoinPrice,ConfigurationManager.AppSettings["Bitcoin_WalletPassword"]);
+                task.taskStatus = TaskStatusesEnum.paid;
             }
-            else
+            else if (addressBalance > task.BitcoinPrice) //if amount higher than neccessary but difference lower than txfee --let it be
             {
-                task.taskStatus = TaskStatusesEnum.notPaid;
+                task.taskStatus = TaskStatusesEnum.paid;
             }
+            else if (addressBalance< task.BitcoinPrice) // if its lower then check if not expired
+            {
+                TimeSpan timeElapsedFromCreation = DateTime.Now.Subtract(task.timeCreated);
+                if (timeElapsedFromCreation.TotalDays > taskNotPaidExpirationTime)
+                {
+                    task.taskStatus = TaskStatusesEnum.notPaid_expired;
+                }
+            }
+
         }
 
         private static void TaskPaid(ResponseTipTask task)
@@ -164,8 +176,11 @@ namespace responseTip_backend
 
         private static void TaskQuestionAskedExpired(ResponseTipTask task)
         {
-            // TODO return money to return address, set state to closed
+            decimal addressBalance = BtcHandling.BtcHandlingClass.CheckAdressBalance(task.BitcoinPublicAdress);
+            BtcHandlingClass.SendFromAndToAddress(task.BitcoinPublicAdress,task.BitcoinReturnPublicAddress, addressBalance, ConfigurationManager.AppSettings["Bitcoin_WalletPassword"]);
+            task.taskStatus = TaskStatusesEnum.closed;
         }
+
         private static void TaskQuestionAnswered(ResponseTipTask task)
         {
 

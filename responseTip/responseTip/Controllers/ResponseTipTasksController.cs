@@ -10,6 +10,7 @@ using responseTip.Models;
 //using responseTip.Bussines_logic;
 using System.Diagnostics;
 using BtcHandling;
+using responseTip.Helpers;
 
 namespace responseTip.Controllers
 {
@@ -109,7 +110,7 @@ namespace responseTip.Controllers
             newTask.question = "AutomaticQuestion";
             newTask.twitterUserNameWritten = "RichardVelky";
             newTask.BitcoinReturnPublicAddress = "n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi";
-            newTask.DollarPrice = (decimal)0.5;
+            newTask.DollarPrice = (decimal)1;
             /*            string address = BtcHandling.BtcHandlingClass.GetNewBtcAdress();
                         Debug.WriteLine("new adress: " + address);*/
             //            UserSearchResults = TwitterHandling.TwitterHandlingClass.SearchUsersM("bb");
@@ -124,6 +125,9 @@ namespace responseTip.Controllers
         public ActionResult Create([Bind(Include = "ResponseTipTaskID,question,twitterUserNameWritten,BitcoinReturnPublicAddress,DollarPrice,isQuestionPublic")] ResponseTipTask responseTipTask)
         {
             responseTipTask.BitcoinPublicAdress = BtcHandlingClass.GetNewBtcAdress();
+            responseTipTask.BitcoinPrice = responseTipTask.DollarPrice / externalAPIs.UpdateBitcoinAverageDollarPrice();
+            decimal estimatedTxFee = BtcHandlingClass.UpdateEstimatedTxFee();
+            responseTipTask.BitcoinPrice += estimatedTxFee;
             ModelState.Clear();
             TryValidateModel(responseTipTask);
 

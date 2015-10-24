@@ -399,6 +399,10 @@
       <Project>{6f73fd85-294b-4c9a-823b-044241a9f458}</Project>
       <Name>BtcHandling</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
+      <Project>{3ed1b7d0-b502-4147-90f0-9328687b4122}</Project>
+      <Name>Helpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TwitterHandling\TwitterHandling.csproj">
       <Project>{d62664cc-9509-46d0-9b37-01213580f51e}</Project>
       <Name>TwitterHandling</Name>

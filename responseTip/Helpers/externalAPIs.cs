@@ -9,8 +9,23 @@ using System.Globalization;
 
 namespace responseTip.Helpers
 {
-    public class externalAPIs
+    public static class externalAPIs
     {
+        public static decimal BitcoinPriceInDollars;
+        public static DateTime timeBitcoinPriceInDollarsChecked;
+        public const int bitcoinPriceUpdateIntervalInMinutes=10;
+
+        public static decimal UpdateBitcoinAverageDollarPrice()
+        {
+            TimeSpan timeFromLastUpdate = DateTime.Now.Subtract(timeBitcoinPriceInDollarsChecked);
+            if (bitcoinPriceUpdateIntervalInMinutes < timeFromLastUpdate.TotalMinutes)
+            {
+                CallForBitcoinAverageDollarPrice();
+            }
+
+            return BitcoinPriceInDollars;
+        }
+
         public static decimal CallForBitcoinAverageDollarPrice()
         {
             decimal dollarPrice=0;
@@ -24,6 +39,7 @@ namespace responseTip.Helpers
             IRestResponse response = client.Execute(request);
 //            IFormatProvider formatProvider=
             dollarPrice=Convert.ToDecimal(response.Content, CultureInfo.InvariantCulture);
+            BitcoinPriceInDollars = dollarPrice;
             return dollarPrice;
         }
 }
