@@ -23,7 +23,7 @@ namespace responseTip.Helpers
 
             IRestResponse response = client.Execute(request);
 //            IFormatProvider formatProvider=
-            dollarPrice=Convert.ToDecimal(response.Content, CultureInfo.CurrentCulture);
+            dollarPrice=Convert.ToDecimal(response.Content, CultureInfo.InvariantCulture);
             return dollarPrice;
         }
 }

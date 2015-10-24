@@ -92,6 +92,8 @@ namespace responseTip_backend
                         case TaskStatusesEnum.notPaid:
                             TaskNotPaid(task);
                             break;
+                        case TaskStatusesEnum.notPaid_expired:
+                            break;
                         case TaskStatusesEnum.paid:
                             TaskPaid(task);
                             break;
