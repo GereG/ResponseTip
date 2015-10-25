@@ -100,8 +100,12 @@ namespace responseTip_backend
                             TaskPaid(task);
                             break;
                         case TaskStatusesEnum.questionAsked:
+                            TaskQuestionAsked(task);
                             break;
                         case TaskStatusesEnum.questionAsked_expired:
+                            TaskQuestionAskedExpired(task);
+                            break;
+                        case TaskStatusesEnum.QuestionAnswered:
                             break;
                         case TaskStatusesEnum.AnswerValid:
                             break;
@@ -157,14 +161,21 @@ namespace responseTip_backend
 
         private static void TaskPaid(ResponseTipTask task)
         {
-            TwitterHandlingClass.PostATweetOnAWall(task.twitterUserNameSelected, task.question);
+            task.questionTweetId=TwitterHandlingClass.PostATweetOnAWall(task.twitterUserNameSelected, task.question);
             task.taskStatus = TaskStatusesEnum.questionAsked;
             task.timeQuestionAsked = DateTime.Now;
         }
 
         private static void TaskQuestionAsked(ResponseTipTask task)
         {
-
+            long answerTweetId=TwitterHandlingClass.CheckAnswerToQuestion((long)task.questionTweetId, task.twitterUserNameSelected);
+            if(answerTweetId>0)
+            {
+                task.answerTweetId = answerTweetId;
+                task.answer = TwitterHandlingClass.GetTweetAsString((long)task.answerTweetId);
+                task.taskStatus = TaskStatusesEnum.QuestionAnswered;
+                return;
+            }
 
             TimeSpan timeElapsedFromQuestionAsked = DateTime.Now.Subtract(task.timeQuestionAsked);
             if (timeElapsedFromQuestionAsked.TotalDays > taskQuestionAskedExpirationTime)

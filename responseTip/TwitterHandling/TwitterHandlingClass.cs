@@ -128,9 +128,38 @@ namespace TwitterHandling
             return ms.ToArray();
         }
 
-        public static void CheckAnswerToQuestion()
+        public static long CheckAnswerToQuestion(long tweetIdInAnswerTo, string userProfileName)
         {
-            
+            IEnumerable<Tweetinvi.Core.Interfaces.ITweet> repliedTweets;
+            repliedTweets=Search.SearchDirectRepliesTo(Tweet.GetTweet(tweetIdInAnswerTo));
+
+            long firstAuthenticTwitterReplyID = -1;
+            foreach (Tweetinvi.Core.Interfaces.ITweet tweet in repliedTweets)
+            {
+                Tweetinvi.Core.Interfaces.IUser createdByUser = tweet.CreatedBy;
+                if (createdByUser.ScreenName != userProfileName)
+                    continue;
+                if (firstAuthenticTwitterReplyID < 0)
+                {
+                    firstAuthenticTwitterReplyID = tweet.Id;
+                    continue;
+                }
+                if(tweet.Id<firstAuthenticTwitterReplyID)
+                {
+                    firstAuthenticTwitterReplyID = tweet.Id;
+                    continue;
+                }
+            }
+            return (firstAuthenticTwitterReplyID);
+        }
+
+        public static string GetTweetAsString(long tweetId)
+        {
+            string tweetMessage;
+            Tweetinvi.Core.Interfaces.ITweet tweet= Tweet.GetTweet(tweetId);
+            tweetMessage = tweet.Text;
+
+            return tweetMessage;
         }
 
 
