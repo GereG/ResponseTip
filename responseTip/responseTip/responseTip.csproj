@@ -304,6 +304,10 @@
     <Compile Include="Migrations\201510201931448_DollarPrice.Designer.cs">
       <DependentUpon>201510201931448_DollarPrice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510251810239_twitterIDadded.cs" />
+    <Compile Include="Migrations\201510251810239_twitterIDadded.Designer.cs">
+      <DependentUpon>201510251810239_twitterIDadded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\SocialSiteUsers.cs" />
@@ -438,6 +442,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510201931448_DollarPrice.resx">
       <DependentUpon>201510201931448_DollarPrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510251810239_twitterIDadded.resx">
+      <DependentUpon>201510251810239_twitterIDadded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -46,6 +46,9 @@ namespace responseTip.Models
         public decimal DollarPrice { get; set; }
         public bool isQuestionPublic { get; set; }
 
+        public long? questionTweetId { get; set; }
+        public long? answerTweetId { get; set; }
+
         public DateTime timeCreated { get; set; }
         public DateTime timeQuestionAsked { get; set; }
 

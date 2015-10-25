@@ -164,14 +164,12 @@ namespace responseTip_backend
 
         private static void TaskQuestionAsked(ResponseTipTask task)
         {
+
+
             TimeSpan timeElapsedFromQuestionAsked = DateTime.Now.Subtract(task.timeQuestionAsked);
             if (timeElapsedFromQuestionAsked.TotalDays > taskQuestionAskedExpirationTime)
             {
                 task.taskStatus = TaskStatusesEnum.questionAsked_expired;
-            }
-            else
-            {
-                task.taskStatus = TaskStatusesEnum.questionAsked;
             }
         }
 

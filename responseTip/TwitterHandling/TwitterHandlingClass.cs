@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Diagnostics;
 using System.IO;
 using System.Drawing.Imaging;
+using Tweetinvi.Core.Parameters;
 
 namespace TwitterHandling
 {
@@ -58,10 +59,21 @@ namespace TwitterHandling
             Auth.SetUserCredentials(ConsumerKey, ConsumerSecret, AccessToken, AccessTokenSecret);
         }
 
-        public static void PublishTweet(string tweet_string)
+        public static long PublishTweet(string tweet_string,long? inReplyToTweetId)
         {
-            Tweet.PublishTweet(tweet_string);
-        }
+            Tweetinvi.Core.Interfaces.ITweet newTweet=null;
+            if (inReplyToTweetId == 0)
+            {
+                newTweet = Tweet.PublishTweet(tweet_string);
+            }else
+            {
+                newTweet = Tweet.PublishTweet(tweet_string, new PublishTweetOptionalParameters { InReplyToTweetId = inReplyToTweetId });
+            }
+            return newTweet.Id;
+            //            newTweet.
+            PublishTweetOptionalParameters parameters = new PublishTweetOptionalParameters();
+            parameters.InReplyToTweetId = newTweet.Id;
+                }
         public static SearchResults SearchUsersM(string username)
         {
             IEnumerable < Tweetinvi.Core.Interfaces.IUser> users = Search.SearchUsers(username,20,0);
@@ -96,14 +108,17 @@ namespace TwitterHandling
             //           return Search.SearchUsers(username);
         }
 
-        public static void PostATweetOnAWall(string username,string question)
+        public static long PostATweetOnAWall(string username,string question)
         {
+            Tweetinvi.Core.Interfaces.ITweet newTweet = null;
             if (username != null)
             {
                 string tweetText = "@" + username + " " + question;
-                Tweet.PublishTweet(tweetText);
+                newTweet=Tweet.PublishTweet(tweetText);
             }
             else throw new NullReferenceException();
+
+            return (newTweet.Id);
         }
 
         private static byte[] turnImageToByteArray(System.Drawing.Image img)
@@ -111,6 +126,11 @@ namespace TwitterHandling
             MemoryStream ms = new MemoryStream();
             img.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
             return ms.ToArray();
+        }
+
+        public static void CheckAnswerToQuestion()
+        {
+            
         }
 
 
