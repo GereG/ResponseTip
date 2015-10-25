@@ -45,6 +45,7 @@ namespace responseTip_backend
                     //TODO update only tasks with new block dependent task status
                 }
                 //TODO update task not dependent on new blocks
+                BtcHandlingClass.UpdateKeyPool(ConfigurationManager.AppSettings["Bitcoin_WalletPassword"]);
                 taskStatePusherCycle();
             }
         }

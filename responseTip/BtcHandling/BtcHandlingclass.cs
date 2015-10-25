@@ -19,7 +19,7 @@ namespace BtcHandling
         public static DateTime timeEstimatedFeeChecked;
         public const int estimatedFeeCheckingIntervalInMinutes = 100;
         private static uint currentBlockCount=0;
-        private static uint actualKeyPoolSize = 0;
+        private static double actualKeyPoolSize = 0;
 
 
 
@@ -320,13 +320,40 @@ namespace BtcHandling
 
         public static void UpdateKeyPool(string passphrase)
         {
+            if (actualKeyPoolSize == 0)
+            {
+                actualKeyPoolSize=KeyPoolSize(passphrase);
+            }
             if(actualKeyPoolSize<100)
             {
-                CoinService.WalletPassphrase(passphrase, 60);
-                CoinService.KeyPoolRefill(1000);
-                CoinService.WalletLock();
+                try {
+                    CoinService.WalletPassphrase(passphrase, 300);
+
+                    CoinService.KeyPoolRefill(1000);
+                    
+//                    CoinService.WalletLock();
+                }
+                catch(BitcoinLib.ExceptionHandling.Rpc.RpcRequestTimeoutException exception)
+                {
+                    bitcoin_Logger.LogLine("timeoutRequest", responseTip.Helpers.Logger.log_types.WARNING_LOG);
+                    System.Threading.Thread.Sleep(300000);
+                }
+                catch (RpcException exception)
+                {
+                    //                Debug.WriteLine("[Failed]\n\nPlease check your configuration and make sure that the daemon is up and running and that it is synchronized. \n\nException: " + exception);
+                    bitcoin_Logger.LogLine("[Failed]\n\nPlease check your configuration and make sure that the daemon is up and running and that it is synchronized. \n\nException: " + exception, responseTip.Helpers.Logger.log_types.ERROR_LOG);
+                    //                newBtcAdress = "RPC exception";
+                }
+                catch (Exception e)
+                {
+                    //                Debug.WriteLine("General exception at: " + e.StackTrace);
+                    bitcoin_Logger.LogLine("General exception at: " + e.StackTrace, responseTip.Helpers.Logger.log_types.ERROR_LOG);
+                    //                newBtcAdress = "General exception";
+                }
+
                 //TODO add wallet backup 
                 actualKeyPoolSize = 1000;
+                bitcoin_Logger.LogLine("KeypoolSize regenerate to 1000.", responseTip.Helpers.Logger.log_types.MESSAGE_LOG);
             }
         }
 
