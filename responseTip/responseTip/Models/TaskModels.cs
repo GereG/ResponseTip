@@ -78,7 +78,7 @@ namespace responseTip.Models
 
     public enum TaskStatusesEnum
     {
-        created, notPaid, notPaid_expired, paid, questionAsked, questionAsked_expired, QuestionAnswered, AnswerValid, allPaymentsSettled, completed, closed
+        created=0, notPaid=1, notPaid_expired=2, paid=3, questionAsked=4, questionAsked_expired=5, questionAnswered=6, answerValid=7, allPaymentsSettled=8, completed=9, closed=10
     }
 
     

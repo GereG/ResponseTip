@@ -35,7 +35,9 @@ namespace responseTip_backend
 
             CleanTaskDatabase();
 
-            decimal dollarPrice=externalAPIs.CallForBitcoinAverageDollarPrice();
+            //            decimal dollarPrice=externalAPIs.CallForBitcoinAverageDollarPrice();
+
+            StateUpdateManager stateUpdateManager=new StateUpdateManager(typeof(TaskStatusesEnum));
            
             while (true)//infinite loop
             {
@@ -46,7 +48,9 @@ namespace responseTip_backend
                 }
                 //TODO update task not dependent on new blocks
                 BtcHandlingClass.UpdateKeyPool(ConfigurationManager.AppSettings["Bitcoin_WalletPassword"]);
-                taskStatePusherCycle();
+                int statesToUpdate= stateUpdateManager.StatesToUpdateNow();
+                taskStatePusherCycle(statesToUpdate);
+//                System.Threading.Thread.Sleep(5000);
             }
         }
 
@@ -79,7 +83,7 @@ namespace responseTip_backend
             responseTipDatabase.SaveChanges();
         }
 
-        private static void taskStatePusherCycle()
+        private static void taskStatePusherCycle(int statesToUpdate)
         {
             IEnumerable<ResponseTipTask> enumerator = responseTipDatabase.ResponseTipTasks.AsEnumerable();
             foreach (ResponseTipTask task in enumerator)
@@ -89,29 +93,76 @@ namespace responseTip_backend
                     switch (task.taskStatus)
                     {
                         case TaskStatusesEnum.created:
-                            TaskCreated(task);
+                            if (Convert.ToBoolean( ( (statesToUpdate >> (int)task.taskStatus) % 2)))
+                            {
+                                TaskCreated(task);
+
+                            }
                             break;
+
                         case TaskStatusesEnum.notPaid:
-                            TaskNotPaid(task);
+                            if (Convert.ToBoolean(((statesToUpdate >> (int)task.taskStatus) % 2)))
+                            {
+                                TaskNotPaid(task);
+                            }
                             break;
+
                         case TaskStatusesEnum.notPaid_expired:
+                            if (Convert.ToBoolean(((statesToUpdate >> (int)task.taskStatus) % 2)))
+                            {
+
+                            }
                             break;
+
                         case TaskStatusesEnum.paid:
-                            TaskPaid(task);
+                            if (Convert.ToBoolean(((statesToUpdate >> (int)task.taskStatus) % 2)))
+                            {
+                                TaskPaid(task);
+                            }
+
                             break;
+
                         case TaskStatusesEnum.questionAsked:
-                            TaskQuestionAsked(task);
+                            if (Convert.ToBoolean(((statesToUpdate >> (int)task.taskStatus) % 2)))
+                            {
+                                TaskQuestionAsked(task);
+                            }
+
                             break;
+
                         case TaskStatusesEnum.questionAsked_expired:
-                            TaskQuestionAskedExpired(task);
+                            if (Convert.ToBoolean(((statesToUpdate >> (int)task.taskStatus) % 2)))
+                            {
+                                TaskQuestionAskedExpired(task);
+                            }
                             break;
-                        case TaskStatusesEnum.QuestionAnswered:
+
+                        case TaskStatusesEnum.questionAnswered:
+                            if (Convert.ToBoolean(((statesToUpdate >> (int)task.taskStatus) % 2)))
+                            {
+
+                            }
                             break;
-                        case TaskStatusesEnum.AnswerValid:
+
+                        case TaskStatusesEnum.answerValid:
+                            if (Convert.ToBoolean(((statesToUpdate >> (int)task.taskStatus) % 2)))
+                            {
+
+                            }
                             break;
+
                         case TaskStatusesEnum.allPaymentsSettled:
+                            if (Convert.ToBoolean(((statesToUpdate >> (int)task.taskStatus) % 2)))
+                            {
+
+                            }
                             break;
+
                         case TaskStatusesEnum.completed:
+                            if (Convert.ToBoolean(((statesToUpdate >> (int)task.taskStatus) % 2)))
+                            {
+
+                            }
                             break;
 
                         default:
@@ -173,7 +224,7 @@ namespace responseTip_backend
             {
                 task.answerTweetId = answerTweetId;
                 task.answer = TwitterHandlingClass.GetTweetAsString((long)task.answerTweetId);
-                task.taskStatus = TaskStatusesEnum.QuestionAnswered;
+                task.taskStatus = TaskStatusesEnum.questionAnswered;
                 return;
             }
 
