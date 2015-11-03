@@ -94,7 +94,7 @@ namespace responseTip_backend
                     switch (task.taskStatus)
                     {
                         case TaskStatusesEnum.created:
-                            if (Convert.ToBoolean( ( (statesToUpdate >> (int)task.taskStatus) % 2)))
+                            if (Convert.ToBoolean( ( (statesToUpdate >> (int)task.taskStatus) % 2))) //reads from mask if this state should be updated
                             {
                                 TaskCreated(task);
 

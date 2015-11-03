@@ -46,7 +46,7 @@ namespace responseTip_backend
                         taskStateUpdateIntervalInSeconds[i] = 1;
                         break;
                     case "questionAsked":
-                        taskStateUpdateIntervalInSeconds[i] = 30; // dont ask twitter too often
+                        taskStateUpdateIntervalInSeconds[i] = 30; // dont ask twitter too often if new response was made
                         break;
                     case "questionAsked_expired":
                         taskStateUpdateIntervalInSeconds[i] = 1;
@@ -72,7 +72,7 @@ namespace responseTip_backend
             }
         }
 
-        public int StatesToUpdateNow()
+        public int StatesToUpdateNow()  //returns mask of states to change, created is represented by 1st bit, notPaid 2nd bit....
         {
             int statesToUpdate = 0;
             TimeSpan timeDifference;
