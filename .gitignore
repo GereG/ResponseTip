@@ -1,6 +1,9 @@
 responseTip/responseTip/Web.Release.config
 responseTip/responseTip/Web.Debug.config
 responseTip/responseTip/Web.config
+responseTip/ArbiterTown/Web.config
+responseTip/ArbiterTown/Web.Release.config
+responseTip/ArbiterTown/Web.Debug.config
 responseTip/packages/
 responseTip/responseTip/obj/
 responseTip/responseTip/bin/
