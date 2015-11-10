@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -16,6 +17,13 @@ namespace ArbiterTown.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public decimal bitcoinEarned { get; set; }
+        public int numOfPuzzlesSuccesfull { get; set; }
+        public int numOfPuzzlesAttemted { get; set; }
+        public int numOfPuzzlesSkipped { get; set; }
+        public int hourlyPuzzleLimit { get; set; }
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
