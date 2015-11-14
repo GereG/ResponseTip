@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 
 namespace ArbiterTown.Models
 {
@@ -23,6 +24,7 @@ namespace ArbiterTown.Models
         public int numOfPuzzlesAttemted { get; set; }
         public int numOfPuzzlesSkipped { get; set; }
         public int hourlyPuzzleLimit { get; set; }
+        public virtual ICollection<TextAnswerValidationTask> TextAnswerValidationTasks { get; set; }
 
     }
 
@@ -37,5 +39,7 @@ namespace ArbiterTown.Models
         {
             return new ApplicationDbContext();
         }
+
+//        public System.Data.Entity.DbSet<ArbiterTown.Models.TextAnswerValidationTask> TextAnswerValidationTasks { get; set; }
     }
 }

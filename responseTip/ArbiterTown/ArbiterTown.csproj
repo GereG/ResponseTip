@@ -180,6 +180,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TextAnswerValidationTasksController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -191,8 +192,42 @@
     <Compile Include="Migrations\201511102218572_arbiterProperties.Designer.cs">
       <DependentUpon>201511102218572_arbiterProperties.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511141133060_taskIDonlyGet.cs" />
+    <Compile Include="Migrations\201511141133060_taskIDonlyGet.Designer.cs">
+      <DependentUpon>201511141133060_taskIDonlyGet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511141210385_IDonlyGet.cs" />
+    <Compile Include="Migrations\201511141210385_IDonlyGet.Designer.cs">
+      <DependentUpon>201511141210385_IDonlyGet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511141315432_newProperties.cs" />
+    <Compile Include="Migrations\201511141315432_newProperties.Designer.cs">
+      <DependentUpon>201511141315432_newProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511141326458_NewProp.cs" />
+    <Compile Include="Migrations\201511141326458_NewProp.Designer.cs">
+      <DependentUpon>201511141326458_NewProp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511141333038_textAnswerValidationTaskController.cs" />
+    <Compile Include="Migrations\201511141333038_textAnswerValidationTaskController.Designer.cs">
+      <DependentUpon>201511141333038_textAnswerValidationTaskController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511141356526_changeIdToString.cs" />
+    <Compile Include="Migrations\201511141356526_changeIdToString.Designer.cs">
+      <DependentUpon>201511141356526_changeIdToString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511141406255_maxstringlength.cs" />
+    <Compile Include="Migrations\201511141406255_maxstringlength.Designer.cs">
+      <DependentUpon>201511141406255_maxstringlength.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511141450221_AspNetUsersId.cs" />
+    <Compile Include="Migrations\201511141450221_AspNetUsersId.Designer.cs">
+      <DependentUpon>201511141450221_AspNetUsersId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ArbiterTaskAnswersContext.cs" />
+    <Compile Include="Models\ArbiterTaskModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -253,6 +288,8 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\TextAnswerValidationTasks\Task.cshtml" />
+    <Content Include="Views\TextAnswerValidationTasks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -271,6 +308,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511102218572_arbiterProperties.resx">
       <DependentUpon>201511102218572_arbiterProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511141133060_taskIDonlyGet.resx">
+      <DependentUpon>201511141133060_taskIDonlyGet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511141210385_IDonlyGet.resx">
+      <DependentUpon>201511141210385_IDonlyGet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511141315432_newProperties.resx">
+      <DependentUpon>201511141315432_newProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511141326458_NewProp.resx">
+      <DependentUpon>201511141326458_NewProp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511141333038_textAnswerValidationTaskController.resx">
+      <DependentUpon>201511141333038_textAnswerValidationTaskController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511141356526_changeIdToString.resx">
+      <DependentUpon>201511141356526_changeIdToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511141406255_maxstringlength.resx">
+      <DependentUpon>201511141406255_maxstringlength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511141450221_AspNetUsersId.resx">
+      <DependentUpon>201511141450221_AspNetUsersId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

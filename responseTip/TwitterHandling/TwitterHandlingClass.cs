@@ -69,10 +69,11 @@ namespace TwitterHandling
             {
                 newTweet = Tweet.PublishTweet(tweet_string, new PublishTweetOptionalParameters { InReplyToTweetId = inReplyToTweetId });
             }
-            return newTweet.Id;
-            //            newTweet.
             PublishTweetOptionalParameters parameters = new PublishTweetOptionalParameters();
             parameters.InReplyToTweetId = newTweet.Id;
+
+            return newTweet.Id;
+            //            newTweet.
                 }
         public static SearchResults SearchUsersM(string username)
         {
