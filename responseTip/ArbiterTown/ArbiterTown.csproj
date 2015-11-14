@@ -224,6 +224,10 @@
     <Compile Include="Migrations\201511141450221_AspNetUsersId.Designer.cs">
       <DependentUpon>201511141450221_AspNetUsersId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511141529217_ApplicationUserId.cs" />
+    <Compile Include="Migrations\201511141529217_ApplicationUserId.Designer.cs">
+      <DependentUpon>201511141529217_ApplicationUserId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ArbiterTaskAnswersContext.cs" />
@@ -332,6 +336,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511141450221_AspNetUsersId.resx">
       <DependentUpon>201511141450221_AspNetUsersId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511141529217_ApplicationUserId.resx">
+      <DependentUpon>201511141529217_ApplicationUserId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

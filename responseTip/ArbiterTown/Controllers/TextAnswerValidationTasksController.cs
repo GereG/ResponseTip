@@ -43,7 +43,7 @@ namespace ArbiterTown.Controllers
 
 
 
-            if (User.Identity.GetUserId() != textAnswerValidationTask.AspNetUsersId) //check if right user is requesting to answer
+            if (User.Identity.GetUserId() != textAnswerValidationTask.ApplicationUserId) //check if right user is requesting to answer
             {
                 return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
             }

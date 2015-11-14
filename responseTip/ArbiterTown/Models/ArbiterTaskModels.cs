@@ -17,8 +17,10 @@ namespace ArbiterTown.Models
     {
         public int id { get; set; }
         [Required()]
+        //        [StringLength(128)]
+        //        public string AspNetUsersId { get; set; }
         [StringLength(128)]
-        public string AspNetUsersId { get; set; }
+        public string ApplicationUserId { get; set; }
         [Required()]
         public int ResponseTipTaskID { get; set; }
         [Required()]
