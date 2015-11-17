@@ -56,6 +56,8 @@ namespace ArbiterTown.Models
 
         public TaskStatusesEnum taskStatus { get; set; }
 
+        public virtual ICollection<TextAnswerValidationTask> TextAnswerValidationTasks { get; set; }
+
 
         /*        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
                 {
