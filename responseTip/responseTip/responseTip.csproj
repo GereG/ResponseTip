@@ -264,51 +264,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\QRCodeHtmlHelper.cs" />
-    <Compile Include="Migrations\201510121853059_first.cs" />
-    <Compile Include="Migrations\201510121853059_first.Designer.cs">
-      <DependentUpon>201510121853059_first.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510171955131_questionLength.cs" />
-    <Compile Include="Migrations\201510171955131_questionLength.Designer.cs">
-      <DependentUpon>201510171955131_questionLength.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510181114430_TaskStatusesEnum.closed.cs" />
-    <Compile Include="Migrations\201510181114430_TaskStatusesEnum.closed.Designer.cs">
-      <DependentUpon>201510181114430_TaskStatusesEnum.closed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510181119143_returnBitcoinAddress.cs" />
-    <Compile Include="Migrations\201510181119143_returnBitcoinAddress.Designer.cs">
-      <DependentUpon>201510181119143_returnBitcoinAddress.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510181320160_bitcoin address validation.cs" />
-    <Compile Include="Migrations\201510181320160_bitcoin address validation.Designer.cs">
-      <DependentUpon>201510181320160_bitcoin address validation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510181334486_bitcoinaddressValidation2.cs" />
-    <Compile Include="Migrations\201510181334486_bitcoinaddressValidation2.Designer.cs">
-      <DependentUpon>201510181334486_bitcoinaddressValidation2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510191955182_bitcoinPriceFormat.cs" />
-    <Compile Include="Migrations\201510191955182_bitcoinPriceFormat.Designer.cs">
-      <DependentUpon>201510191955182_bitcoinPriceFormat.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510201549020_bitcoinPricePrecission.cs" />
-    <Compile Include="Migrations\201510201549020_bitcoinPricePrecission.Designer.cs">
-      <DependentUpon>201510201549020_bitcoinPricePrecission.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510201628328_bitcoinPriceformat2.cs" />
-    <Compile Include="Migrations\201510201628328_bitcoinPriceformat2.Designer.cs">
-      <DependentUpon>201510201628328_bitcoinPriceformat2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510201931448_DollarPrice.cs" />
-    <Compile Include="Migrations\201510201931448_DollarPrice.Designer.cs">
-      <DependentUpon>201510201931448_DollarPrice.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510251810239_twitterIDadded.cs" />
-    <Compile Include="Migrations\201510251810239_twitterIDadded.Designer.cs">
-      <DependentUpon>201510251810239_twitterIDadded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\SocialSiteUsers.cs" />
     <Compile Include="Models\responseTipContext.cs" />
@@ -399,6 +354,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ArbiterTown\ArbiterTown.csproj">
+      <Project>{769903d4-4dfd-4d68-bd3b-315b87be3a13}</Project>
+      <Name>ArbiterTown</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BtcHandling\BtcHandling.csproj">
       <Project>{6f73fd85-294b-4c9a-823b-044241a9f458}</Project>
       <Name>BtcHandling</Name>
@@ -411,41 +370,6 @@
       <Project>{d62664cc-9509-46d0-9b37-01213580f51e}</Project>
       <Name>TwitterHandling</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201510121853059_first.resx">
-      <DependentUpon>201510121853059_first.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510171955131_questionLength.resx">
-      <DependentUpon>201510171955131_questionLength.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510181114430_TaskStatusesEnum.closed.resx">
-      <DependentUpon>201510181114430_TaskStatusesEnum.closed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510181119143_returnBitcoinAddress.resx">
-      <DependentUpon>201510181119143_returnBitcoinAddress.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510181320160_bitcoin address validation.resx">
-      <DependentUpon>201510181320160_bitcoin address validation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510181334486_bitcoinaddressValidation2.resx">
-      <DependentUpon>201510181334486_bitcoinaddressValidation2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510191955182_bitcoinPriceFormat.resx">
-      <DependentUpon>201510191955182_bitcoinPriceFormat.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510201549020_bitcoinPricePrecission.resx">
-      <DependentUpon>201510201549020_bitcoinPricePrecission.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510201628328_bitcoinPriceformat2.resx">
-      <DependentUpon>201510201628328_bitcoinPriceformat2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510201931448_DollarPrice.resx">
-      <DependentUpon>201510201931448_DollarPrice.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510251810239_twitterIDadded.resx">
-      <DependentUpon>201510251810239_twitterIDadded.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -16,13 +16,15 @@ namespace ArbiterTown.Controllers
     [Authorize]
     public class TextAnswerValidationTasksController : Controller
     {
-        private ArbiterTaskAnswersContext db = new ArbiterTaskAnswersContext();
+        private ArbiterTaskAnswerContext db = new ArbiterTaskAnswerContext();
         private ApplicationDbContext userDb = new ApplicationDbContext();
-        private TaskModelsContext responseTipTaskDb = new TaskModelsContext();
+        private responseTipTaskContext responseTipTaskDb = new responseTipTaskContext();
 
         // GET: TextAnswerValidationTasks
         public ActionResult Index()
         {
+//            responseTipTaskDb.ResponseTipTasks.Find(0);
+
             ApplicationUser user = userDb.Users.Find(User.Identity.GetUserId());
             return View(user.TextAnswerValidationTasks.ToList());
             //            return View(db.TextAnswerValidationTasks.ToList());

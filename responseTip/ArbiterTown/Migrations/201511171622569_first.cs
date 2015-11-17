@@ -3,10 +3,35 @@ namespace ArbiterTown.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class first : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.ResponseTipTasks",
+                c => new
+                    {
+                        ResponseTipTaskID = c.Int(nullable: false, identity: true),
+                        userName = c.String(),
+                        question = c.String(nullable: false, maxLength: 137),
+                        answer = c.String(),
+                        twitterUserNameWritten = c.String(nullable: false, maxLength: 30),
+                        twitterUserIdSelected = c.Int(nullable: false),
+                        twitterUserNameSelected = c.String(),
+                        ArbiterCount = c.Int(nullable: false),
+                        BitcoinPublicAdress = c.String(nullable: false),
+                        BitcoinReturnPublicAddress = c.String(nullable: false),
+                        BitcoinPrice = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        DollarPrice = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        isQuestionPublic = c.Boolean(nullable: false),
+                        questionTweetId = c.Long(),
+                        answerTweetId = c.Long(),
+                        timeCreated = c.DateTime(nullable: false),
+                        timeQuestionAsked = c.DateTime(nullable: false),
+                        taskStatus = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ResponseTipTaskID);
+            
             CreateTable(
                 "dbo.AspNetRoles",
                 c => new
@@ -31,11 +56,31 @@ namespace ArbiterTown.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.TextAnswerValidationTasks",
+                c => new
+                    {
+                        id = c.Int(nullable: false, identity: true),
+                        ApplicationUserId = c.String(nullable: false, maxLength: 128),
+                        ResponseTipTaskID = c.Int(nullable: false),
+                        timeAssigned = c.DateTime(nullable: false),
+                        timeBeforeExpired = c.Time(nullable: false, precision: 7),
+                        arbiterAnswer = c.Int(nullable: false),
+                        taskStatus = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.id)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUserId, cascadeDelete: true)
+                .Index(t => t.ApplicationUserId);
+            
+            CreateTable(
                 "dbo.AspNetUsers",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
-                        UserBitcoinAddress = c.String(),
+                        bitcoinEarned = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        numOfPuzzlesSuccesfull = c.Int(nullable: false),
+                        numOfPuzzlesAttemted = c.Int(nullable: false),
+                        numOfPuzzlesSkipped = c.Int(nullable: false),
+                        hourlyPuzzleLimit = c.Int(nullable: false),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -80,6 +125,7 @@ namespace ArbiterTown.Migrations
         
         public override void Down()
         {
+            DropForeignKey("dbo.TextAnswerValidationTasks", "ApplicationUserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
@@ -87,14 +133,17 @@ namespace ArbiterTown.Migrations
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.TextAnswerValidationTasks", new[] { "ApplicationUserId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
+            DropTable("dbo.TextAnswerValidationTasks");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.ResponseTipTasks");
         }
     }
 }

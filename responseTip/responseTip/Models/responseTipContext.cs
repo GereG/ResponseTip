@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -27,4 +27,4 @@ namespace responseTip.Models
 
         public System.Data.Entity.DbSet<responseTip.Models.ResponseTipTask> ResponseTipTasks { get; set; }
     }
-}
+}*/

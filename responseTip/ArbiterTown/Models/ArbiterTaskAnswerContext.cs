@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ArbiterTown.Models
 {
-    public class TaskModelsContext : DbContext
+    public class ArbiterTaskAnswerContext : DbContext
     {
         // You can add custom code to this file. Changes will not be overwritten.
         // 
@@ -14,11 +14,12 @@ namespace ArbiterTown.Models
         // automatically whenever you change your model schema, please use data migrations.
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
-
-        public TaskModelsContext() : base("name=DefaultConnection")
+    
+        public ArbiterTaskAnswerContext() : base("name=DefaultConnection")
         {
         }
 
+        public System.Data.Entity.DbSet<ArbiterTown.Models.TextAnswerValidationTask> TextAnswerValidationTasks { get; set; }
         public System.Data.Entity.DbSet<ArbiterTown.Models.ResponseTipTask> ResponseTipTasks { get; set; }
     }
 }

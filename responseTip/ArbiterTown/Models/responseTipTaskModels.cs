@@ -38,11 +38,12 @@ namespace ArbiterTown.Models
         public string BitcoinPublicAdress { get; set; }
 
         [Required]
-        [BtcAddress] public string BitcoinReturnPublicAddress { get; set; }
-        
-        [DisplayFormat(DataFormatString = "{0:F8}", ApplyFormatInEditMode =true)]
+        [BtcAddress]
+        public string BitcoinReturnPublicAddress { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:F8}", ApplyFormatInEditMode = true)]
         public decimal BitcoinPrice { get; set; }
-        [Range(1,20)]
+        [Range(1, 20)]
         [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = false)]
         public decimal DollarPrice { get; set; }
         public bool isQuestionPublic { get; set; }
@@ -74,14 +75,14 @@ namespace ArbiterTown.Models
         private TaskStatuses()
         {
             currentStatus = TaskStatusesEnum.created;
-            
+
         }
     }
 
     public enum TaskStatusesEnum
     {
-        created=0, notPaid=1, notPaid_expired=2, paid=3, questionAsked=4, questionAsked_expired=5, questionAnswered=6, answerValid=7, allPaymentsSettled=8, completed=9, closed=10
+        created = 0, notPaid = 1, notPaid_expired = 2, paid = 3, questionAsked = 4, questionAsked_expired = 5, questionAnswered = 6, answerValid = 7, allPaymentsSettled = 8, completed = 9, closed = 10
     }
 
-    
+
 }

@@ -9,6 +9,8 @@ namespace ArbiterTown
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+//            ArbiterTown.Models.TaskModelsContext taskModelContext = new Models.TaskModelsContext();
+//            taskModelContext.Database.CreateIfNotExists();
         }
     }
 }

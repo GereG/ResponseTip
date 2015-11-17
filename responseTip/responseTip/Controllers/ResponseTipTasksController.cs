@@ -11,6 +11,7 @@ using responseTip.Models;
 using System.Diagnostics;
 using BtcHandling;
 using responseTip.Helpers;
+using ArbiterTown.Models;
 
 namespace responseTip.Controllers
 {
@@ -20,7 +21,7 @@ namespace responseTip.Controllers
     {
         private TwitterHandling.TwitterHandlingClass.SearchResults UserSearchResults;
         
-        private responseTipContext db = new responseTipContext();
+        private responseTipTaskContext db = new responseTipTaskContext();
 
 
  /*       public ActionResult GetImg()

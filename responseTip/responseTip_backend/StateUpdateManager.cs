@@ -92,7 +92,7 @@ namespace responseTip_backend
 
         public void NewBlock()
         {
-            taskStateUpdateTrigger[(int)responseTip.Models.TaskStatusesEnum.notPaid] = true; //block update
+            taskStateUpdateTrigger[(int)ArbiterTown.Models.TaskStatusesEnum.notPaid] = true; //block update
         }
     }
 }

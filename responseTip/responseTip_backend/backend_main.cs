@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using responseTip.Models;
+using ArbiterTown.Models;
 using System.Data.Entity;
 using BtcHandling;
 using TwitterHandling;
@@ -17,7 +17,7 @@ namespace responseTip_backend
     public class backend_main
     {
         private static Logger backendLogger=new Logger();
-        private static responseTipContext responseTipDatabase = new responseTipContext();
+        private static responseTipTaskContext responseTipDatabase = new responseTipTaskContext();
 
         private const double taskNotPaidExpirationTime = 2; //time from creation of task (in days) after which task expires
         private const double taskQuestionAskedExpirationTime = 15; //time from asking the question of task (in days) after which task expires and money is returned
