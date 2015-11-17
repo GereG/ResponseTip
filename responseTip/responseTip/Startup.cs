@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Globalization;
 
-[assembly: OwinStartupAttribute(typeof(responseTip.Startup))]
+[assembly: OwinStartupAttribute("ResponseTipConfig",typeof(responseTip.Startup))]
 namespace responseTip
 {
     public partial class Startup

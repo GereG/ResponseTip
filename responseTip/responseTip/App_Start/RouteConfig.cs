@@ -16,7 +16,8 @@ namespace responseTip
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "ResponseTipTasks", action = "Create", id = UrlParameter.Optional }
+                defaults: new { controller = "ResponseTipTasks", action = "Create", id = UrlParameter.Optional },
+                namespaces: new[] {"responseTip.Controllers"}
             );
 //            routes.Ignore(""); 
         }

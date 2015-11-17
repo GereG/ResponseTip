@@ -54,14 +54,15 @@ namespace responseTip.Models
 
         public TaskStatusesEnum taskStatus { get; set; }
 
-/*        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            bool isReturnAddressValid = BtcHandling.BtcHandlingClass.IsAddressValid(this.BitcoinReturnPublicAddress);
-            if (!isReturnAddressValid)
-            {
-                yield return new ValidationResult("This is not valid bitcoin address.", new[] { "BitcoinReturnPublicAddress" });
-            }
-        }*/
+
+        /*        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+                {
+                    bool isReturnAddressValid = BtcHandling.BtcHandlingClass.IsAddressValid(this.BitcoinReturnPublicAddress);
+                    if (!isReturnAddressValid)
+                    {
+                        yield return new ValidationResult("This is not valid bitcoin address.", new[] { "BitcoinReturnPublicAddress" });
+                    }
+                }*/
 
     }
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(ArbiterTown.Startup))]
+[assembly: OwinStartupAttribute("ArbiterTownConfig", typeof(ArbiterTown.Startup))]
 namespace ArbiterTown
 {
     public partial class Startup
