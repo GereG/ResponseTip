@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BtcHandling;
 
-namespace responseTip.Models
+namespace ArbiterTown.Models
 {
     [RequireHttps]
     public class ResponseTipTask
