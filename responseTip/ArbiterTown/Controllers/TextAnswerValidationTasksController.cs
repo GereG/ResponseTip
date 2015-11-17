@@ -18,6 +18,7 @@ namespace ArbiterTown.Controllers
     {
         private ArbiterTaskAnswersContext db = new ArbiterTaskAnswersContext();
         private ApplicationDbContext userDb = new ApplicationDbContext();
+        private responseTip.Models.responseTipContext responseTipDb = new responseTip.Models.responseTipContext();
 
         // GET: TextAnswerValidationTasks
         public ActionResult Index()
