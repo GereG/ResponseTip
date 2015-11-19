@@ -1,4 +1,4 @@
-﻿@model ArbiterTown.Models.TextAnswerValidationTask
+﻿@model ArbiterTown.Models.TextAnswerValidationPresented
 
 @{
     ViewBag.Title = "Task";
@@ -15,7 +15,18 @@
         <h4>TextAnswerValidationTask</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.id)
+        @Html.HiddenFor(model => model.textAnswerValidationTaskId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.question, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.question)
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.answer)
+            </div>
+
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.arbiterAnswer, htmlAttributes: new { @class = "control-label col-md-2" })

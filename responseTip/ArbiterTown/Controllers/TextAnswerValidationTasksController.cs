@@ -16,16 +16,15 @@ namespace ArbiterTown.Controllers
     [Authorize]
     public class TextAnswerValidationTasksController : Controller
     {
-        private ArbiterTaskAnswerContext db = new ArbiterTaskAnswerContext();
-        private ApplicationDbContext userDb = new ApplicationDbContext();
-        private responseTipTaskContext responseTipTaskDb = new responseTipTaskContext();
+//        private ArbiterTaskAnswerContext db = new ArbiterTaskAnswerContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
+//        private responseTipTaskContext responseTipTaskDb = new responseTipTaskContext();
 
         // GET: TextAnswerValidationTasks
         public ActionResult Index()
         {
 //            responseTipTaskDb.ResponseTipTasks.Find(0);
-
-            ApplicationUser user = userDb.Users.Find(User.Identity.GetUserId());
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
             return View(user.TextAnswerValidationTasks.ToList());
             //            return View(db.TextAnswerValidationTasks.ToList());
         }
@@ -51,7 +50,15 @@ namespace ArbiterTown.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
             }
 
-            return View(textAnswerValidationTask);
+            ResponseTipTask responseTipTask = db.ResponseTipTasks.Find(textAnswerValidationTask.ResponseTipTaskID);
+            if(responseTipTask == null)
+            {
+                return HttpNotFound();
+            }
+
+            TextAnswerValidationPresented newTask = new TextAnswerValidationPresented(id, responseTipTask.question, responseTipTask.answer,(decimal)0.02);
+
+            return View(newTask);
         }
 
         // POST: TextAnswerValidationTasks/Task/5
@@ -59,13 +66,13 @@ namespace ArbiterTown.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Task([Bind(Include = "id,arbiterAnswer")] TextAnswerValidationTask textAnswerValidationTask)
+        public ActionResult Task([Bind(Include ="textAnswerValidationTaskId,arbiterAnswer")] TextAnswerValidationPresented textAnswerValidationPresented)
         {
-            if (textAnswerValidationTask == null)
+            if (textAnswerValidationPresented == null)
             {
                 return HttpNotFound();
             }
-            TextAnswerValidationTask textAnswerValidationTaskFromDb = db.TextAnswerValidationTasks.Find(textAnswerValidationTask.id);
+            TextAnswerValidationTask textAnswerValidationTaskFromDb = db.TextAnswerValidationTasks.Find(textAnswerValidationPresented.textAnswerValidationTaskId);
             if (textAnswerValidationTaskFromDb == null)
             {
                 return HttpNotFound();
@@ -76,7 +83,7 @@ namespace ArbiterTown.Controllers
             }
 
             textAnswerValidationTaskFromDb.taskStatus = ArbiterTown.Models.ArbiterTaskStatusesEnum.answered;
-            textAnswerValidationTaskFromDb.arbiterAnswer = textAnswerValidationTask.arbiterAnswer;
+            textAnswerValidationTaskFromDb.arbiterAnswer = textAnswerValidationPresented.arbiterAnswer;
             ModelState.Clear();
             TryValidateModel(textAnswerValidationTaskFromDb);
             if (ModelState.IsValid)
@@ -85,7 +92,7 @@ namespace ArbiterTown.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(textAnswerValidationTask);
+            return View(textAnswerValidationPresented);
         }
 
 

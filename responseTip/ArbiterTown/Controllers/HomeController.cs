@@ -10,8 +10,14 @@ namespace ArbiterTown.Controllers
     {
         public ActionResult Index()
         {
+/*            if(User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("IndexAuthenticated");
+            }*/
             return View();
         }
+
+        
 
         public ActionResult About()
         {

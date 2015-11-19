@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using responseTip.Models;
+//using responseTip.Models;
 //using responseTip.Bussines_logic;
 using System.Diagnostics;
 using BtcHandling;
@@ -21,7 +21,7 @@ namespace responseTip.Controllers
     {
         private TwitterHandling.TwitterHandlingClass.SearchResults UserSearchResults;
         
-        private responseTipTaskContext db = new responseTipTaskContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
 
  /*       public ActionResult GetImg()

@@ -31,6 +31,34 @@ namespace ArbiterTown.Models
         public TextAnswerValidation_ArbiterAnswerEnum arbiterAnswer { get; set; }
         [Required()]
         public ArbiterTaskStatusesEnum taskStatus { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = false)]
+        public decimal taskPriceInDollars { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F8}", ApplyFormatInEditMode = true)]
+        public decimal taskPriceInBitcoin { get; set; }
+    }
+
+    public class TextAnswerValidationPresented
+    {
+        public int? textAnswerValidationTaskId { get; set; }
+            [Required()]
+        public TextAnswerValidation_ArbiterAnswerEnum arbiterAnswer { get; set; }
+        public string question { get; }
+        public string answer { get; }
+        public decimal taskPriceInBitcoin { get; }
+
+        public TextAnswerValidationPresented(int? taskID,string newQuestion,string newAnswer,decimal newTaskpriceinBTC)
+        {
+            textAnswerValidationTaskId = taskID;
+            question = newQuestion;
+            answer = newAnswer;
+            taskPriceInBitcoin = newTaskpriceinBTC;
+        }
+
+        public TextAnswerValidationPresented()
+        {
+
+        }
     }
 
     public enum TextAnswerValidation_ArbiterAnswerEnum

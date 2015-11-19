@@ -21,7 +21,7 @@ namespace ArbiterTown.Migrations
                         ArbiterCount = c.Int(nullable: false),
                         BitcoinPublicAdress = c.String(nullable: false),
                         BitcoinReturnPublicAddress = c.String(nullable: false),
-                        BitcoinPrice = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        BitcoinPrice = c.Decimal(nullable: false, precision: 11, scale: 8),
                         DollarPrice = c.Decimal(nullable: false, precision: 18, scale: 2),
                         isQuestionPublic = c.Boolean(nullable: false),
                         questionTweetId = c.Long(),
