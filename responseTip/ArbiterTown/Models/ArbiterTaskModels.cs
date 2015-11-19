@@ -13,7 +13,7 @@ namespace ArbiterTown.Models
         public int chosenImage { get; set; }
     }
 
-    public class TextAnswerValidationTask
+    public class TextAnswerValidationTask : ICloneable
     {
         public int id { get; set; }
         [Required()]
@@ -36,6 +36,29 @@ namespace ArbiterTown.Models
         public decimal taskPriceInDollars { get; set; }
         [DisplayFormat(DataFormatString = "{0:F8}", ApplyFormatInEditMode = true)]
         public decimal taskPriceInBitcoin { get; set; }
+
+/*        public TextAnswerValidationTask Clone(TextAnswerValidationTask task)
+        {
+            TextAnswerValidationTask clonedTask = new TextAnswerValidationTask();
+
+            return clonedTask;
+        }*/
+
+        public object Clone()
+        {
+            TextAnswerValidationTask clonedTask = new TextAnswerValidationTask();
+            clonedTask.ApplicationUserId = this.ApplicationUserId;
+            clonedTask.arbiterAnswer = this.arbiterAnswer;
+            clonedTask.id = this.id;
+            clonedTask.ResponseTipTaskID = this.ResponseTipTaskID;
+            clonedTask.taskPriceInBitcoin = this.taskPriceInBitcoin;
+            clonedTask.taskPriceInDollars = this.taskPriceInDollars;
+            clonedTask.taskStatus = this.taskStatus;
+            clonedTask.timeAssigned = this.timeAssigned;
+            clonedTask.timeBeforeExpired = this.timeBeforeExpired;
+
+            return clonedTask;
+        }
     }
 
     public class TextAnswerValidationPresented

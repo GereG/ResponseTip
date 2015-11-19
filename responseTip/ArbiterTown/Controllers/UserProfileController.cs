@@ -11,13 +11,14 @@ namespace ArbiterTown.Controllers
     [Authorize]
     public class UserProfileController : Controller
     {
-//        private ApplicationDbContext userDb = new ApplicationDbContext();
+        private ApplicationDbContext userDb = new ApplicationDbContext();
 
         // GET: Task
         public ActionResult Index()
         {
-            //            return View(userDb.Users.Find(User.Identity.GetUserId()));
-            return View();
+            UserProfileModel userProfileModel = new UserProfileModel(userDb.Users.Find(User.Identity.GetUserId()));
+            return View(userProfileModel);
+//            return View();
         }
     }
 }
