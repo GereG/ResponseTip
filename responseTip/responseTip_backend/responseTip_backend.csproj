@@ -115,6 +115,10 @@
       <Project>{3ed1b7d0-b502-4147-90f0-9328687b4122}</Project>
       <Name>Helpers</Name>
     </ProjectReference>
+    <ProjectReference Include="..\responseTip\responseTip.csproj">
+      <Project>{194cb54e-bada-48e2-b3a4-171477e969b2}</Project>
+      <Name>responseTip</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TwitterHandling\TwitterHandling.csproj">
       <Project>{d62664cc-9509-46d0-9b37-01213580f51e}</Project>
       <Name>TwitterHandling</Name>

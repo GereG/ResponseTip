@@ -67,7 +67,8 @@ namespace ArbiterTown.Models
                         yield return new ValidationResult("This is not valid bitcoin address.", new[] { "BitcoinReturnPublicAddress" });
                     }
                 }*/
-
+    
+        
     }
 
     public class TaskStatuses

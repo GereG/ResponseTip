@@ -21,8 +21,7 @@ namespace responseTip_backend
         private static ApplicationDbContext dbContext=new ApplicationDbContext();
 //        private static responseTipTaskContext responseTipDatabase = new responseTipTaskContext();
 
-        private const double taskNotPaidExpirationTime = 2; //time from creation of task (in days) after which task expires
-        private const double taskQuestionAskedExpirationTime = 15; //time from asking the question of task (in days) after which task expires and money is returned
+        
 
 
 
@@ -132,7 +131,7 @@ namespace responseTip_backend
                         case TaskStatusesEnum.responseTip_created:
                             if (Convert.ToBoolean( ( (statesToUpdate >> (int)task.taskStatus) % 2))) //reads from mask if this state should be updated
                             {
-                                TaskCreated(task);
+                                responseTip.Bussines_logic.responseTipLogic.TaskCreated(task);
 
                             }
                             break;
@@ -140,7 +139,7 @@ namespace responseTip_backend
                         case TaskStatusesEnum.responseTip_notPaid:
                             if (Convert.ToBoolean(((statesToUpdate >> (int)task.taskStatus) % 2)))
                             {
-                                TaskNotPaid(task);
+                                responseTip.Bussines_logic.responseTipLogic.TaskNotPaid(task);
                             }
                             break;
 
@@ -154,7 +153,7 @@ namespace responseTip_backend
                         case TaskStatusesEnum.responseTip_paid:
                             if (Convert.ToBoolean(((statesToUpdate >> (int)task.taskStatus) % 2)))
                             {
-                                TaskPaid(task);
+                                responseTip.Bussines_logic.responseTipLogic.TaskPaid(task);
                             }
 
                             break;
@@ -162,7 +161,7 @@ namespace responseTip_backend
                         case TaskStatusesEnum.responseTip_questionAsked:
                             if (Convert.ToBoolean(((statesToUpdate >> (int)task.taskStatus) % 2)))
                             {
-                                TaskQuestionAsked(task);
+                                responseTip.Bussines_logic.responseTipLogic.TaskQuestionAsked(task);
                             }
 
                             break;
@@ -170,7 +169,7 @@ namespace responseTip_backend
                         case TaskStatusesEnum.responseTip_questionAsked_expired:
                             if (Convert.ToBoolean(((statesToUpdate >> (int)task.taskStatus) % 2)))
                             {
-                                TaskQuestionAskedExpired(task);
+                                responseTip.Bussines_logic.responseTipLogic.TaskQuestionAskedExpired(task);
                             }
                             break;
 
@@ -212,85 +211,7 @@ namespace responseTip_backend
             dbContext.SaveChanges();
         }
 
-        private static void TaskCreated(ResponseTipTask task)
-        {
-            task.taskStatus = TaskStatusesEnum.responseTip_notPaid;
-            
-        }
-
-        private static void TaskNotPaid(ResponseTipTask task)
-        {
-//            backendLogger.LogLine(""+task.ResponseTipTaskID, Logger.log_types.MESSAGE_LOG);
-            decimal addressBalance=BtcHandling.BtcHandlingClass.CheckAdressBalance(task.BitcoinPublicAdress);
-
-            if (addressBalance == task.BitcoinPrice)
-            {
-                task.taskStatus = TaskStatusesEnum.responseTip_paid;
-            }
-            else if (addressBalance > task.BitcoinPrice + BtcHandlingClass.UpdateEstimatedTxFee()) //if amount higher than neccessary and difference higher than txfee --return it to return address
-            {
-                BtcHandlingClass.SendFromAndToAddress(task.BitcoinPublicAdress,task.BitcoinReturnPublicAddress, addressBalance - task.BitcoinPrice,ConfigurationManager.AppSettings["Bitcoin_WalletPassword"]);
-                task.taskStatus = TaskStatusesEnum.responseTip_paid;
-            }
-            else if (addressBalance > task.BitcoinPrice) //if amount higher than neccessary but difference lower than txfee --let it be
-            {
-                task.taskStatus = TaskStatusesEnum.responseTip_paid;
-            }
-            else if (addressBalance< task.BitcoinPrice) // if its lower then check if not expired
-            {
-                TimeSpan timeElapsedFromCreation = DateTime.Now.Subtract(task.timeCreated);
-                if (timeElapsedFromCreation.TotalDays > taskNotPaidExpirationTime)
-                {
-                    task.taskStatus = TaskStatusesEnum.responseTip_notPaid_expired;
-                }
-            }
-
-        }
-
-        private static void TaskPaid(ResponseTipTask task)
-        {
-            task.questionTweetId=TwitterHandlingClass.PostATweetOnAWall(task.twitterUserNameSelected, task.question);
-            task.taskStatus = TaskStatusesEnum.responseTip_questionAsked;
-            task.timeQuestionAsked = DateTime.Now;
-        }
-
-        private static void TaskQuestionAsked(ResponseTipTask task)
-        {
-            long answerTweetId=TwitterHandlingClass.CheckAnswerToQuestion((long)task.questionTweetId, task.twitterUserNameSelected);
-            if(answerTweetId>0)
-            {
-                task.answerTweetId = answerTweetId;
-                task.answer = TwitterHandlingClass.GetTweetAsString((long)task.answerTweetId);
-                task.taskStatus = TaskStatusesEnum.responseTip_questionAnswered;
-                return;
-            }
-
-            TimeSpan timeElapsedFromQuestionAsked = DateTime.Now.Subtract(task.timeQuestionAsked);
-            if (timeElapsedFromQuestionAsked.TotalDays > taskQuestionAskedExpirationTime)
-            {
-                task.taskStatus = TaskStatusesEnum.responseTip_questionAsked_expired;
-            }
-        }
-
-        private static void TaskQuestionAskedExpired(ResponseTipTask task)
-        {
-            decimal addressBalance = BtcHandling.BtcHandlingClass.CheckAdressBalance(task.BitcoinPublicAdress);
-            BtcHandlingClass.SendFromAndToAddress(task.BitcoinPublicAdress,task.BitcoinReturnPublicAddress, addressBalance, ConfigurationManager.AppSettings["Bitcoin_WalletPassword"]);
-            task.taskStatus = TaskStatusesEnum.responseTip_closed;
-        }
-
-        private static void TaskQuestionAnswered(ResponseTipTask task)
-        {
-
-        }
-        private static void TaskAnswerValid(ResponseTipTask task)
-        {
-
-        }
-        private static void TaskAllPaymentsSettled(ResponseTipTask task)
-        {
-
-        }
+        
 
 
        
