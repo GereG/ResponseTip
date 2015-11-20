@@ -3,8 +3,10 @@ using Owin;
 //using responseTip.Bussines_logic;
 using System.Web.Configuration;
 using System.Diagnostics;
+using System.Threading;
+using System.Globalization;
 
-[assembly: OwinStartupAttribute(typeof(responseTip.Startup))]
+[assembly: OwinStartupAttribute("ResponseTipConfig",typeof(responseTip.Startup))]
 namespace responseTip
 {
     public partial class Startup
@@ -18,11 +20,12 @@ namespace responseTip
                     WebConfigurationManager.AppSettings["Twitter_ConsumerSecret"],
                     WebConfigurationManager.AppSettings["Twitter_AccessToken"],
                     WebConfigurationManager.AppSettings["Twitter_AccessTokenSecret"]);
-            BtcHandling.BtcHandlingClass.ConnectToRpc(WebConfigurationManager.AppSettings["Bitcoin_DaemonUrl"],
+            BtcHandling.BtcHandlingClass.ConnectToRpc(WebConfigurationManager.AppSettings["Bitcoin_DaemonUrl_Testnet"],
                 WebConfigurationManager.AppSettings["Bitcoin_RpcUsername"],
                 WebConfigurationManager.AppSettings["Bitcoin_RpcPassword"],
                 WebConfigurationManager.AppSettings["Bitcoin_WalletPassword"]);
-/*            string address=BtcHandling.BtcHandlingClass.GetNewBtcAdress();*/
+            string address=BtcHandling.BtcHandlingClass.GetNewBtcAdress();
+            Debug.WriteLine("adress: "+address);
 
         }
     }

@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -19,6 +19,12 @@ namespace responseTip.Models
         {
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ResponseTipTask>().Property(model => model.BitcoinPrice).HasPrecision(11, 8);
+            base.OnModelCreating(modelBuilder);
+        }
+
         public System.Data.Entity.DbSet<responseTip.Models.ResponseTipTask> ResponseTipTasks { get; set; }
     }
-}
+}*/

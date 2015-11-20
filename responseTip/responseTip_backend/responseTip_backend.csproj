@@ -43,6 +43,14 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
       <Private>True</Private>
@@ -82,6 +90,7 @@
     <Compile Include="backend_main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="StateUpdateManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -90,17 +99,21 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ArbiterTown\ArbiterTown.csproj">
+      <Project>{769903d4-4dfd-4d68-bd3b-315b87be3a13}</Project>
+      <Name>ArbiterTown</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BtcHandling\BtcHandling.csproj">
       <Project>{6f73fd85-294b-4c9a-823b-044241a9f458}</Project>
       <Name>BtcHandling</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Exceptions\Exceptions.csproj">
+    <ProjectReference Include="..\Exceptions\responseTipExceptions.csproj">
       <Project>{0a638040-b6d6-4b81-a6a4-894099f18f82}</Project>
-      <Name>Exceptions</Name>
+      <Name>responseTipExceptions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\responseTip\responseTip.csproj">
-      <Project>{194cb54e-bada-48e2-b3a4-171477e969b2}</Project>
-      <Name>responseTip</Name>
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
+      <Project>{3ed1b7d0-b502-4147-90f0-9328687b4122}</Project>
+      <Name>Helpers</Name>
     </ProjectReference>
     <ProjectReference Include="..\TwitterHandling\TwitterHandling.csproj">
       <Project>{d62664cc-9509-46d0-9b37-01213580f51e}</Project>

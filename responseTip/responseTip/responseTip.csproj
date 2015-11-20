@@ -73,6 +73,10 @@
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -255,43 +259,11 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ResponseTipTasksController.cs" />
+    <Compile Include="DecimalModelBinder.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\QRCodeHtmlHelper.cs" />
-    <Compile Include="Migrations\201509221744234_Initial.cs" />
-    <Compile Include="Migrations\201509221744234_Initial.Designer.cs">
-      <DependentUpon>201509221744234_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509261328384_second.cs" />
-    <Compile Include="Migrations\201509261328384_second.Designer.cs">
-      <DependentUpon>201509261328384_second.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509261335540_ArbiterCount.cs" />
-    <Compile Include="Migrations\201509261335540_ArbiterCount.Designer.cs">
-      <DependentUpon>201509261335540_ArbiterCount.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509261420472_ArbiterCount2.cs" />
-    <Compile Include="Migrations\201509261420472_ArbiterCount2.Designer.cs">
-      <DependentUpon>201509261420472_ArbiterCount2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509281020030_twitteruserSelected.cs" />
-    <Compile Include="Migrations\201509281020030_twitteruserSelected.Designer.cs">
-      <DependentUpon>201509281020030_twitteruserSelected.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509281047015_timesAdded.cs" />
-    <Compile Include="Migrations\201509281047015_timesAdded.Designer.cs">
-      <DependentUpon>201509281047015_timesAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509281630230_twitterUserIdSelected.cs" />
-    <Compile Include="Migrations\201509281630230_twitterUserIdSelected.Designer.cs">
-      <DependentUpon>201509281630230_twitterUserIdSelected.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510091629076_btcpriceIsDecimal.cs" />
-    <Compile Include="Migrations\201510091629076_btcpriceIsDecimal.Designer.cs">
-      <DependentUpon>201510091629076_btcpriceIsDecimal.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\SocialSiteUsers.cs" />
     <Compile Include="Models\responseTipContext.cs" />
@@ -382,40 +354,22 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ArbiterTown\ArbiterTown.csproj">
+      <Project>{769903d4-4dfd-4d68-bd3b-315b87be3a13}</Project>
+      <Name>ArbiterTown</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BtcHandling\BtcHandling.csproj">
       <Project>{6f73fd85-294b-4c9a-823b-044241a9f458}</Project>
       <Name>BtcHandling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
+      <Project>{3ed1b7d0-b502-4147-90f0-9328687b4122}</Project>
+      <Name>Helpers</Name>
     </ProjectReference>
     <ProjectReference Include="..\TwitterHandling\TwitterHandling.csproj">
       <Project>{d62664cc-9509-46d0-9b37-01213580f51e}</Project>
       <Name>TwitterHandling</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201509221744234_Initial.resx">
-      <DependentUpon>201509221744234_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509261328384_second.resx">
-      <DependentUpon>201509261328384_second.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509261335540_ArbiterCount.resx">
-      <DependentUpon>201509261335540_ArbiterCount.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509261420472_ArbiterCount2.resx">
-      <DependentUpon>201509261420472_ArbiterCount2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509281020030_twitteruserSelected.resx">
-      <DependentUpon>201509281020030_twitteruserSelected.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509281047015_timesAdded.resx">
-      <DependentUpon>201509281047015_timesAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509281630230_twitterUserIdSelected.resx">
-      <DependentUpon>201509281630230_twitterUserIdSelected.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510091629076_btcpriceIsDecimal.resx">
-      <DependentUpon>201510091629076_btcpriceIsDecimal.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

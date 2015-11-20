@@ -6,10 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using responseTip.Models;
+//using responseTip.Models;
 //using responseTip.Bussines_logic;
 using System.Diagnostics;
 using BtcHandling;
+using responseTip.Helpers;
+using ArbiterTown.Models;
 
 namespace responseTip.Controllers
 {
@@ -19,7 +21,7 @@ namespace responseTip.Controllers
     {
         private TwitterHandling.TwitterHandlingClass.SearchResults UserSearchResults;
         
-        private responseTipContext db = new responseTipContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
 
  /*       public ActionResult GetImg()
@@ -105,10 +107,15 @@ namespace responseTip.Controllers
         // GET: ResponseTipTasks/Create
         public ActionResult Create()
         {
+            ResponseTipTask newTask = new ResponseTipTask();
+            newTask.question = "AutomaticQuestion";
+            newTask.twitterUserNameWritten = "RichardVelky";
+            newTask.BitcoinReturnPublicAddress = "n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi";
+            newTask.DollarPrice = (decimal)1;
             /*            string address = BtcHandling.BtcHandlingClass.GetNewBtcAdress();
                         Debug.WriteLine("new adress: " + address);*/
-//            UserSearchResults = TwitterHandling.TwitterHandlingClass.SearchUsersM("bb");
-            return View();
+            //            UserSearchResults = TwitterHandling.TwitterHandlingClass.SearchUsersM("bb");
+            return View(newTask);
         }
 
         // POST: ResponseTipTasks/Create
@@ -116,13 +123,20 @@ namespace responseTip.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ResponseTipTaskID,question,answer,twitterUserNameWritten,BitcoinPublicAdress,BitcoinPrice,isQuestionPublic")] ResponseTipTask responseTipTask)
+        public ActionResult Create([Bind(Include = "ResponseTipTaskID,question,twitterUserNameWritten,BitcoinReturnPublicAddress,DollarPrice,isQuestionPublic")] ResponseTipTask responseTipTask)
         {
+            responseTipTask.BitcoinPublicAdress = BtcHandlingClass.GetNewBtcAdress();
+            responseTipTask.BitcoinPrice = responseTipTask.DollarPrice / externalAPIs.UpdateBitcoinAverageDollarPrice();
+            decimal estimatedTxFee = BtcHandlingClass.UpdateEstimatedTxFee();
+            responseTipTask.BitcoinPrice += estimatedTxFee;
+            ModelState.Clear();
+            TryValidateModel(responseTipTask);
+
             if (ModelState.IsValid)
             {
-                responseTipTask.taskStatus = TaskStatusesEnum.created;
+                responseTipTask.taskStatus = TaskStatusesEnum.responseTip_created;
                 responseTipTask.userName = User.Identity.Name;
-                responseTipTask.BitcoinPublicAdress = BtcHandlingClass.GetNewBtcAdress();
+                
                 responseTipTask.timeCreated = DateTime.Now;
                 responseTipTask.timeQuestionAsked = DateTime.MinValue;
                 db.ResponseTipTasks.Add(responseTipTask);

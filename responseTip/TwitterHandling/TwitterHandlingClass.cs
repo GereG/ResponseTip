@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Diagnostics;
 using System.IO;
 using System.Drawing.Imaging;
+using Tweetinvi.Core.Parameters;
 
 namespace TwitterHandling
 {
@@ -17,10 +18,10 @@ namespace TwitterHandling
         {
             public UserRecord[] searchResultsData;
 
-            public SearchResults()
+            public SearchResults(int numOfUsers)
             {
-                searchResultsData = new UserRecord[20];
-                for(int i=0;i<20;i++)
+                searchResultsData = new UserRecord[numOfUsers];
+                for(int i=0;i<numOfUsers;i++)
                 {
                     searchResultsData[i] = new UserRecord();
                 }
@@ -34,7 +35,7 @@ namespace TwitterHandling
 
             public void Copy(SearchResults original)
             {
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < searchResultsData.Count(); i++)
                 {
                     searchResultsData[i] = original.searchResultsData[i];
                 }
@@ -58,17 +59,32 @@ namespace TwitterHandling
             Auth.SetUserCredentials(ConsumerKey, ConsumerSecret, AccessToken, AccessTokenSecret);
         }
 
-        public static void PublishTweet(string tweet_string)
+        public static long PublishTweet(string tweet_string,long? inReplyToTweetId)
         {
-            Tweet.PublishTweet(tweet_string);
-        }
+            Tweetinvi.Core.Interfaces.ITweet newTweet=null;
+            if (inReplyToTweetId == 0)
+            {
+                newTweet = Tweet.PublishTweet(tweet_string);
+            }else
+            {
+                newTweet = Tweet.PublishTweet(tweet_string, new PublishTweetOptionalParameters { InReplyToTweetId = inReplyToTweetId });
+            }
+            PublishTweetOptionalParameters parameters = new PublishTweetOptionalParameters();
+            parameters.InReplyToTweetId = newTweet.Id;
+
+            return newTweet.Id;
+            //            newTweet.
+                }
         public static SearchResults SearchUsersM(string username)
         {
-            SearchResults searchResults=new SearchResults();
             IEnumerable < Tweetinvi.Core.Interfaces.IUser> users = Search.SearchUsers(username,20,0);
-//            Search.SearchUsers(username)
-            //            IEnumerator<Tweetinvi.Core.Interfaces.IUser> enumerator=user.GetEnumerator();
-            for (int i=0; i<20; i++)
+
+            int maxUsers = users.Count();
+            if (maxUsers > 20) maxUsers = 20;
+
+            SearchResults searchResults = new SearchResults(maxUsers);
+
+            for (int i=0; i<maxUsers; i++)
             {
                 var uzivatel = users.ElementAt(i);
                 var stream = User.GetProfileImageStream(uzivatel);
@@ -93,12 +109,61 @@ namespace TwitterHandling
             //           return Search.SearchUsers(username);
         }
 
+        public static long PostATweetOnAWall(string username,string question)
+        {
+            Tweetinvi.Core.Interfaces.ITweet newTweet = null;
+            if (username != null)
+            {
+                string tweetText = "@" + username + " " + question;
+                newTweet=Tweet.PublishTweet(tweetText);
+            }
+            else throw new NullReferenceException();
+
+            return (newTweet.Id);
+        }
+
         private static byte[] turnImageToByteArray(System.Drawing.Image img)
         {
             MemoryStream ms = new MemoryStream();
             img.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
             return ms.ToArray();
         }
+
+        public static long CheckAnswerToQuestion(long tweetIdInAnswerTo, string userProfileName)
+        {
+            IEnumerable<Tweetinvi.Core.Interfaces.ITweet> repliedTweets;
+            repliedTweets=Search.SearchDirectRepliesTo(Tweet.GetTweet(tweetIdInAnswerTo));
+
+            long firstAuthenticTwitterReplyID = -1;
+            foreach (Tweetinvi.Core.Interfaces.ITweet tweet in repliedTweets)
+            {
+                Tweetinvi.Core.Interfaces.IUser createdByUser = tweet.CreatedBy;
+                if (createdByUser.ScreenName != userProfileName)
+                    continue;
+                if (firstAuthenticTwitterReplyID < 0)
+                {
+                    firstAuthenticTwitterReplyID = tweet.Id;
+                    continue;
+                }
+                if(tweet.Id<firstAuthenticTwitterReplyID)
+                {
+                    firstAuthenticTwitterReplyID = tweet.Id;
+                    continue;
+                }
+            }
+            return (firstAuthenticTwitterReplyID);
+        }
+
+        public static string GetTweetAsString(long tweetId)
+        {
+            string tweetMessage;
+            Tweetinvi.Core.Interfaces.ITweet tweet= Tweet.GetTweet(tweetId);
+            tweetMessage = tweet.Text;
+
+            return tweetMessage;
+        }
+
+
 
         //        public static void 
     }

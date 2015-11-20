@@ -1,0 +1,101 @@
+﻿@model ArbiterTown.Models.UserProfileModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+    <h4>Profile</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bitcoinsEarned)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bitcoinsEarned)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tasksCompleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tasksCompleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tasksSuccesfull)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tasksSuccesfull)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tasksskipped)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tasksskipped)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.successRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.successRate)
+        </dd>
+
+    </dl>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TextAnswerValidationTasks.FirstOrDefault().id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TextAnswerValidationTasks.FirstOrDefault().taskPriceInBitcoin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TextAnswerValidationTasks.FirstOrDefault().timeBeforeExpired)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TextAnswerValidationTasks.FirstOrDefault().taskStatus)
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model.TextAnswerValidationTasks)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.taskPriceInBitcoin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.timeBeforeExpired)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.taskStatus)
+            </td>
+            
+        </tr>
+    }
+
+</table>
+

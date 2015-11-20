@@ -1,4 +1,4 @@
-﻿@model IEnumerable<responseTip.Models.ResponseTipTask>
+﻿@model IEnumerable<ArbiterTown.Models.ResponseTipTask>
 @using responseTip.Helpers
 
 @{
@@ -28,7 +28,13 @@
             @Html.DisplayNameFor(model => model.BitcoinPublicAdress)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.BitcoinReturnPublicAddress)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.BitcoinPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DollarPrice)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.isQuestionPublic)
@@ -57,7 +63,13 @@
             @Html.DisplayFor(modelItem => item.BitcoinPublicAdress)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.BitcoinReturnPublicAddress)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.BitcoinPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DollarPrice)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.isQuestionPublic)
