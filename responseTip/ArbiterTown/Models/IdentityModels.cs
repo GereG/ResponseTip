@@ -20,11 +20,62 @@ namespace ArbiterTown.Models
         }
 
         public decimal bitcoinEarned { get; set; }
-        public int numOfPuzzlesSuccesfull { get; set; }
-        public int numOfPuzzlesAttemted { get; set; }
-        public int numOfPuzzlesSkipped { get; set; }
+        private int numOfPuzzlesSuccesfull { get; set; }
+        private int numOfPuzzlesAttemted { get; set; }
+        private float percentageOfPuzzlesSuccesfull { get; set; }
+        private int numOfPuzzlesSkipped { get; set; }
         public int hourlyPuzzleLimit { get; set; }
+        public int numOfPuzzlesWaiting { get; set; }
+
         public virtual ICollection<TextAnswerValidationTask> TextAnswerValidationTasks { get; set; }
+
+        public ApplicationUser()
+        {
+            percentageOfPuzzlesSuccesfull = 0.5f;
+        }
+
+        /// <summary>
+        /// Increments number of sucesfull and if he has more then 10 answers it computes new sucess percentage 
+        /// </summary>
+        public void IncrementNumOfPuzzlesSuccesfull()
+        {
+            numOfPuzzlesAttemted++;
+            numOfPuzzlesSuccesfull++;
+            if(numOfPuzzlesAttemted>10)
+                percentageOfPuzzlesSuccesfull = numOfPuzzlesSuccesfull / numOfPuzzlesAttemted;
+            //else 0.5f
+        }
+
+        /// <summary>
+        /// Increments number of skipped and if he has more then 10 answers it computes new sucess percentage
+        /// </summary>
+        public void IncrementNumOfPuzzlesSkipped() 
+        {
+            numOfPuzzlesAttemted++;
+            numOfPuzzlesSkipped++;
+            percentageOfPuzzlesSuccesfull = numOfPuzzlesSuccesfull / numOfPuzzlesAttemted;
+        }
+
+        public int GetNumOfPuzzlesSuccesfull()
+        {
+            return numOfPuzzlesSuccesfull;
+        }
+
+        public int GetNumOfPuzzlesAttemted()
+        {
+            return numOfPuzzlesAttemted;
+        }
+
+        public int GetNumOfPuzzlesSkipped()
+        {
+            return numOfPuzzlesSkipped;
+        }
+
+        public float GetPercentageOfPuzzlesSuccesfull()
+        {
+            return percentageOfPuzzlesSuccesfull;
+        }
+
 
     }
 
@@ -42,6 +93,7 @@ namespace ArbiterTown.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ApplicationUser>().Property(model => model.bitcoinEarned).HasPrecision(11, 8);
             modelBuilder.Entity<ResponseTipTask>().Property(model => model.BitcoinPrice).HasPrecision(11, 8);
             modelBuilder.Entity<TextAnswerValidationTask>().Property(model => model.taskPriceInBitcoin).HasPrecision(11, 8);
             base.OnModelCreating(modelBuilder);

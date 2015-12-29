@@ -23,16 +23,10 @@ namespace ArbiterTown.Models
         public UserProfileModel(ApplicationUser user)
         {
             username = user.UserName;
-            tasksCompleted = user.numOfPuzzlesAttemted;
-            tasksSuccesfull = user.numOfPuzzlesSuccesfull;
-            tasksskipped = user.numOfPuzzlesSkipped;
-            if(tasksCompleted==0)
-            {
-                successRate = 1;
-            }else
-            {
-                successRate = tasksSuccesfull / tasksCompleted;
-            }
+            tasksCompleted = user.GetNumOfPuzzlesAttemted();
+            tasksSuccesfull = user.GetNumOfPuzzlesSuccesfull();
+            tasksskipped = user.GetNumOfPuzzlesSkipped();
+            successRate = user.GetPercentageOfPuzzlesSuccesfull();
             bitcoinsEarned = user.bitcoinEarned;
             TextAnswerValidationTasks= Extensions.Clone(user.TextAnswerValidationTasks);
         }

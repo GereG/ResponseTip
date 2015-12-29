@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using Microsoft.AspNet.Identity;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -135,8 +136,8 @@ namespace responseTip.Controllers
             if (ModelState.IsValid)
             {
                 responseTipTask.taskStatus = TaskStatusesEnum.responseTip_created;
-                responseTipTask.userName = User.Identity.Name;
-                
+                responseTipTask.userName = User.Identity.GetUserId();
+                                
                 responseTipTask.timeCreated = DateTime.Now;
                 responseTipTask.timeQuestionAsked = DateTime.MinValue;
                 db.ResponseTipTasks.Add(responseTipTask);

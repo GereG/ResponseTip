@@ -19,6 +19,7 @@ namespace ArbiterTown.Models
             ArbiterCount = 5;
         }
         public int ResponseTipTaskID { get; set; }
+        [StringLength(128)]
         public string userName { get; set; }
 
         [Required()]

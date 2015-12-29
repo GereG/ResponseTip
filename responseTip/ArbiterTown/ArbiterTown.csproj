@@ -197,6 +197,18 @@
     <Compile Include="Migrations\201512291119363_unknownChange.Designer.cs">
       <DependentUpon>201512291119363_unknownChange.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201512291550050_responseTipTask_applicationUserID.cs" />
+    <Compile Include="Migrations\201512291550050_responseTipTask_applicationUserID.Designer.cs">
+      <DependentUpon>201512291550050_responseTipTask_applicationUserID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512291630546_ArbiterTownApplicationUserBitcoinEarnedPrecisionChanged.cs" />
+    <Compile Include="Migrations\201512291630546_ArbiterTownApplicationUserBitcoinEarnedPrecisionChanged.Designer.cs">
+      <DependentUpon>201512291630546_ArbiterTownApplicationUserBitcoinEarnedPrecisionChanged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512291648207_ApplicationUser_percentageOfPuzzlesSuccesfull.cs" />
+    <Compile Include="Migrations\201512291648207_ApplicationUser_percentageOfPuzzlesSuccesfull.Designer.cs">
+      <DependentUpon>201512291648207_ApplicationUser_percentageOfPuzzlesSuccesfull.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ArbiterTaskModels.cs" />
@@ -298,6 +310,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512291119363_unknownChange.resx">
       <DependentUpon>201512291119363_unknownChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512291550050_responseTipTask_applicationUserID.resx">
+      <DependentUpon>201512291550050_responseTipTask_applicationUserID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512291630546_ArbiterTownApplicationUserBitcoinEarnedPrecisionChanged.resx">
+      <DependentUpon>201512291630546_ArbiterTownApplicationUserBitcoinEarnedPrecisionChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512291648207_ApplicationUser_percentageOfPuzzlesSuccesfull.resx">
+      <DependentUpon>201512291648207_ApplicationUser_percentageOfPuzzlesSuccesfull.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
