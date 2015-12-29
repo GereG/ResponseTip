@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ArbiterTown.Models
 {
-    public class ArbiterTaskAnswerContext : DbContext
+/*    public class ArbiterTaskAnswerContext : DbContext
     {
         // You can add custom code to this file. Changes will not be overwritten.
         // 
@@ -29,5 +29,5 @@ namespace ArbiterTown.Models
 
 //        public System.Data.Entity.DbSet<ArbiterTown.Models.TextAnswerValidationTask> TextAnswerValidationTasks { get; set; }
 //        public System.Data.Entity.DbSet<ArbiterTown.Models.ResponseTipTask> ResponseTipTasks { get; set; }
-    }
+    }*/
 }

@@ -21,7 +21,7 @@ namespace responseTip.Helpers
             if (bitcoinPriceUpdateIntervalInMinutes < timeFromLastUpdate.TotalMinutes)
             {
                 CallForBitcoinAverageDollarPrice();
-            }
+            }  
 
             return BitcoinPriceInDollars;
         }

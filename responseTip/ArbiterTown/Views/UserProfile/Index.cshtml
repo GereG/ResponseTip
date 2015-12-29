@@ -70,7 +70,7 @@
             @Html.DisplayNameFor(model => model.TextAnswerValidationTasks.FirstOrDefault().taskPriceInBitcoin)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TextAnswerValidationTasks.FirstOrDefault().timeBeforeExpired)
+            @Html.DisplayNameFor(model => model.TextAnswerValidationTasks.FirstOrDefault().expirationTime)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.TextAnswerValidationTasks.FirstOrDefault().taskStatus)
@@ -88,7 +88,7 @@
                 @Html.DisplayFor(modelItem => item.taskPriceInBitcoin)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.timeBeforeExpired)
+                @Html.DisplayFor(modelItem => item.expirationTime)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.taskStatus)

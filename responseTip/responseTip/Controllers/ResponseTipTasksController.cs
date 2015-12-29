@@ -123,7 +123,7 @@ namespace responseTip.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ResponseTipTaskID,question,twitterUserNameWritten,BitcoinReturnPublicAddress,DollarPrice,isQuestionPublic")] ResponseTipTask responseTipTask)
+        public ActionResult Create([Bind(Include = "ResponseTipTaskID,question,twitterUserNameWritten,BitcoinReturnPublicAddress,DollarPrice,isQuestionPublic,ArbiterCount")] ResponseTipTask responseTipTask)
         {
             responseTipTask.BitcoinPublicAdress = BtcHandlingClass.GetNewBtcAdress();
             responseTipTask.BitcoinPrice = responseTipTask.DollarPrice / externalAPIs.UpdateBitcoinAverageDollarPrice();

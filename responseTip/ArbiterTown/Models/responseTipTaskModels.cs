@@ -16,6 +16,7 @@ namespace ArbiterTown.Models
         {
             BitcoinPrice = 0.0005m;
             BitcoinReturnPublicAddress = "17xm46Mm8ZFGWKdqknF5QF3HLtFb2zd6fb";
+            ArbiterCount = 5;
         }
         public int ResponseTipTaskID { get; set; }
         public string userName { get; set; }
@@ -31,6 +32,8 @@ namespace ArbiterTown.Models
         public string twitterUserNameWritten { get; set; }
         public int twitterUserIdSelected { get; set; }
         public string twitterUserNameSelected { get; set; }
+        [Required]
+        [OddNumber]
         public int ArbiterCount { get; set; }
 
         [Required]

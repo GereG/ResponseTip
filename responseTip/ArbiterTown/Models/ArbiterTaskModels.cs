@@ -26,7 +26,7 @@ namespace ArbiterTown.Models
         [Required()]
         public DateTime timeAssigned { get; set; }
         [Required()]
-        public TimeSpan timeBeforeExpired { get; set; }
+        public TimeSpan expirationTime { get; set; }
         [Required()]
         public TextAnswerValidation_ArbiterAnswerEnum arbiterAnswer { get; set; }
         [Required()]
@@ -55,7 +55,7 @@ namespace ArbiterTown.Models
             clonedTask.taskPriceInDollars = this.taskPriceInDollars;
             clonedTask.taskStatus = this.taskStatus;
             clonedTask.timeAssigned = this.timeAssigned;
-            clonedTask.timeBeforeExpired = this.timeBeforeExpired;
+            clonedTask.expirationTime = this.expirationTime;
 
             return clonedTask;
         }
@@ -86,7 +86,7 @@ namespace ArbiterTown.Models
 
     public enum TextAnswerValidation_ArbiterAnswerEnum
     {
-        notValid=0, Valid=1, skip=2
+        notValid=0, Valid=1, skip=2, notAnswered=3
     }
 
     public enum ArbiterTaskStatusesEnum

@@ -102,6 +102,7 @@ namespace responseTip_backend
                     switch(task.taskStatus)
                     {
                         case ArbiterTaskStatusesEnum.textAnswerValidation_created:
+
                             break;
                         case ArbiterTaskStatusesEnum.textAnswerValidation_expired:
                             break;
@@ -176,7 +177,8 @@ namespace responseTip_backend
                         case TaskStatusesEnum.responseTip_questionAnswered:
                             if (Convert.ToBoolean(((statesToUpdate >> (int)task.taskStatus) % 2)))
                             {
-
+                                TextAnswerValidationTask newTask= responseTip.Bussines_logic.responseTipLogic.TaskQuestionAnswered(task);
+                                dbContext.TextAnswerValidationTasks.Add(newTask);
                             }
                             break;
 
