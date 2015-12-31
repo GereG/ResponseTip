@@ -17,11 +17,12 @@ namespace responseTip_backend
 {
     public class backend_main
     {
-        private static Logger backendLogger=new Logger();
-        private static ApplicationDbContext dbContext=new ApplicationDbContext();
-//        private static responseTipTaskContext responseTipDatabase = new responseTipTaskContext();
+        private static ArbiterFinder arbiterFinder;
+        private static Logger backendLogger = new Logger();
+        private static ApplicationDbContext dbContext = new ApplicationDbContext();
+        //        private static responseTipTaskContext responseTipDatabase = new responseTipTaskContext();
 
-        
+
 
 
 
@@ -32,13 +33,15 @@ namespace responseTip_backend
 
             Startup.Configuration();
 
-            backendLogger.LogLine("Backend_main configured...continuing",Logger.log_types.MESSAGE_LOG);
+            backendLogger.LogLine("Backend_main configured...continuing", Logger.log_types.MESSAGE_LOG);
+
+            arbiterFinder = new ArbiterFinder(dbContext);
 
             CleanTaskDatabase();
 
             //            decimal dollarPrice=externalAPIs.CallForBitcoinAverageDollarPrice();
 
-            StateUpdateManager responseTipStateUpdateManager=new StateUpdateManager(typeof(TaskStatusesEnum));
+            StateUpdateManager responseTipStateUpdateManager = new StateUpdateManager(typeof(TaskStatusesEnum));
             int responseTipStatesToUpdate = 0;
 
             StateUpdateManager textAnswerValidationUpdateManager = new StateUpdateManager(typeof(TextAnswerValidation_ArbiterAnswerEnum));
@@ -46,19 +49,19 @@ namespace responseTip_backend
 
             while (true)//infinite loop
             {
-                if(BtcHandlingClass.IsNextBlock())
+                if (BtcHandlingClass.IsNextBlock())
                 {
-                    backendLogger.LogLine("New Block",Logger.log_types.MESSAGE_LOG);
+                    backendLogger.LogLine("New Block", Logger.log_types.MESSAGE_LOG);
                     responseTipStateUpdateManager.NewBlock();
                 }
 
                 BtcHandlingClass.UpdateKeyPool(ConfigurationManager.AppSettings["Bitcoin_WalletPassword"]);
 
-                responseTipStatesToUpdate= responseTipStateUpdateManager.StatesToUpdateNow();
+                responseTipStatesToUpdate = responseTipStateUpdateManager.StatesToUpdateNow();
                 responseTipStatePusherCycle(responseTipStatesToUpdate);
 
                 textAnswerValidationStatesToUpdate = textAnswerValidationUpdateManager.StatesToUpdateNow();
-                
+
                 //                System.Threading.Thread.Sleep(5000);
             }
         }
@@ -74,17 +77,17 @@ namespace responseTip_backend
                     {
                         dbContext.ResponseTipTasks.Remove(task);
                         string line = "Deleted Task" + ": " + task.ResponseTipTaskID + "    " + task.twitterUserNameSelected;
-                        backendLogger.LogLine(line,Logger.log_types.MESSAGE_LOG);
+                        backendLogger.LogLine(line, Logger.log_types.MESSAGE_LOG);
                     }
-                    else if(!BtcHandlingClass.IsAddressValidAndMine(task.BitcoinPublicAdress))
+                    else if (!BtcHandlingClass.IsAddressValidAndMine(task.BitcoinPublicAdress))
                     {
                         dbContext.ResponseTipTasks.Remove(task);
-                        backendLogger.LogLine("Deleted Task" + ": " + task.ResponseTipTaskID + " because bitcoin address "+task.BitcoinPublicAdress+" is not valid or mine", Logger.log_types.WARNING_LOG);
+                        backendLogger.LogLine("Deleted Task" + ": " + task.ResponseTipTaskID + " because bitcoin address " + task.BitcoinPublicAdress + " is not valid or mine", Logger.log_types.WARNING_LOG);
                     }
                     else
                     {
-//                        string line = "Task" + ": " + task.ResponseTipTaskID + "    " + task.twitterUserNameSelected;
-//                        backendLogger.LogLine(line, Logger.log_types.MESSAGE_LOG);
+                        //                        string line = "Task" + ": " + task.ResponseTipTaskID + "    " + task.twitterUserNameSelected;
+                        //                        backendLogger.LogLine(line, Logger.log_types.MESSAGE_LOG);
                     }
 
                 }
@@ -97,9 +100,9 @@ namespace responseTip_backend
             IEnumerable<TextAnswerValidationTask> enumerator = dbContext.TextAnswerValidationTasks.AsEnumerable();
             foreach (TextAnswerValidationTask task in enumerator)
             {
-                if(task!= null)
+                if (task != null)
                 {
-                    switch(task.taskStatus)
+                    switch (task.taskStatus)
                     {
                         case ArbiterTaskStatusesEnum.textAnswerValidation_created:
 
@@ -130,7 +133,7 @@ namespace responseTip_backend
                     switch (task.taskStatus)
                     {
                         case TaskStatusesEnum.responseTip_created:
-                            if (Convert.ToBoolean( ( (statesToUpdate >> (int)task.taskStatus) % 2))) //reads from mask if this state should be updated
+                            if (Convert.ToBoolean(((statesToUpdate >> (int)task.taskStatus) % 2))) //reads from mask if this state should be updated
                             {
                                 responseTip.Bussines_logic.responseTipLogic.TaskCreated(task);
 
@@ -177,8 +180,26 @@ namespace responseTip_backend
                         case TaskStatusesEnum.responseTip_questionAnswered:
                             if (Convert.ToBoolean(((statesToUpdate >> (int)task.taskStatus) % 2)))
                             {
-                                TextAnswerValidationTask newTask= responseTip.Bussines_logic.responseTipLogic.TaskQuestionAnswered(task);
-                                dbContext.TextAnswerValidationTasks.Add(newTask);
+                                int numOfArbitersToAsk = (int)(task.ArbiterCount * 1.5f); //always ask half more people for the task. those that will be first can answer
+                                string[] arbiterIDs = new string[numOfArbitersToAsk];
+
+                                TextAnswerValidationTask newArbiterTask = responseTip.Bussines_logic.responseTipLogic.TaskQuestionAnswered(task);
+                                try {
+                                    arbiterIDs = arbiterFinder.FindArbiters(numOfArbitersToAsk);
+                                }
+                                catch(responseTip.Exceptions.NotEnoughArbitersAvailable notEnoughArbitersAvailable)
+                                {
+                                    //TODO how to handle missing arbiters
+                                }
+
+                                for (int i = 0; i < numOfArbitersToAsk; i++)
+                                {
+                                    TextAnswerValidationTask duplicatedArbiterTask = (TextAnswerValidationTask)newArbiterTask.Clone();
+                                    duplicatedArbiterTask.ApplicationUserId = arbiterIDs[i];
+                                    dbContext.TextAnswerValidationTasks.Add(duplicatedArbiterTask);
+                                }
+
+                                arbiterFinder.IncrementNumberOfWaitingTasksOnLastFinding(numOfArbitersToAsk);
                             }
                             break;
 
@@ -204,22 +225,13 @@ namespace responseTip_backend
                             break;
 
                         default:
-                            
+
                             throw new responseTip.Exceptions.InvalidTaskStatus();
                     }
 
                 }
             }
             dbContext.SaveChanges();
-        }
-
-        
-
-
-       
-
-
-
-
+        }        
     }
 }

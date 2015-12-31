@@ -5,26 +5,47 @@ using System.Text;
 using System.Threading.Tasks;
 using ArbiterTown;
 using ArbiterTown.Models;
+using responseTip.Helpers;
 
 namespace responseTip_backend
 {
     public class ArbiterFinder
     {
-
+        Logger logger=new Logger();
+        private ApplicationDbContext dbContext;
+        IOrderedQueryable<ApplicationUser> orderedArbiters;
+        IQueryable<ApplicationUser> orderedArbitersAvailable;
         //TODO change to generalized tasks
         //TODO optimize searching the database
-        public string[] FindArbiter(ArbiterTown.Models.ResponseTipTask task, ApplicationDbContext dbContext, int arbiterNum)
+        public ArbiterFinder(ApplicationDbContext initContext)
         {
+            dbContext = initContext;
+        }
 
-            //            string arbiterId=dbContext.Users.OrderBy(model => model.GetPercentageOfPuzzlesSuccesfull()).ElementAt(arbiterNum).Id;
+        public string[] FindArbiters(int arbiterCount)
+        {
+            if (arbiterCount > dbContext.Users.Count())
+            {
+                logger.LogLine("Not enough arbiters available! " + arbiterCount+" wanted. ", Logger.log_types.ERROR_LOG);
+                throw new responseTip.Exceptions.NotEnoughArbitersAvailable();
+            }
+            string[] arbiterIds = new string[arbiterCount];
+            //arbiterIds=dbContext.Users.Where(model => model.GetPercentageOfPuzzlesSuccesfull() > 0.5f).OrderByDescending(model => model.GetPercentageOfPuzzlesSuccesfull()).Select(model => model.Id).Take(task.ArbiterCount).ToArray();
+            orderedArbiters = dbContext.Users.OrderByDescending(model => model.GetProbabilityOfBeingPicked());
+            //TODO check if order is not changed by takewhile
+            orderedArbitersAvailable = orderedArbiters.TakeWhile(model => model.GetNumOfPuzzlesWaiting() < model.GetNumOfPuzzlesLimit());
+            arbiterIds=orderedArbitersAvailable.Select(model => model.Id).Take(arbiterCount).ToArray();
 
+            
 
-            //            dbContext.Users.Select(model => model.)
-
-            string[] arbiterIds = new string[task.ArbiterCount];
-            arbiterIds=dbContext.Users.Where(model => model.GetPercentageOfPuzzlesSuccesfull() > 0.5f).OrderByDescending(model => model.GetPercentageOfPuzzlesSuccesfull()).Select(model => model.Id).Take(task.ArbiterCount).ToArray();
+            //            arbiterIds = dbContext.Users.OrderByDescending(model => model.GetProbabilityOfBeingPicked()).Select(model => model.Id).Take(arbiterCount).ToArray();
 
             return arbiterIds;
+        }
+
+        public void IncrementNumberOfWaitingTasksOnLastFinding(int arbiterCount)
+        {
+            orderedArbitersAvailable.Take(arbiterCount).TakeWhile(model => model.IncrementNumOfPuzzlesWaiting());
         }
     }
 }

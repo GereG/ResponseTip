@@ -24,8 +24,9 @@ namespace ArbiterTown.Models
         private int numOfPuzzlesAttemted { get; set; }
         private float percentageOfPuzzlesSuccesfull { get; set; }
         private int numOfPuzzlesSkipped { get; set; }
-        public int hourlyPuzzleLimit { get; set; }
-        public int numOfPuzzlesWaiting { get; set; }
+        public int PuzzleLimit { get; set; }
+        private int numOfPuzzlesWaiting { get; set; }
+        private static Random rndg = new Random();
 
         public virtual ICollection<TextAnswerValidationTask> TextAnswerValidationTasks { get; set; }
 
@@ -56,6 +57,25 @@ namespace ArbiterTown.Models
             percentageOfPuzzlesSuccesfull = numOfPuzzlesSuccesfull / numOfPuzzlesAttemted;
         }
 
+        public bool IncrementNumOfPuzzlesWaiting()
+        {
+            numOfPuzzlesWaiting++;
+
+            return false; //always return something to be able to call this function from database query 
+        }
+
+        public int GetNumOfPuzzlesWaiting()
+        {
+            return numOfPuzzlesWaiting;
+        }
+
+        public int GetNumOfPuzzlesLimit()
+        {
+            return PuzzleLimit;
+        }
+
+
+
         public int GetNumOfPuzzlesSuccesfull()
         {
             return numOfPuzzlesSuccesfull;
@@ -74,6 +94,19 @@ namespace ArbiterTown.Models
         public float GetPercentageOfPuzzlesSuccesfull()
         {
             return percentageOfPuzzlesSuccesfull;
+        }
+        /// <summary>
+        /// returns probability of being picked as arbiter
+        ///
+        /// </summary>
+        /// <returns></returns>
+        public float GetProbabilityOfBeingPicked()
+        { 
+//            float availability = (PuzzleLimit - numOfPuzzlesWaiting) / PuzzleLimit;
+            float trustworthiness = 0.3f + 0.7f*(numOfPuzzlesAttemted / (10 + numOfPuzzlesAttemted));
+            float randomness = (float)rndg.NextDouble();
+            
+            return percentageOfPuzzlesSuccesfull * trustworthiness * randomness;
         }
 
 

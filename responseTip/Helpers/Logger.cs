@@ -10,7 +10,7 @@ namespace responseTip.Helpers
 {
     public class Logger
     {
-        string directoryPath= Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+        static string directoryPath= Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
         public void SetPath(string path)
         {
