@@ -182,6 +182,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TextAnswerValidationTasksController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
+    <Compile Include="DAL\ArbiterInitializer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -212,6 +213,10 @@
     <Compile Include="Migrations\201601031630388_unknown_changes.cs" />
     <Compile Include="Migrations\201601031630388_unknown_changes.Designer.cs">
       <DependentUpon>201601031630388_unknown_changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601031902547_datetime2.cs" />
+    <Compile Include="Migrations\201601031902547_datetime2.Designer.cs">
+      <DependentUpon>201601031902547_datetime2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -325,6 +330,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601031630388_unknown_changes.resx">
       <DependentUpon>201601031630388_unknown_changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601031902547_datetime2.resx">
+      <DependentUpon>201601031902547_datetime2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

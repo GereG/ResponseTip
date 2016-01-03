@@ -44,7 +44,7 @@ namespace responseTip_backend
             StateUpdateManager responseTipStateUpdateManager = new StateUpdateManager(typeof(TaskStatusesEnum));
             int responseTipStatesToUpdate = 0;
 
-            StateUpdateManager textAnswerValidationUpdateManager = new StateUpdateManager(typeof(TextAnswerValidation_ArbiterAnswerEnum));
+            StateUpdateManager textAnswerValidationUpdateManager = new StateUpdateManager(typeof(ArbiterTaskStatusesEnum));
             int textAnswerValidationStatesToUpdate = 0;
 
             while (true)//infinite loop

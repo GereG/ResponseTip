@@ -16,7 +16,9 @@ namespace BtcHandling
             if (String.IsNullOrEmpty(address))
                 return true;
 
-            bool isReturnAddressValid = BtcHandling.BtcHandlingClass.IsAddressValid(address);
+            bool isReturnAddressValid = true;
+            //TODO UNCOMENT NEXT LINE FOR BTC ADRESS VERIFICATION(after database play)
+ //           bool isReturnAddressValid = BtcHandling.BtcHandlingClass.IsAddressValid(address);
 
             return isReturnAddressValid;
         }
