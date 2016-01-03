@@ -8,6 +8,30 @@ using System.Collections.Generic;
 
 namespace ArbiterTown.Models
 {
+    public class ArbiterInitializer: System.Data.Entity.DropCreateDatabaseIfModelChanges<ApplicationDbContext>
+    {
+        protected override void Seed(ApplicationDbContext context)
+        {
+            PasswordHasher passHasher=new PasswordHasher();
+            var seedArbiterUsers = new List<ApplicationUser>
+            {
+                new ApplicationUser { UserName = "tom@seznam.cz", Email = "tom@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@") },
+                new ApplicationUser { UserName = "tom2@seznam.cz", Email = "tom2@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@") },
+                new ApplicationUser { UserName = "tom3@seznam.cz", Email = "tom3@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@") },
+                new ApplicationUser { UserName = "tom4@seznam.cz", Email = "tom4@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@") },
+                new ApplicationUser { UserName = "tom5@seznam.cz", Email = "tom5@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@") },
+                new ApplicationUser { UserName = "tom6@seznam.cz", Email = "tom6@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@") },
+                new ApplicationUser { UserName = "tom7@seznam.cz", Email = "tom7@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@") },
+                new ApplicationUser { UserName = "tom8@seznam.cz", Email = "tom8@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@") },
+                new ApplicationUser { UserName = "tom9@seznam.cz", Email = "tom9@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@") },
+                new ApplicationUser { UserName = "tom10@seznam.cz", Email = "tom10@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@") }
+        };
+            seedArbiterUsers.ForEach(s => context.Users.Add(s));
+            context.SaveChanges();
+            
+            base.Seed(context);
+        }
+    }
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
@@ -18,6 +42,8 @@ namespace ArbiterTown.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+
 
         public decimal bitcoinEarned { get; set; }
         private int numOfPuzzlesSuccesfull { get; set; }
@@ -126,8 +152,10 @@ namespace ArbiterTown.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Properties<DateTime>().Configure(c => c.HasColumnType("datetime2")); // map all datetime na datetime2
             modelBuilder.Entity<ApplicationUser>().Property(model => model.bitcoinEarned).HasPrecision(11, 8);
             modelBuilder.Entity<ResponseTipTask>().Property(model => model.BitcoinPrice).HasPrecision(11, 8);
+//            modelBuilder.Entity<ResponseTipTask>().Property(model => model.timeCreated).
             modelBuilder.Entity<TextAnswerValidationTask>().Property(model => model.taskPriceInBitcoin).HasPrecision(11, 8);
             base.OnModelCreating(modelBuilder);
         }

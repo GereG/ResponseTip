@@ -209,6 +209,10 @@
     <Compile Include="Migrations\201512291648207_ApplicationUser_percentageOfPuzzlesSuccesfull.Designer.cs">
       <DependentUpon>201512291648207_ApplicationUser_percentageOfPuzzlesSuccesfull.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601031630388_unknown_changes.cs" />
+    <Compile Include="Migrations\201601031630388_unknown_changes.Designer.cs">
+      <DependentUpon>201601031630388_unknown_changes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ArbiterTaskModels.cs" />
@@ -281,7 +285,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\App_LocalResources\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -319,6 +322,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512291648207_ApplicationUser_percentageOfPuzzlesSuccesfull.resx">
       <DependentUpon>201512291648207_ApplicationUser_percentageOfPuzzlesSuccesfull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601031630388_unknown_changes.resx">
+      <DependentUpon>201601031630388_unknown_changes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
