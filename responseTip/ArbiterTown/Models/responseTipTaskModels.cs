@@ -17,6 +17,7 @@ namespace ArbiterTown.Models
             BitcoinPrice = 0.0005m;
             BitcoinReturnPublicAddress = "17xm46Mm8ZFGWKdqknF5QF3HLtFb2zd6fb";
             ArbiterCount = 5;
+            answerValidation = AnswerValidationEnum.responseTip_notValidated;
         }
         public int ResponseTipTaskID { get; set; }
         [StringLength(128)]
@@ -36,6 +37,7 @@ namespace ArbiterTown.Models
         [Required]
         [OddNumber]
         public int ArbiterCount { get; set; }
+        public AnswerValidationEnum answerValidation { get; set; }
 
         [Required]
         [BtcAddress]
@@ -90,7 +92,12 @@ namespace ArbiterTown.Models
     {
         responseTip_created = 0, responseTip_notPaid = 1, responseTip_notPaid_expired = 2, responseTip_paid = 3,
         responseTip_questionAsked = 4, responseTip_questionAsked_expired = 5, responseTip_questionAnswered = 6,
-        responseTip_answerValid = 7, responseTip_allPaymentsSettled = 8, responseTip_completed = 9, responseTip_closed = 10
+        responseTip_answerAfterEvalidation=7, responseTip_allPaymentsSettled = 8, responseTip_completed = 9, responseTip_closed = 10
+    }
+
+    public enum AnswerValidationEnum
+    {
+        responseTip_notValidated=0,responseTip_AnswerIsValid=1,responseTip_AnswerIsNotValid=2
     }
 
 

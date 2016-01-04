@@ -218,6 +218,14 @@
     <Compile Include="Migrations\201601031902547_datetime2.Designer.cs">
       <DependentUpon>201601031902547_datetime2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601042131307_applicationUser_public.cs" />
+    <Compile Include="Migrations\201601042131307_applicationUser_public.Designer.cs">
+      <DependentUpon>201601042131307_applicationUser_public.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601042227521_responseTip_answerValidation.cs" />
+    <Compile Include="Migrations\201601042227521_responseTip_answerValidation.Designer.cs">
+      <DependentUpon>201601042227521_responseTip_answerValidation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ArbiterTaskModels.cs" />
@@ -333,6 +341,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601031902547_datetime2.resx">
       <DependentUpon>201601031902547_datetime2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601042131307_applicationUser_public.resx">
+      <DependentUpon>201601042131307_applicationUser_public.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601042227521_responseTip_answerValidation.resx">
+      <DependentUpon>201601042227521_responseTip_answerValidation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -13,8 +13,8 @@ namespace responseTip_backend
     {
         Logger logger=new Logger();
         private ApplicationDbContext dbContext;
-        IOrderedQueryable<ApplicationUser> orderedArbiters;
-        IQueryable<ApplicationUser> orderedArbitersAvailable;
+        IOrderedEnumerable<ApplicationUser> orderedArbiters;
+        IEnumerable<ApplicationUser> orderedArbitersAvailable;
         //TODO change to generalized tasks
         //TODO optimize searching the database
         public ArbiterFinder(ApplicationDbContext initContext)
@@ -31,7 +31,7 @@ namespace responseTip_backend
             }
             string[] arbiterIds = new string[arbiterCount];
             //arbiterIds=dbContext.Users.Where(model => model.GetPercentageOfPuzzlesSuccesfull() > 0.5f).OrderByDescending(model => model.GetPercentageOfPuzzlesSuccesfull()).Select(model => model.Id).Take(task.ArbiterCount).ToArray();
-            orderedArbiters = dbContext.Users.OrderByDescending(model => model.GetProbabilityOfBeingPicked());
+            orderedArbiters = dbContext.Users.ToList().OrderByDescending(model => model.GetProbabilityOfBeingPicked());
             //TODO check if order is not changed by takewhile
             orderedArbitersAvailable = orderedArbiters.TakeWhile(model => model.GetNumOfPuzzlesWaiting() < model.GetNumOfPuzzlesLimit());
             arbiterIds=orderedArbitersAvailable.Select(model => model.Id).Take(arbiterCount).ToArray();
@@ -43,9 +43,5 @@ namespace responseTip_backend
             return arbiterIds;
         }
 
-        public void IncrementNumberOfWaitingTasksOnLastFinding(int arbiterCount)
-        {
-            orderedArbitersAvailable.Take(arbiterCount).TakeWhile(model => model.IncrementNumOfPuzzlesWaiting());
-        }
     }
 }

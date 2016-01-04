@@ -23,12 +23,12 @@ namespace ArbiterTown.Models
 
 
         public decimal bitcoinEarned { get; set; }
-        private int numOfPuzzlesSuccesfull { get; set; }
-        private int numOfPuzzlesAttemted { get; set; }
-        private float percentageOfPuzzlesSuccesfull { get; set; }
-        private int numOfPuzzlesSkipped { get; set; }
+        public int numOfPuzzlesSuccesfull { get; set; }
+        public int numOfPuzzlesAttemted { get; set; }
+        public float percentageOfPuzzlesSuccesfull { get; set; }
+        public int numOfPuzzlesSkipped { get; set; }
         public int PuzzleLimit { get; set; }
-        private int numOfPuzzlesWaiting { get; set; }
+        public int numOfPuzzlesWaiting { get; set; }
         private static Random rndg = new Random();
 
         public virtual ICollection<TextAnswerValidationTask> TextAnswerValidationTasks { get; set; }

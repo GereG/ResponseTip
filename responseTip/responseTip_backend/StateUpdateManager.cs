@@ -54,7 +54,7 @@ namespace responseTip_backend
                     case "responseTip_questionAnswered":
                         taskStateUpdateIntervalInSeconds[i] = 1;
                         break;
-                    case "responseTip_answerValid":
+                    case "responseTip_answerAfterEvalidation":
                         taskStateUpdateIntervalInSeconds[i] = 1;
                         break;
                     case "responseTip_allPaymentsSettled":
@@ -67,6 +67,9 @@ namespace responseTip_backend
                         taskStateUpdateIntervalInSeconds[i] = 1;
                         break;
                     case "textAnswerValidation_created":
+                        taskStateUpdateIntervalInSeconds[i] = 1;
+                        break;
+                    case "textAnswerValidation_waitingForAnswer":
                         taskStateUpdateIntervalInSeconds[i] = 1;
                         break;
                     case "textAnswerValidation_expired":

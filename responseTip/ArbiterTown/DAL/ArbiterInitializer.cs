@@ -14,16 +14,16 @@ namespace ArbiterTown.DAL
             PasswordHasher passHasher = new PasswordHasher();
             var seedArbiterUsers = new List<ApplicationUser>
             {
-                new ApplicationUser { UserName = "tom@seznam.cz", Email = "tom@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@"),SecurityStamp=Guid.NewGuid().ToString() },
-                new ApplicationUser { UserName = "tom2@seznam.cz", Email = "tom2@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@"),SecurityStamp=Guid.NewGuid().ToString() },
-                new ApplicationUser { UserName = "tom3@seznam.cz", Email = "tom3@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@"),SecurityStamp=Guid.NewGuid().ToString() },
-                new ApplicationUser { UserName = "tom4@seznam.cz", Email = "tom4@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@"),SecurityStamp=Guid.NewGuid().ToString() },
-                new ApplicationUser { UserName = "tom5@seznam.cz", Email = "tom5@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@"),SecurityStamp=Guid.NewGuid().ToString() },
-                new ApplicationUser { UserName = "tom6@seznam.cz", Email = "tom6@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@"),SecurityStamp=Guid.NewGuid().ToString() },
-                new ApplicationUser { UserName = "tom7@seznam.cz", Email = "tom7@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@"),SecurityStamp=Guid.NewGuid().ToString() },
-                new ApplicationUser { UserName = "tom8@seznam.cz", Email = "tom8@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@"),SecurityStamp=Guid.NewGuid().ToString() },
-                new ApplicationUser { UserName = "tom9@seznam.cz", Email = "tom9@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@"),SecurityStamp=Guid.NewGuid().ToString() },
-                new ApplicationUser { UserName = "tom10@seznam.cz", Email = "tom10@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@"),SecurityStamp=Guid.NewGuid().ToString() }
+                new ApplicationUser { UserName = "tom@seznam.cz", Email = "tom@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@"),SecurityStamp=Guid.NewGuid().ToString(),PuzzleLimit=10 },
+                new ApplicationUser { UserName = "tom2@seznam.cz", Email = "tom2@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@"),SecurityStamp=Guid.NewGuid().ToString(),PuzzleLimit=10 },
+                new ApplicationUser { UserName = "tom3@seznam.cz", Email = "tom3@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@"),SecurityStamp=Guid.NewGuid().ToString(),PuzzleLimit=10 },
+                new ApplicationUser { UserName = "tom4@seznam.cz", Email = "tom4@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@"),SecurityStamp=Guid.NewGuid().ToString(),PuzzleLimit=10 },
+                new ApplicationUser { UserName = "tom5@seznam.cz", Email = "tom5@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@"),SecurityStamp=Guid.NewGuid().ToString(),PuzzleLimit=10 },
+                new ApplicationUser { UserName = "tom6@seznam.cz", Email = "tom6@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@"),SecurityStamp=Guid.NewGuid().ToString(),PuzzleLimit=10 },
+                new ApplicationUser { UserName = "tom7@seznam.cz", Email = "tom7@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@"),SecurityStamp=Guid.NewGuid().ToString(),PuzzleLimit=10 },
+                new ApplicationUser { UserName = "tom8@seznam.cz", Email = "tom8@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@"),SecurityStamp=Guid.NewGuid().ToString(),PuzzleLimit=10 },
+                new ApplicationUser { UserName = "tom9@seznam.cz", Email = "tom9@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@"),SecurityStamp=Guid.NewGuid().ToString(),PuzzleLimit=10 },
+                new ApplicationUser { UserName = "tom10@seznam.cz", Email = "tom10@seznam.cz",PasswordHash=passHasher.HashPassword("Blabla0@"),SecurityStamp=Guid.NewGuid().ToString(),PuzzleLimit=10 }
         };
             seedArbiterUsers.ForEach(s => context.Users.Add(s));
             context.SaveChanges();

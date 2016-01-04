@@ -91,7 +91,7 @@ namespace ArbiterTown.Models
 
     public enum ArbiterTaskStatusesEnum
     {
-        textAnswerValidation_created=0, textAnswerValidation_expired=1, textAnswerValidation_answered=2, textAnswerValidation_finishedInAgreement=3,
-        textAnswerValidation_finishedInDisagreement=4
+        textAnswerValidation_created=0, textAnswerValidation_waitingForAnswer=1, textAnswerValidation_expired=2, textAnswerValidation_answered=3, textAnswerValidation_finishedInAgreement=4,
+        textAnswerValidation_finishedInDisagreement=5
     }
 }
