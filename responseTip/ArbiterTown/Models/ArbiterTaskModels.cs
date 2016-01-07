@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
+using responseTip.Helpers;
 
 
 namespace ArbiterTown.Models
@@ -37,27 +38,101 @@ namespace ArbiterTown.Models
         [DisplayFormat(DataFormatString = "{0:F8}", ApplyFormatInEditMode = true)]
         public decimal taskPriceInBitcoin { get; set; }
 
+        public virtual ResponseTipTask parentTask { get; set; } 
+        public virtual ApplicationUser assignedArbiter { get; set; }
+
 /*        public TextAnswerValidationTask Clone(TextAnswerValidationTask task)
         {
             TextAnswerValidationTask clonedTask = new TextAnswerValidationTask();
 
             return clonedTask;
         }*/
+        public TextAnswerValidationTask(string assignedArbiterID,int parrentResponseTipTaskId, TimeSpan expirationTimeInMinutes, decimal priceInDollars)
+        {
+            ApplicationUserId = assignedArbiterID;
+            ResponseTipTaskID = parrentResponseTipTaskId;
+            timeAssigned = DateTime.Now;
+            expirationTime = expirationTimeInMinutes;
+            taskPriceInDollars = priceInDollars;
+            taskPriceInBitcoin = priceInDollars / externalAPIs.UpdateBitcoinAverageDollarPrice();
+            taskStatus = ArbiterTaskStatusesEnum.textAnswerValidation_created;
+            arbiterAnswer = TextAnswerValidation_ArbiterAnswerEnum.notAnswered;
+
+        }
+
+        public TextAnswerValidationTask()
+        {
+           
+        }
 
         public object Clone()
         {
-            TextAnswerValidationTask clonedTask = new TextAnswerValidationTask();
-            clonedTask.ApplicationUserId = this.ApplicationUserId;
+            TextAnswerValidationTask clonedTask = new TextAnswerValidationTask(this.ApplicationUserId,this.ResponseTipTaskID,this.expirationTime,this.taskPriceInDollars);
             clonedTask.arbiterAnswer = this.arbiterAnswer;
-            clonedTask.id = this.id;
-            clonedTask.ResponseTipTaskID = this.ResponseTipTaskID;
             clonedTask.taskPriceInBitcoin = this.taskPriceInBitcoin;
-            clonedTask.taskPriceInDollars = this.taskPriceInDollars;
             clonedTask.taskStatus = this.taskStatus;
             clonedTask.timeAssigned = this.timeAssigned;
             clonedTask.expirationTime = this.expirationTime;
 
             return clonedTask;
+        }
+        /// <summary>
+        /// close this task
+        /// </summary>
+        public void CloseThisTask_ParentTaskIsEvalidated()
+        {
+            switch(arbiterAnswer)
+            {
+                case TextAnswerValidation_ArbiterAnswerEnum.notAnswered:
+                    assignedArbiter.DecrementNumOfPuzzlesWaiting();
+                    taskStatus = ArbiterTaskStatusesEnum.textAnswerValidation_finishedAsExpired;
+                    break;
+                case TextAnswerValidation_ArbiterAnswerEnum.skip:
+                    taskStatus = ArbiterTaskStatusesEnum.textAnswerValidation_finishedAsSkipped;
+                    break;
+                case TextAnswerValidation_ArbiterAnswerEnum.notValid:
+                    switch(parentTask.answerValidation)
+                    { 
+                        case AnswerValidationEnum.responseTip_AnswerIsNotValid:
+                            taskStatus = ArbiterTaskStatusesEnum.textAnswerValidation_finishedInAgreement;
+                            break;
+                        case AnswerValidationEnum.responseTip_AnswerIsValid:
+                            taskStatus = ArbiterTaskStatusesEnum.textAnswerValidation_finishedInDisagreement;
+                            break;
+                    }
+                    break;
+                case TextAnswerValidation_ArbiterAnswerEnum.Valid:
+                    switch (parentTask.answerValidation)
+                    {
+                        case AnswerValidationEnum.responseTip_AnswerIsNotValid:
+                            taskStatus = ArbiterTaskStatusesEnum.textAnswerValidation_finishedInDisagreement;
+                            break;
+                        case AnswerValidationEnum.responseTip_AnswerIsValid:
+                            taskStatus = ArbiterTaskStatusesEnum.textAnswerValidation_finishedInAgreement;
+                            break;
+                    }
+                    break;
+                default:
+                    throw new responseTip.Exceptions.InvalidTaskStatus();
+                    break;
+            }
+/*            switch(taskStatus)
+            {
+                //if closed already then do nothing
+                case ArbiterTaskStatusesEnum.textAnswerValidation_finishedAsExpired:
+                case ArbiterTaskStatusesEnum.textAnswerValidation_finishedAsSkipped:
+                case ArbiterTaskStatusesEnum.textAnswerValidation_finishedInAgreement:
+                case ArbiterTaskStatusesEnum.textAnswerValidation_finishedInDisagreement:
+                    return;
+                    break;
+                case ArbiterTaskStatusesEnum.textAnswerValidation_waitingForAnswer:
+
+                case ArbiterTaskStatusesEnum.textAnswerValidation_expired:
+                case ArbiterTaskStatusesEnum.textAnswerValidation_skipped:
+                case ArbiterTaskStatusesEnum.textAnswerValidation_created:
+                case ArbiterTaskStatusesEnum.textAnswerValidation_answered:
+                    break;
+            }*/
         }
     }
 
@@ -91,7 +166,7 @@ namespace ArbiterTown.Models
 
     public enum ArbiterTaskStatusesEnum
     {
-        textAnswerValidation_created=0, textAnswerValidation_waitingForAnswer=1, textAnswerValidation_expired=2, textAnswerValidation_answered=3, textAnswerValidation_finishedInAgreement=4,
-        textAnswerValidation_finishedInDisagreement=5
+        textAnswerValidation_created=0, textAnswerValidation_waitingForAnswer=1, textAnswerValidation_expired=2, textAnswerValidation_answered=3, textAnswerValidation_skipped = 4, textAnswerValidation_finishedInAgreement =5,
+        textAnswerValidation_finishedInDisagreement=6, textAnswerValidation_finishedAsSkipped = 7, textAnswerValidation_finishedAsExpired = 8
     }
 }

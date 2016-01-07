@@ -78,10 +78,19 @@ namespace responseTip_backend
                     case "textAnswerValidation_answered":
                         taskStateUpdateIntervalInSeconds[i] = 1;
                         break;
+                    case "textAnswerValidation_skipped":
+                        taskStateUpdateIntervalInSeconds[i] = 1;
+                        break;
                     case "textAnswerValidation_finishedInAgreement":
                         taskStateUpdateIntervalInSeconds[i] = 1;
                         break;
                     case "textAnswerValidation_finishedInDisagreement":
+                        taskStateUpdateIntervalInSeconds[i] = 1;
+                        break;
+                    case "textAnswerValidation_finishedAsSkipped":
+                        taskStateUpdateIntervalInSeconds[i] = 1;
+                        break;
+                    case "textAnswerValidation_finishedAsExpired":
                         taskStateUpdateIntervalInSeconds[i] = 1;
                         break;
                     default:

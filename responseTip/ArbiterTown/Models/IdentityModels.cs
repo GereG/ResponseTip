@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace ArbiterTown.Models
 {
-    
+
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
@@ -27,6 +27,7 @@ namespace ArbiterTown.Models
         public int numOfPuzzlesAttemted { get; set; }
         public float percentageOfPuzzlesSuccesfull { get; set; }
         public int numOfPuzzlesSkipped { get; set; }
+        public int numOfPuzzlesExpired { get; set; }
         public int PuzzleLimit { get; set; }
         public int numOfPuzzlesWaiting { get; set; }
         private static Random rndg = new Random();
@@ -60,11 +61,21 @@ namespace ArbiterTown.Models
             percentageOfPuzzlesSuccesfull = numOfPuzzlesSuccesfull / numOfPuzzlesAttemted;
         }
 
+        public void IncrementNumOfPuzzlesExpired()
+        {
+            numOfPuzzlesExpired++;
+        }
+
         public bool IncrementNumOfPuzzlesWaiting()
         {
             numOfPuzzlesWaiting++;
 
             return false; //always return something to be able to call this function from database query 
+        }
+
+        public void DecrementNumOfPuzzlesWaiting()
+        {
+            numOfPuzzlesWaiting--;
         }
 
         public int GetNumOfPuzzlesWaiting()

@@ -22,26 +22,34 @@ namespace responseTip_backend
             dbContext = initContext;
         }
 
-        public string[] FindArbiters(int arbiterCount)
+        public string[] FindArbiters(int arbiterCount, string[] excludedArbiterIds)
         {
             if (arbiterCount > dbContext.Users.Count())
             {
                 logger.LogLine("Not enough arbiters available! " + arbiterCount+" wanted. ", Logger.log_types.ERROR_LOG);
                 throw new responseTip.Exceptions.NotEnoughArbitersAvailable();
             }
-            string[] arbiterIds = new string[arbiterCount];
+            string[] arbiterIds;
             //arbiterIds=dbContext.Users.Where(model => model.GetPercentageOfPuzzlesSuccesfull() > 0.5f).OrderByDescending(model => model.GetPercentageOfPuzzlesSuccesfull()).Select(model => model.Id).Take(task.ArbiterCount).ToArray();
             orderedArbiters = dbContext.Users.ToList().OrderByDescending(model => model.GetProbabilityOfBeingPicked());
+
             //TODO check if order is not changed by takewhile
             orderedArbitersAvailable = orderedArbiters.TakeWhile(model => model.GetNumOfPuzzlesWaiting() < model.GetNumOfPuzzlesLimit());
+            if (excludedArbiterIds != null)
+            {
+                orderedArbitersAvailable = orderedArbitersAvailable.Where(model => !excludedArbiterIds.ToList().Contains(model.Id));
+            }
             arbiterIds=orderedArbitersAvailable.Select(model => model.Id).Take(arbiterCount).ToArray();
 
-            
-
             //            arbiterIds = dbContext.Users.OrderByDescending(model => model.GetProbabilityOfBeingPicked()).Select(model => model.Id).Take(arbiterCount).ToArray();
-
+            if(arbiterIds.Count()<arbiterCount)
+            {
+                logger.LogLine("Not enough arbiters available! " + arbiterCount + " wanted. ", Logger.log_types.ERROR_LOG);
+                throw new responseTip.Exceptions.NotEnoughArbitersAvailable();
+            }
             return arbiterIds;
         }
+
 
     }
 }

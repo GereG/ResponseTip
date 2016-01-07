@@ -105,17 +105,58 @@ namespace responseTip_backend
                     switch (task.taskStatus)
                     {
                         case ArbiterTaskStatusesEnum.textAnswerValidation_created:
+                            responseTip.Bussines_logic.responseTipLogic.TextAnswerValidationCreated(task);
 
                             break;
                         case ArbiterTaskStatusesEnum.textAnswerValidation_waitingForAnswer:
+                            bool assignNewArbiter=responseTip.Bussines_logic.responseTipLogic.TextAnswerValidation_WaitingForAnswer(task);
+                            if(assignNewArbiter)
+                            {
+                                string[] arbiterID2 = new string[1];
+                                try
+                                {
+                                    string[] excludedIds = task.parentTask.TextAnswerValidationTasks.Select(s => s.ApplicationUserId).ToArray();
+                                    arbiterID2 = arbiterFinder.FindArbiters(1, excludedIds);
+
+                                    TextAnswerValidationTask[] newArbiterTasks2 = responseTip.Bussines_logic.responseTipLogic.TaskQuestionAnswered_CreateArbiterTasks(task.parentTask, arbiterID);
+                                    dbContext.TextAnswerValidationTasks.Add(newArbiterTasks2[0]);
+
+                                }
+                                catch (responseTip.Exceptions.NotEnoughArbitersAvailable notEnoughArbitersAvailable)
+                                {
+                                    //dont do anything just dont create another arbiter..we will have to wait
+                                }
+                            }
                             break;
-                        case ArbiterTaskStatusesEnum.textAnswerValidation_expired:
+//                        case ArbiterTaskStatusesEnum.textAnswerValidation_expired: //when its expired, we must create new one
+                        case ArbiterTaskStatusesEnum.textAnswerValidation_skipped://and also when its skipped, we must create new one
+                            string[] arbiterID=new string[1];
+
+                            try
+                            {
+                                string[] excludedIds = task.parentTask.TextAnswerValidationTasks.Select(s => s.ApplicationUserId).ToArray();
+                                arbiterID = arbiterFinder.FindArbiters(1, excludedIds);
+
+
+                                TextAnswerValidationTask[] newArbiterTasks = responseTip.Bussines_logic.responseTipLogic.TaskQuestionAnswered_CreateArbiterTasks(task.parentTask, arbiterID);
+                                dbContext.TextAnswerValidationTasks.Add(newArbiterTasks[0]);
+                                           
+                                task.taskStatus = ArbiterTaskStatusesEnum.textAnswerValidation_finishedAsSkipped;
+                                
+                            }
+                            catch (responseTip.Exceptions.NotEnoughArbitersAvailable notEnoughArbitersAvailable)
+                            {
+                                //TODO how to handle missing arbiters
+                            }
+
                             break;
                         case ArbiterTaskStatusesEnum.textAnswerValidation_answered:
                             break;
                         case ArbiterTaskStatusesEnum.textAnswerValidation_finishedInAgreement:
                             break;
                         case ArbiterTaskStatusesEnum.textAnswerValidation_finishedInDisagreement:
+                            break;
+                        case ArbiterTaskStatusesEnum.textAnswerValidation_finishedAsSkipped:
                             break;
                         default:
                             throw new responseTip.Exceptions.InvalidTaskStatus();
@@ -182,88 +223,38 @@ namespace responseTip_backend
                         case TaskStatusesEnum.responseTip_questionAnswered:
                             if (Convert.ToBoolean(((statesToUpdate >> (int)task.taskStatus) % 2)))
                             {
-                                if (task.TextAnswerValidationTasks.Count > 0)
+                                int numOfArbitersToAsk = (int)(task.ArbiterCount * 1.5f); //always ask half more people for the task. those that will be first can answer
+                                if (task.TextAnswerValidationTasks.Count >= numOfArbitersToAsk)
                                 {
-                                    int yesVotes = 0;
-                                    int noVotes = 0;
-                                    int skipVotes = 0;
-
-                                    IEnumerable<TextAnswerValidationTask> textAnswerValidationTaskEnumerator = task.TextAnswerValidationTasks.AsEnumerable();
-                                    foreach (TextAnswerValidationTask arbiterTask in textAnswerValidationTaskEnumerator)
-                                    {
-                                        switch(arbiterTask.arbiterAnswer)
-                                        {
-                                            case TextAnswerValidation_ArbiterAnswerEnum.notValid:
-                                                noVotes++;
-                                                break;
-                                            case TextAnswerValidation_ArbiterAnswerEnum.Valid:
-                                                yesVotes++;
-                                                break;
-                                            case TextAnswerValidation_ArbiterAnswerEnum.skip:
-                                                skipVotes++;
-                                                break;
-                                        }
-                                        if(yesVotes+noVotes==task.ArbiterCount)
-                                        {
-                                            if (yesVotes>noVotes)
-                                            {
-                                                task.answerValidation = AnswerValidationEnum.responseTip_AnswerIsValid;
-                                                task.taskStatus = TaskStatusesEnum.responseTip_answerAfterEvalidation;
-                                            }
-                                            else if(yesVotes<noVotes)
-                                            {
-                                                task.answerValidation = AnswerValidationEnum.responseTip_AnswerIsNotValid;
-                                                task.taskStatus = TaskStatusesEnum.responseTip_answerAfterEvalidation;
-                                            }
-                                            else
-                                            {
-                                                throw new responseTip.Exceptions.EvenNumberOfArbiterVotes();
-                                            }
-                                            
-
-                                            //foreach(TextAnswerValidationTask arbiterTask2 in textAnswerValidationTaskEnumerator)
-                                            //{
-                                            //    if(task.taskStatus==TaskStatusesEnum.responseTip_answerValid)
-                                            //    {
-                                            //        if(arbiterTask2.arbiterAnswer==TextAnswerValidation_ArbiterAnswerEnum.Valid)
-                                            //        {
-                                            //            dbContext.Users.Find(arbiterTask2.ApplicationUserId).IncrementNumOfPuzzlesSuccesfull();
-                                            //        }else if(arbiterTask2.arbiterAnswer == TextAnswerValidation_ArbiterAnswerEnum.notValid)
-                                            //        {
-
-                                            //        }
-                                            //    }
-
-                                            //}
-
-                                            break;
-                                            
-                                        }
-                                    }
+                                    responseTip.Bussines_logic.responseTipLogic.TaskQuestionAnswered_CheckArbiterTasksStatus(task);
                                 }
-                                else // if count is 0 then create new arbiter tasks
+                                else // if count is less than needed then surely create new arbiter tasks
                                 {
+                                    //but if enough arbiters to resolve the parent task, then check arbiter tasks 
+                                    if(task.TextAnswerValidationTasks.Count>=task.ArbiterCount)
+                                    {
+                                        responseTip.Bussines_logic.responseTipLogic.TaskQuestionAnswered_CheckArbiterTasksStatus(task);
+                                    }
+                                    
+                                    string[] arbiterIDs=new string[numOfArbitersToAsk];
 
-                                    int numOfArbitersToAsk = (int)(task.ArbiterCount * 1.5f); //always ask half more people for the task. those that will be first can answer
-                                    string[] arbiterIDs = new string[numOfArbitersToAsk];
-
-                                    TextAnswerValidationTask newArbiterTask = responseTip.Bussines_logic.responseTipLogic.TaskQuestionAnswered(task);
                                     try
                                     {
-                                        arbiterIDs = arbiterFinder.FindArbiters(numOfArbitersToAsk);
+                                        arbiterIDs = arbiterFinder.FindArbiters(numOfArbitersToAsk, null);
+
+
+                                        TextAnswerValidationTask[] newArbiterTasks = responseTip.Bussines_logic.responseTipLogic.TaskQuestionAnswered_CreateArbiterTasks(task, arbiterIDs);
+
+                                        for (int i = 0; i < numOfArbitersToAsk; i++)
+                                        {
+                                            dbContext.TextAnswerValidationTasks.Add(newArbiterTasks[i]);
+                                        }
+
                                     }
                                     catch (responseTip.Exceptions.NotEnoughArbitersAvailable notEnoughArbitersAvailable)
                                     {
-                                        //TODO how to handle missing arbiters
+                                        //if not enough arbiters then do nothing. wait for some to free up
                                     }
-
-                                    for (int i = 0; i < numOfArbitersToAsk; i++)
-                                    {
-                                        TextAnswerValidationTask duplicatedArbiterTask = (TextAnswerValidationTask)newArbiterTask.Clone();
-                                        duplicatedArbiterTask.ApplicationUserId = arbiterIDs[i];
-                                        dbContext.TextAnswerValidationTasks.Add(duplicatedArbiterTask);
-                                    }
-
                                 }
                             }
                             break;
@@ -271,7 +262,7 @@ namespace responseTip_backend
                         case TaskStatusesEnum.responseTip_answerAfterEvalidation:
                             if (Convert.ToBoolean(((statesToUpdate >> (int)task.taskStatus) % 2)))
                             {
-
+                                responseTip.Bussines_logic.responseTipLogic.TaskAnswerAfterEvalidation(task);
                             }
                             break;
 

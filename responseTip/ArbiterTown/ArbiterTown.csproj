@@ -226,6 +226,10 @@
     <Compile Include="Migrations\201601042227521_responseTip_answerValidation.Designer.cs">
       <DependentUpon>201601042227521_responseTip_answerValidation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601052122124_arbiter_numOfExpired.cs" />
+    <Compile Include="Migrations\201601052122124_arbiter_numOfExpired.Designer.cs">
+      <DependentUpon>201601052122124_arbiter_numOfExpired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ArbiterTaskModels.cs" />
@@ -298,6 +302,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="BussinesLogic\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -311,6 +316,10 @@
     <ProjectReference Include="..\BtcHandling\BtcHandling.csproj">
       <Project>{6f73fd85-294b-4c9a-823b-044241a9f458}</Project>
       <Name>BtcHandling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Exceptions\responseTipExceptions.csproj">
+      <Project>{0a638040-b6d6-4b81-a6a4-894099f18f82}</Project>
+      <Name>responseTipExceptions</Name>
     </ProjectReference>
     <ProjectReference Include="..\Helpers\Helpers.csproj">
       <Project>{3ed1b7d0-b502-4147-90f0-9328687b4122}</Project>
@@ -347,6 +356,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601042227521_responseTip_answerValidation.resx">
       <DependentUpon>201601042227521_responseTip_answerValidation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601052122124_arbiter_numOfExpired.resx">
+      <DependentUpon>201601052122124_arbiter_numOfExpired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

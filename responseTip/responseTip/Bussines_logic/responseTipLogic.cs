@@ -15,7 +15,7 @@ namespace responseTip.Bussines_logic
 	{
         private const double taskNotPaidExpirationTime = 2; //time from creation of task (in days) after which task expires
         private const double taskQuestionAskedExpirationTime = 15; //time from asking the question of task (in days) after which task expires and money is returned
-        private static TimeSpan taskForArbiterExpirationTimeInMinutes = TimeSpan.FromMinutes(60);
+        private static TimeSpan taskForArbiterExpirationTime = TimeSpan.FromMinutes(60);
         private const decimal taskForArbiterPriceInDollar = (decimal)0.01;
 
         public static void TaskCreated(ResponseTipTask task)
@@ -85,29 +85,151 @@ namespace responseTip.Bussines_logic
             task.taskStatus = TaskStatusesEnum.responseTip_closed;
         }
 
-        public static TextAnswerValidationTask TaskQuestionAnswered(ResponseTipTask task)
+        public static TextAnswerValidationTask[] TaskQuestionAnswered_CreateArbiterTasks(ResponseTipTask task,string[] arbiterIDs)
         {
-            TextAnswerValidationTask validationTask = new TextAnswerValidationTask();
-            validationTask.ResponseTipTaskID = task.ResponseTipTaskID;
-            validationTask.timeAssigned = DateTime.Now;
-            validationTask.expirationTime = taskForArbiterExpirationTimeInMinutes;
-            validationTask.taskPriceInDollars = taskForArbiterPriceInDollar;
-            validationTask.taskPriceInBitcoin = validationTask.taskPriceInDollars / externalAPIs.UpdateBitcoinAverageDollarPrice();
-            validationTask.taskStatus = ArbiterTaskStatusesEnum.textAnswerValidation_created;
-            validationTask.arbiterAnswer = TextAnswerValidation_ArbiterAnswerEnum.notAnswered;
-            //TODO find Arbiters for the job ApplicationUserID
-
-            return validationTask;
+            //if parent task is answered then dont add new arbiter tasks
+            if(task.answerValidation!=AnswerValidationEnum.responseTip_notValidated)
+            {
+                return new TextAnswerValidationTask[0];
+            }
 
 
+            TextAnswerValidationTask[] newArbiterTasks= new TextAnswerValidationTask[arbiterIDs.Count()];
+            for (int i = 0; i < arbiterIDs.Count(); i++)
+            {
+                newArbiterTasks[i] = new TextAnswerValidationTask(arbiterIDs[i], task.ResponseTipTaskID, taskForArbiterExpirationTime, taskForArbiterPriceInDollar);
+            }
+
+            return newArbiterTasks;
         }
-        public static void TaskAnswerValid(ResponseTipTask task)
+
+        public static void TaskQuestionAnswered_CheckArbiterTasksStatus(ResponseTipTask task)
         {
-            //TODO 
+            int yesVotes = 0;
+            int noVotes = 0;
+            int skipVotes = 0;
+
+            IEnumerable<TextAnswerValidationTask> textAnswerValidationTaskEnumerator = task.TextAnswerValidationTasks.AsEnumerable();
+            foreach (TextAnswerValidationTask arbiterTask in textAnswerValidationTaskEnumerator)
+            {
+                switch (arbiterTask.arbiterAnswer)
+                {
+                    case TextAnswerValidation_ArbiterAnswerEnum.notValid:
+                        noVotes++;
+                        break;
+                    case TextAnswerValidation_ArbiterAnswerEnum.Valid:
+                        yesVotes++;
+                        break;
+                    case TextAnswerValidation_ArbiterAnswerEnum.skip:
+                        skipVotes++;
+                        break;
+                }
+                if (yesVotes + noVotes == task.ArbiterCount)
+                {
+                    if (yesVotes > noVotes)
+                    {
+                        task.answerValidation = AnswerValidationEnum.responseTip_AnswerIsValid;
+                        task.taskStatus = TaskStatusesEnum.responseTip_answerAfterEvalidation;
+                    }
+                    else if (yesVotes < noVotes)
+                    {
+                        task.answerValidation = AnswerValidationEnum.responseTip_AnswerIsNotValid;
+                        task.taskStatus = TaskStatusesEnum.responseTip_answerAfterEvalidation;
+                    }
+                    else // if Arbiter answer is 50:50 than answer is not Valid
+                    {
+                        task.answerValidation = AnswerValidationEnum.responseTip_AnswerIsNotValid;
+                        task.taskStatus = TaskStatusesEnum.responseTip_answerAfterEvalidation;
+                    }
+
+                    CloseAllPendingArbiterTasks_ParentTaskEvalidated(task);
+                    //foreach(TextAnswerValidationTask arbiterTask2 in textAnswerValidationTaskEnumerator)
+                    //{
+                    //    if(task.taskStatus==TaskStatusesEnum.responseTip_answerValid)
+                    //    {
+                    //        if(arbiterTask2.arbiterAnswer==TextAnswerValidation_ArbiterAnswerEnum.Valid)
+                    //        {
+                    //            dbContext.Users.Find(arbiterTask2.ApplicationUserId).IncrementNumOfPuzzlesSuccesfull();
+                    //        }else if(arbiterTask2.arbiterAnswer == TextAnswerValidation_ArbiterAnswerEnum.notValid)
+                    //        {
+
+                    //        }
+                    //    }
+
+                    //}
+
+                    break;
+
+                }
+            }
+
+            return;
+        }
+
+        public static void CloseAllPendingArbiterTasks_ParentTaskEvalidated(ResponseTipTask task)
+        {
+            foreach(TextAnswerValidationTask arbiterTask in task.TextAnswerValidationTasks)
+            {
+                arbiterTask.CloseThisTask_ParentTaskIsEvalidated();
+            }
+        }
+
+        public static void TaskAnswerAfterEvalidation(ResponseTipTask task)
+        {
+            //close all pending Arbiter Tasks 
         }
         public static void TaskAllPaymentsSettled(ResponseTipTask task)
         {
             //TODO
+        }
+
+
+        //Arbiter methods
+
+        public static void TextAnswerValidationCreated(TextAnswerValidationTask task)
+        {
+            task.assignedArbiter.IncrementNumOfPuzzlesWaiting();
+            task.taskStatus = ArbiterTaskStatusesEnum.textAnswerValidation_waitingForAnswer;
+        }
+
+        /// <summary>
+        /// checks if task is answered. if expiration time is passed "true" is returned and new arbiter will be added for the task..
+        /// </summary>
+        /// <param name="task"></param>
+        /// <returns></returns>
+        public static bool TextAnswerValidation_WaitingForAnswer(TextAnswerValidationTask task)
+        {
+            
+            switch (task.arbiterAnswer)
+            {
+                case TextAnswerValidation_ArbiterAnswerEnum.notValid:
+                case TextAnswerValidation_ArbiterAnswerEnum.Valid:
+                    task.taskStatus = ArbiterTaskStatusesEnum.textAnswerValidation_answered;
+                    task.assignedArbiter.DecrementNumOfPuzzlesWaiting();
+                    return false;
+                    break;
+
+                case TextAnswerValidation_ArbiterAnswerEnum.skip:
+                    task.taskStatus = ArbiterTaskStatusesEnum.textAnswerValidation_finishedAsSkipped;
+                    task.assignedArbiter.IncrementNumOfPuzzlesSkipped();
+                    task.assignedArbiter.DecrementNumOfPuzzlesWaiting();
+                    return false;
+                    break;
+                default:
+                    break;
+            }
+            if (DateTime.Now.CompareTo(task.timeAssigned.AddSeconds(task.expirationTime.TotalSeconds)) > 0)
+            {
+                task.expirationTime.Add(taskForArbiterExpirationTime);
+                //                task.taskStatus = ArbiterTaskStatusesEnum.textAnswerValidation_expired;
+                //                task.assignedArbiter.IncrementNumOfPuzzlesExpired();
+                //                task.assignedArbiter.DecrementNumOfPuzzlesWaiting();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
