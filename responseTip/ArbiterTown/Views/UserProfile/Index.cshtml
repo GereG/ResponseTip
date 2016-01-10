@@ -93,6 +93,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.taskStatus)
             </td>
+            <td>
+                @Html.ActionLink("Solve", "Task","TextAnswerValidationTasks", new { id = item.id }, null) 
+            </td>
             
         </tr>
     }

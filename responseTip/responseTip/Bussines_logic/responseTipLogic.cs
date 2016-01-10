@@ -174,6 +174,10 @@ namespace responseTip.Bussines_logic
             }
         }
 
+        /// <summary>
+        /// will settle all payments
+        /// </summary>
+        /// <param name="task"></param>
         public static void TaskAnswerAfterEvalidation(ResponseTipTask task)
         {
             //close all pending Arbiter Tasks 
@@ -207,14 +211,12 @@ namespace responseTip.Bussines_logic
                     task.taskStatus = ArbiterTaskStatusesEnum.textAnswerValidation_answered;
                     task.assignedArbiter.DecrementNumOfPuzzlesWaiting();
                     return false;
-                    break;
 
                 case TextAnswerValidation_ArbiterAnswerEnum.skip:
                     task.taskStatus = ArbiterTaskStatusesEnum.textAnswerValidation_finishedAsSkipped;
                     task.assignedArbiter.IncrementNumOfPuzzlesSkipped();
                     task.assignedArbiter.DecrementNumOfPuzzlesWaiting();
                     return false;
-                    break;
                 default:
                     break;
             }

@@ -68,6 +68,7 @@ namespace ArbiterTown.Models
         public object Clone()
         {
             TextAnswerValidationTask clonedTask = new TextAnswerValidationTask(this.ApplicationUserId,this.ResponseTipTaskID,this.expirationTime,this.taskPriceInDollars);
+            clonedTask.id = this.id;
             clonedTask.arbiterAnswer = this.arbiterAnswer;
             clonedTask.taskPriceInBitcoin = this.taskPriceInBitcoin;
             clonedTask.taskStatus = this.taskStatus;
@@ -81,7 +82,8 @@ namespace ArbiterTown.Models
         /// </summary>
         public void CloseThisTask_ParentTaskIsEvalidated()
         {
-            switch(arbiterAnswer)
+            
+            switch (arbiterAnswer)
             {
                 case TextAnswerValidation_ArbiterAnswerEnum.notAnswered:
                     assignedArbiter.DecrementNumOfPuzzlesWaiting();
@@ -95,9 +97,11 @@ namespace ArbiterTown.Models
                     { 
                         case AnswerValidationEnum.responseTip_AnswerIsNotValid:
                             taskStatus = ArbiterTaskStatusesEnum.textAnswerValidation_finishedInAgreement;
+                            assignedArbiter.IncrementNumOfPuzzlesSuccesfull();
                             break;
                         case AnswerValidationEnum.responseTip_AnswerIsValid:
                             taskStatus = ArbiterTaskStatusesEnum.textAnswerValidation_finishedInDisagreement;
+                            assignedArbiter.IncrementNumOfPuzzlesNotSuccesfull();
                             break;
                     }
                     break;
@@ -106,15 +110,16 @@ namespace ArbiterTown.Models
                     {
                         case AnswerValidationEnum.responseTip_AnswerIsNotValid:
                             taskStatus = ArbiterTaskStatusesEnum.textAnswerValidation_finishedInDisagreement;
+                            assignedArbiter.IncrementNumOfPuzzlesNotSuccesfull();
                             break;
                         case AnswerValidationEnum.responseTip_AnswerIsValid:
                             taskStatus = ArbiterTaskStatusesEnum.textAnswerValidation_finishedInAgreement;
+                            assignedArbiter.IncrementNumOfPuzzlesSuccesfull();
                             break;
                     }
                     break;
                 default:
                     throw new responseTip.Exceptions.InvalidTaskStatus();
-                    break;
             }
 /*            switch(taskStatus)
             {

@@ -118,7 +118,7 @@ namespace responseTip_backend
                                     string[] excludedIds = task.parentTask.TextAnswerValidationTasks.Select(s => s.ApplicationUserId).ToArray();
                                     arbiterID2 = arbiterFinder.FindArbiters(1, excludedIds);
 
-                                    TextAnswerValidationTask[] newArbiterTasks2 = responseTip.Bussines_logic.responseTipLogic.TaskQuestionAnswered_CreateArbiterTasks(task.parentTask, arbiterID);
+                                    TextAnswerValidationTask[] newArbiterTasks2 = responseTip.Bussines_logic.responseTipLogic.TaskQuestionAnswered_CreateArbiterTasks(task.parentTask, arbiterID2);
                                     dbContext.TextAnswerValidationTasks.Add(newArbiterTasks2[0]);
 
                                 }
@@ -157,6 +157,8 @@ namespace responseTip_backend
                         case ArbiterTaskStatusesEnum.textAnswerValidation_finishedInDisagreement:
                             break;
                         case ArbiterTaskStatusesEnum.textAnswerValidation_finishedAsSkipped:
+                            break;
+                        case ArbiterTaskStatusesEnum.textAnswerValidation_finishedAsExpired:
                             break;
                         default:
                             throw new responseTip.Exceptions.InvalidTaskStatus();

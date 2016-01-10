@@ -51,6 +51,13 @@ namespace ArbiterTown.Models
             //else 0.5f
         }
 
+        public void IncrementNumOfPuzzlesNotSuccesfull()
+        {
+            numOfPuzzlesAttemted++;
+            if (numOfPuzzlesAttemted > 10)
+                percentageOfPuzzlesSuccesfull = numOfPuzzlesSuccesfull / numOfPuzzlesAttemted;
+        }
+
         /// <summary>
         /// Increments number of skipped and if he has more then 10 answers it computes new sucess percentage
         /// </summary>

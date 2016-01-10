@@ -77,9 +77,15 @@ namespace ArbiterTown.Controllers
             {
                 return HttpNotFound();
             }
-            if (textAnswerValidationTaskFromDb.taskStatus != ArbiterTaskStatusesEnum.textAnswerValidation_created) //if the task was already answered then go back to index
+            switch(textAnswerValidationTaskFromDb.taskStatus) //if the task was already answered then go back to index
             {
+                case ArbiterTaskStatusesEnum.textAnswerValidation_finishedAsExpired:
+                case ArbiterTaskStatusesEnum.textAnswerValidation_finishedAsSkipped:
+                case ArbiterTaskStatusesEnum.textAnswerValidation_finishedInAgreement:
+                case ArbiterTaskStatusesEnum.textAnswerValidation_finishedInDisagreement:
                 return RedirectToAction("Index");
+                default:
+                    break;
             }
 
             textAnswerValidationTaskFromDb.taskStatus = ArbiterTown.Models.ArbiterTaskStatusesEnum.textAnswerValidation_answered;
