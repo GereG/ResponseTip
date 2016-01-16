@@ -192,7 +192,8 @@ namespace responseTip.Bussines_logic
 
         public static void TextAnswerValidationCreated(TextAnswerValidationTask task)
         {
-            task.assignedArbiter.IncrementNumOfPuzzlesWaiting();
+            //           task.assignedArbiter.IncrementNumOfPuzzlesWaiting();
+            task.assignedArbiter.UpdateNumOfPuzzlesWaiting();
             task.taskStatus = ArbiterTaskStatusesEnum.textAnswerValidation_waitingForAnswer;
         }
 

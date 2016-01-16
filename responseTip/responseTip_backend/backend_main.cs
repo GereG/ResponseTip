@@ -12,6 +12,9 @@ using responseTip.Helpers;
 using System.IO;
 using System.Configuration;
 using Microsoft.AspNet.Identity;
+using System.Data;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Core.Objects;
 
 namespace responseTip_backend
 {
@@ -37,7 +40,7 @@ namespace responseTip_backend
 
             arbiterFinder = new ArbiterFinder(dbContext);
 
-            CleanTaskDatabase();
+      //      CleanTaskDatabase();
 
             //            decimal dollarPrice=externalAPIs.CallForBitcoinAverageDollarPrice();
 
@@ -62,8 +65,27 @@ namespace responseTip_backend
 
                 textAnswerValidationStatesToUpdate = textAnswerValidationUpdateManager.StatesToUpdateNow();
                 textAnswerValidationStatePusherCycle(textAnswerValidationStatesToUpdate);
-                //                System.Threading.Thread.Sleep(5000);
+
+
+                //reloads data from database
+                               var context = ((IObjectContextAdapter)dbContext).ObjectContext;
+                /*                var refreshableObjects = (from entry in context.ObjectStateManager.GetObjectStateEntries(
+                                                                           EntityState.Added
+                                                                           | EntityState.Deleted
+                                                                           | EntityState.Modified
+                                                                           | EntityState.Unchanged)
+                                                          where entry.EntityKey != null
+                                                          select entry.Entity).ToList();
+                                                          */
+                var refreshableObjects = dbContext.ChangeTracker.Entries().Select(c => c.Entity).ToList();
+                context.Refresh(RefreshMode.StoreWins, refreshableObjects);
             }
+
+            dbContext.TextAnswerValidationTasks.Load();
+            
+    
+//            dbContext.Dispose();
+  //          dbContext = new ApplicationDbContext();
         }
 
         private static void CleanTaskDatabase()

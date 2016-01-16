@@ -86,7 +86,7 @@ namespace ArbiterTown.Models
             switch (arbiterAnswer)
             {
                 case TextAnswerValidation_ArbiterAnswerEnum.notAnswered:
-                    assignedArbiter.DecrementNumOfPuzzlesWaiting();
+//                    assignedArbiter.DecrementNumOfPuzzlesWaiting();
                     taskStatus = ArbiterTaskStatusesEnum.textAnswerValidation_finishedAsExpired;
                     break;
                 case TextAnswerValidation_ArbiterAnswerEnum.skip:
@@ -121,6 +121,7 @@ namespace ArbiterTown.Models
                 default:
                     throw new responseTip.Exceptions.InvalidTaskStatus();
             }
+            assignedArbiter.UpdateNumOfPuzzlesWaiting();
 /*            switch(taskStatus)
             {
                 //if closed already then do nothing

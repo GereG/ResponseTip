@@ -60,45 +60,91 @@
 
     </dl>
 </div>
+<div style="width:inherit">
+    <div style="float:left; width:50%;">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TextAnswerValidationTasks.FirstOrDefault().id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TextAnswerValidationTasks.FirstOrDefault().taskPriceInBitcoin)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TextAnswerValidationTasks.FirstOrDefault().expirationTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TextAnswerValidationTasks.FirstOrDefault().taskStatus)
+                </th>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TextAnswerValidationTasks.FirstOrDefault().id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TextAnswerValidationTasks.FirstOrDefault().taskPriceInBitcoin)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TextAnswerValidationTasks.FirstOrDefault().expirationTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TextAnswerValidationTasks.FirstOrDefault().taskStatus)
-        </th>
+            </tr>
 
-    </tr>
+            @foreach (var item in Model.TextAnswerValidationTasks.Where(task => task.taskStatus == ArbiterTown.Models.ArbiterTaskStatusesEnum.textAnswerValidation_created))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.taskPriceInBitcoin)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.expirationTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.taskStatus)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Solve", "Task", "TextAnswerValidationTasks", new { id = item.id }, null)
+                    </td>
 
-    @foreach (var item in Model.TextAnswerValidationTasks)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.taskPriceInBitcoin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.expirationTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.taskStatus)
-            </td>
-            <td>
-                @Html.ActionLink("Solve", "Task","TextAnswerValidationTasks", new { id = item.id }, null) 
-            </td>
-            
-        </tr>
-    }
+                </tr>
+            }
 
-</table>
+        </table>
+    </div>
 
+    <div style="float:right; width:50%;">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TextAnswerValidationTasks.FirstOrDefault().id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TextAnswerValidationTasks.FirstOrDefault().taskPriceInBitcoin)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TextAnswerValidationTasks.FirstOrDefault().expirationTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TextAnswerValidationTasks.FirstOrDefault().taskStatus)
+                </th>
+
+            </tr>
+
+            @foreach (var item in Model.TextAnswerValidationTasks.Where(task => task.taskStatus != ArbiterTown.Models.ArbiterTaskStatusesEnum.textAnswerValidation_created))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.taskPriceInBitcoin)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.expirationTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.taskStatus)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Solve", "Task", "TextAnswerValidationTasks", new { id = item.id }, null)
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+    </div>
+
+</div>

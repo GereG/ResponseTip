@@ -73,6 +73,23 @@ namespace ArbiterTown.Models
             numOfPuzzlesExpired++;
         }
 
+        public void UpdateNumOfPuzzlesWaiting()
+        {
+            int tasksWaiting = 0;
+            foreach(TextAnswerValidationTask task in TextAnswerValidationTasks)
+            {
+                switch(task.taskStatus)
+                {
+                    case ArbiterTaskStatusesEnum.textAnswerValidation_created:
+                    case ArbiterTaskStatusesEnum.textAnswerValidation_waitingForAnswer:
+                    case ArbiterTaskStatusesEnum.textAnswerValidation_expired:
+                        tasksWaiting++;
+                        break;
+                }
+            }
+            numOfPuzzlesWaiting = tasksWaiting;
+        }
+
         public bool IncrementNumOfPuzzlesWaiting()
         {
             numOfPuzzlesWaiting++;
